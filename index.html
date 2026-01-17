@@ -1,13 +1,427 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ROMILUZ Energía Renovable</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ROMILUZ Energía Renovable | Instalaciones solares en Cádiz</title>
+  <meta name="description" content="Instalación de placas solares, baterías, inversores y monitorización. Presupuesto rápido por WhatsApp. Conil de la Frontera (Cádiz)." />
+
+  <style>
+    :root{
+      --bg:#071018;
+      --card:#0b1c2a;
+      --card2:#0a1422;
+      --text:#eaf2ff;
+      --muted:#b7c7d9;
+      --line:rgba(255,255,255,.12);
+      --radius:18px;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --accent:#35e0a1;
+      --accent2:#2fc7ff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    body{
+      background: radial-gradient(900px 400px at 30% -10%, rgba(53,224,161,.23), transparent 60%),
+                  radial-gradient(900px 400px at 80% 0%, rgba(47,199,255,.20), transparent 55%),
+                  linear-gradient(180deg, #050b11 0%, var(--bg) 100%);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 18px}
+    .muted{color:var(--muted)}
+    .small{font-size:.95rem}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 16px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      font-weight:700;gap:10px;
+      transition:.18s transform ease, .18s opacity ease;
+    }
+    .btn:hover{transform:translateY(-1px);opacity:.95}
+    .btn.primary{
+      border:none;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#042018;
+    }
+    .btn.full{width:100%}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(12px);
+      background:rgba(5,11,17,.65);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .head{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:12px 0;
+    }
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand b{font-size:1.1rem;letter-spacing:.6px}
+    .brand span{font-size:.88rem;color:var(--muted)}
+    nav{display:flex;gap:14px;flex-wrap:wrap}
+    nav a{
+      padding:10px 12px;border-radius:12px;
+      color:var(--muted);
+    }
+    nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .head__right{display:flex;gap:10px;align-items:center}
+
+    /* Hero */
+    .hero{padding:60px 0 30px}
+    .hero__grid{
+      display:grid;gap:18px;
+      grid-template-columns: 1.2fr .8fr;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero__grid{grid-template-columns:1fr}
+      nav{display:none}
+    }
+    h1{margin:0;font-size:2.2rem;line-height:1.1}
+    .lead{margin:12px 0 18px;font-size:1.05rem;color:var(--muted)}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .badge{
+      padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--text);font-weight:700;font-size:.9rem;
+    }
+
+    /* Cards + Grid */
+    .section{padding:40px 0}
+    .section.alt{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+    .section__head{margin-bottom:16px}
+    .section__head h2{margin:0;font-size:1.55rem}
+    .grid{
+      display:grid;gap:14px;
+      grid-template-columns:repeat(3,1fr);
+    }
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card h3{margin:0 0 8px}
+    .list{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+    .list li{margin:6px 0}
+
+    .heroCard h3{margin-bottom:8px}
+    .steps{margin:10px 0 14px;padding-left:18px;color:var(--muted)}
+    .steps li{margin:6px 0}
+
+    /* Split */
+    .split{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width: 920px){ .split{grid-template-columns:1fr} }
+
+    /* Footer */
+    footer{
+      padding:26px 0 60px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+    }
+
+    /* WhatsApp floating */
+    .wa{
+      position:fixed;right:16px;bottom:16px;z-index:80;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#041a14;font-weight:900;
+      border-radius:999px;padding:12px 14px;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+    }
+    .wa:hover{opacity:.95}
+    .tag{
+      display:inline-block;margin-top:10px;
+      padding:10px 12px;border-radius:14px;
+      background:rgba(53,224,161,.08);
+      border:1px solid rgba(53,224,161,.25);
+      color:#d8fff1;font-weight:800;
+    }
+
+    input,textarea{
+      width:100%;padding:12px 12px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.25);
+      color:var(--text);outline:none;
+      margin-top:6px;
+    }
+    label{display:block;margin:10px 0;color:var(--muted);font-weight:700}
+  </style>
 </head>
+
 <body>
-  <h1>ROMILUZ Energía Renovable</h1>
-  <p>Web en construcción ✅</p>
+
+<header>
+  <div class="container head">
+    <div class="brand">
+      <b>ROMILUZ</b>
+      <span>Energía Renovable · Conil (Cádiz)</span>
+    </div>
+
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="head__right">
+      <a class="btn" href="mailto:Romiluzenergíarenovable@gmail.com">Email</a>
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://wa.me/34617919944?text=Hola%20ROMILUZ%2C%20quiero%20un%20presupuesto%20para%20una%20instalaci%C3%B3n%20solar.">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="card">
+        <h1>Instalación de placas solares, baterías e inversores en Cádiz</h1>
+        <p class="lead">
+          Instalaciones de autoconsumo a medida: placas solares, baterías, inversores, monitorización y puesta en marcha.
+          Atención rápida y profesional.
+        </p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn primary" href="#ofertas">Ver ofertas</a>
+          <a class="btn" href="#contacto">Pedir presupuesto</a>
+        </div>
+
+        <div class="badges">
+          <span class="badge">☀️ Autoconsumo</span>
+          <span class="badge">🔋 Baterías</span>
+          <span class="badge">⚡ Inversores</span>
+          <span class="badge">📈 Monitorización</span>
+        </div>
+
+        <div class="tag">📍 Conil de la Frontera (Cádiz)</div>
+      </div>
+
+      <div class="card heroCard">
+        <h3>Presupuesto rápido</h3>
+        <p class="muted small">En 1 minuto por WhatsApp.</p>
+        <ol class="steps">
+          <li>Ubicación</li>
+          <li>Factura aprox / consumo</li>
+          <li>Si quieres batería o no</li>
+        </ol>
+
+        <a class="btn primary full" target="_blank" rel="noopener"
+           href="https://wa.me/34617919944?text=Hola%20ROMILUZ%2C%20quiero%20un%20presupuesto.%20Mi%20ubicaci%C3%B3n%20es%3A%20_____%20y%20mi%20consumo%20aprox%3A%20_____%20%E2%82%AC%2Fmes.%20%C2%BFQuiero%20bater%C3%ADa%3F%20S%C3%AD%2FNo.">
+          Abrir WhatsApp
+        </a>
+
+        <p class="muted small" style="margin-top:12px">
+          📞 +34 617 91 99 44<br>
+          ✉️ Romiluzenergíarenovable@gmail.com<br>
+          📸 Instagram: @RomiluzEnergíaRenovable
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="section alt">
+    <div class="container">
+      <div class="section__head">
+        <h2>Servicios</h2>
+        <p class="muted">Instalamos y optimizamos sistemas completos de energía renovable.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Placas solares</h3>
+          <p class="muted">Diseño, instalación y legalización de autoconsumo residencial y comercial.</p>
+          <ul class="list">
+            <li>Estudio a medida</li>
+            <li>Montaje y protecciones</li>
+            <li>Legalización y puesta en marcha</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Baterías</h3>
+          <p class="muted">Aumenta el ahorro y la independencia energética.</p>
+          <ul class="list">
+            <li>Dimensionado en kWh</li>
+            <li>Integración con inversores</li>
+            <li>Optimización consumo noche</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Inversores y monitorización</h3>
+          <p class="muted">Configuración profesional y control desde móvil.</p>
+          <ul class="list">
+            <li>Monitorización en app</li>
+            <li>Optimización de carga</li>
+            <li>Soporte y mantenimiento</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFERTAS -->
+  <section id="ofertas" class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2>Ofertas destacadas</h2>
+        <p class="muted">Paquetes orientativos. Te damos precio exacto según tejado, consumo y sombras.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Pack Solar Básico</h3>
+          <p class="muted">Ideal para empezar a ahorrar.</p>
+          <ul class="list">
+            <li>3–4 kWp aprox.</li>
+            <li>Inversor según necesidad</li>
+            <li>Monitorización incluida</li>
+          </ul>
+          <a class="btn primary full" href="#contacto">Solicitar presupuesto</a>
+        </article>
+
+        <article class="card">
+          <h3>Pack Solar + Batería</h3>
+          <p class="muted">Más independencia energética.</p>
+          <ul class="list">
+            <li>4–6 kWp aprox.</li>
+            <li>Batería 5–10 kWh aprox.</li>
+            <li>Gestión avanzada</li>
+          </ul>
+          <a class="btn primary full" href="#contacto">Solicitar presupuesto</a>
+        </article>
+
+        <article class="card">
+          <h3>Pack Premium</h3>
+          <p class="muted">Máximo rendimiento y control.</p>
+          <ul class="list">
+            <li>6–10 kWp aprox.</li>
+            <li>Optimización y seguimiento</li>
+            <li>Asesoramiento completo</li>
+          </ul>
+          <a class="btn primary full" href="#contacto">Solicitar presupuesto</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos" class="section alt">
+    <div class="container">
+      <div class="section__head">
+        <h2>Proyectos</h2>
+        <p class="muted">Aquí pondremos tus instalaciones reales con fotos y potencia instalada.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Vivienda unifamiliar</h3>
+          <p class="muted">Conil · Autoconsumo con monitorización</p>
+          <p class="muted small">Resultado: reducción de factura y control desde app.</p>
+        </article>
+
+        <article class="card">
+          <h3>Negocio</h3>
+          <p class="muted">Cádiz · Optimización consumo diurno</p>
+          <p class="muted small">Resultado: mayor autoconsumo en horario laboral.</p>
+        </article>
+
+        <article class="card">
+          <h3>Solar + batería</h3>
+          <p class="muted">Chiclana · Sistema híbrido</p>
+          <p class="muted small">Resultado: más ahorro durante la noche.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="section__head">
+        <h2>Contacto</h2>
+        <p class="muted">Escríbenos por WhatsApp o por email.</p>
+      </div>
+
+      <div class="split">
+        <div class="card">
+          <h3>WhatsApp (recomendado)</h3>
+          <p class="muted">La forma más rápida para presupuesto.</p>
+          <a class="btn primary full" target="_blank" rel="noopener"
+             href="https://wa.me/34617919944?text=Hola%20ROMILUZ%2C%20quiero%20informaci%C3%B3n%20sobre%20una%20instalaci%C3%B3n.">
+            Abrir WhatsApp
+          </a>
+          <p class="muted small" style="margin-top:12px">
+            📞 +34 617 91 99 44<br>
+            ✉️ Romiluzenergíarenovable@gmail.com
+          </p>
+
+          <p class="muted small">
+            Instagram: <a href="https://www.instagram.com/" target="_blank" rel="noopener">@RomiluzEnergíaRenovable</a>
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Formulario</h3>
+          <p class="muted small">
+            Para que funcione gratis, usa Formspree y sustituye TU_ID por tu enlace.
+          </p>
+
+          <form action="https://formspree.io/f/TU_ID" method="POST">
+            <label>Nombre
+              <input name="nombre" required />
+            </label>
+
+            <label>Teléfono / WhatsApp
+              <input name="telefono" required />
+            </label>
+
+            <label>Mensaje
+              <textarea name="mensaje" rows="4" required></textarea>
+            </label>
+
+            <button class="btn primary full" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+
+      <p class="muted small" style="margin-top:18px">
+        © <span id="year"></span> ROMILUZ Energía Renovable · Conil de la Frontera (Cádiz)
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p class="small muted">
+      Web creada para ROMILUZ Energía Renovable · Dominio: romiluzenergia.es
+    </p>
+  </div>
+</footer>
+
+<a class="wa" target="_blank" rel="noopener"
+   href="https://wa.me/34617919944?text=Hola%20ROMILUZ%2C%20quiero%20un%20presupuesto.">
+  WhatsApp
+</a>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
 
