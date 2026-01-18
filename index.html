@@ -553,6 +553,13 @@ font-weight:inherit !important;}
   margin:24px 0;
   max-width:320px; /* queda más elegante */
 }
+.contact-buttons{
+  display:flex;
+  flex-direction:column;   /* ← uno encima de otro */
+  gap:14px;
+  margin:24px 0;
+  max-width:320px;         /* queda elegante */
+}
 
 
 </style>
@@ -842,9 +849,9 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
         <div class="card">
           <h3><p>Elige cómo prefieres contactar con nosotros:</p></h3>
           <p class="muted">La forma más rápida para presupuesto.</p>
-           <div class="contact-buttons vertical">
-             
- <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn outline">
+           <div class="contact-buttons">
+
+  <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn outline">
     📧 Email
   </a>
 
@@ -856,12 +863,11 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
     💬 WhatsApp
   </a>
 
-  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" class="btn primary">
+  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" class="btn outline">
     📸 Instagram
   </a>
 
 </div>
-        </div>
 
         <div class="card">
           <h3>Formulario</h3>
