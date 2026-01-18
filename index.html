@@ -271,6 +271,47 @@ nav a{
 
 .mainnav a:hover{
   background:rgba(14,73,127,.08);}
+.headergrid{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 0 12px;
+  flex-wrap:wrap;
+}
+
+.rightcol{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end; /* todo a la derecha */
+  gap:10px;
+  flex:1;
+}
+
+.ctaRow{
+  display:flex;
+  justify-content:flex-end;
+  width:100%;
+}
+
+.mainnav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end; /* menú alineado con el botón */
+}
+
+.mainnav a{
+  padding:10px 10px;
+  border-radius:12px;
+  font-weight:1000;
+  font-size:.92rem;
+  color:var(--blue);
+}
+
+.mainnav a:hover{
+  background:rgba(14,73,127,.08);
+}
 
 </style>
 
@@ -279,38 +320,36 @@ nav a{
 <body>
 
 <header>
- <header>
   <div class="container">
 
-    <!-- FILA 1: botón arriba derecha -->
-    <div class="topline">
-      <div></div>
-
-      <div class="topline__right">
-        <a class="btn primary" href="#contacto">PIDE TU PRESUPUESTO</a>
-      </div>
-    </div>
-
-    <!-- FILA 2: logo izquierda + menú al lado -->
-    <div class="mainline">
+    <div class="headergrid">
+      <!-- IZQUIERDA: LOGO -->
       <div class="brand">
         <img src="./logo.png" alt="ROMILUZ Energía Renovable"
           style="width:250px;max-width:70vw;height:auto;object-fit:contain;background:transparent;border:none;padding:0" />
       </div>
 
-      <nav class="mainnav">
-        <a href="#autoconsumo">AUTOCONSUMO</a>
-        <a href="#aislada">AISLADA</a>
-        <a href="#camper">CAMPER/AUTOCARAVANAS</a>
-        <a href="#recarga">RECARGA VE</a>
-        <a href="#aerogeneradores">AEROGENERADORES</a>
-        <a href="#electricidad">ELECTRICIDAD</a>
-        <a href="#contacto">CONTACTO</a>
-      </nav>
+      <!-- DERECHA: BOTÓN + MENÚ -->
+      <div class="rightcol">
+        <div class="ctaRow">
+          <a class="btn primary" href="#contacto">PIDE TU PRESUPUESTO</a>
+        </div>
+
+        <nav class="mainnav">
+          <a href="#autoconsumo">AUTOCONSUMO</a>
+          <a href="#aislada">AISLADA</a>
+          <a href="#camper">CAMPER/AUTOCARAVANAS</a>
+          <a href="#recarga">RECARGA VE</a>
+          <a href="#aerogeneradores">AEROGENERADORES</a>
+          <a href="#electricidad">ELECTRICIDAD</a>
+          <a href="#contacto">CONTACTO</a>
+        </nav>
+      </div>
     </div>
 
   </div>
 </header>
+
 
 
 
