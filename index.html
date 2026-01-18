@@ -19,17 +19,14 @@
 
 .gallery img{
   width:100%;
-  height:260px;
-  object-fit:cover;
+  aspect-ratio: 4 / 3;   /* MISMA proporción para todas */
+  object-fit: cover;     /* rellena sin deformar */
   border-radius:14px;
 }
 
 @media(max-width:900px){
-  .gallery{
-    grid-template-columns:1fr;
-  }
-  .gallery img{
-    height:220px;
+  .gallery{grid-template-columns:1fr;}
+  .gallery img{aspect-ratio: 16 / 9;
   }
 }
 
