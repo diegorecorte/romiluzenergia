@@ -432,6 +432,38 @@ justify-content:flex-end; /* menú alineado con el botón */}
   .slideText h1{font-size:2.2rem}
   .slideText p{font-size:1.05rem}
 }
+.sliderArrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:52px;
+  height:52px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  font-size:34px;
+  font-weight:900;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:5;
+}
+
+.sliderArrow:hover{
+  background:rgba(0,0,0,.35);
+}
+
+.sliderArrow.left{ left:16px; }
+.sliderArrow.right{ right:16px; }
+
+@media(max-width:900px){
+  .sliderArrow{ width:46px;height:46px;font-size:30px; }
+  .sliderArrow.left{ left:10px; }
+  .sliderArrow.right{ right:10px; }
+}
 
 
 </style>
