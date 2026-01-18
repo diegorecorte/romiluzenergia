@@ -545,21 +545,60 @@ font-weight:inherit !important;}
     flex-direction:column;
   }
 }
-/* BOTONES DE CONTACTO EN VERTICAL */
-.contact-buttons.vertical{
+/* CONTENEDOR BOTONES CONTACTO */
+.contact-buttons{
   display:flex;
   flex-direction:column;
   gap:14px;
   margin:24px 0;
-  max-width:320px; /* queda más elegante */
+  max-width:320px;
 }
-.contact-buttons{
-  display:flex;
-  flex-direction:column;   /* ← uno encima de otro */
-  gap:14px;
-  margin:24px 0;
-  max-width:320px;         /* queda elegante */
+
+/* Base común */
+.contact-buttons .btn{
+  padding:12px 20px;
+  border-radius:999px;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+  font-size:1rem;
+  transition:all .2s ease;
 }
+
+/* 1️⃣ WhatsApp – VERDE */
+.contact-buttons .whatsapp{
+  background:#378327;
+  color:#ffffff;
+  border:2px solid #378327;
+}
+
+/* 2️⃣ Llamar – AZUL */
+.contact-buttons .call{
+  background:#0e497f;
+  color:#ffffff;
+  border:2px solid #0e497f;
+}
+
+/* 3️⃣ Email – blanco con borde azul */
+.contact-buttons .email{
+  background:#ffffff;
+  color:#0e497f;
+  border:2px solid #0e497f;
+}
+
+/* 4️⃣ Instagram – blanco con borde gris */
+.contact-buttons .instagram{
+  background:#ffffff;
+  color:#555;
+  border:2px solid #ccc;
+}
+
+/* Hover (opcional pero muy pro) */
+.contact-buttons .btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+}
+
 
 
 </style>
@@ -845,25 +884,21 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
   
 
 
-      <div class="split">
-        <div class="card">
-          <h3><p>Elige cómo prefieres contactar con nosotros:</p></h3>
-          <p class="muted">La forma más rápida para presupuesto.</p>
-           <div class="contact-buttons">
+     <div class="contact-buttons">
 
-  <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn outline">
-    📧 Email
-  </a>
-
-  <a href="tel:+34617919944" class="btn outline">
-    📞 Llamar
-  </a>
-
-  <a href="https://wa.me/34617919944" target="_blank" class="btn primary">
+  <a href="https://wa.me/34617919944" target="_blank" class="btn whatsapp">
     💬 WhatsApp
   </a>
 
-  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" class="btn outline">
+  <a href="tel:+34617919944" class="btn call">
+    📞 Llamar
+  </a>
+
+  <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn email">
+    📧 Email
+  </a>
+
+  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" class="btn instagram">
     📸 Instagram
   </a>
 
