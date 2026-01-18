@@ -481,20 +481,23 @@ justify-content:flex-end; /* menú alineado con el botón */}
 .slideText p{
   color:#ffffff !important;}
 section h2{
- /* TITULOS DE SECCION CON FORMA DE BOTON */
+/* TITULOS DE SECCION = MISMA FORMA QUE EL BOTON */
 section h2{
   display:inline-block;
+  padding:10px 18px;            /* MISMO padding que el botón */
+  border-radius:999px;          /* MISMA forma ovalada */
+  background:#0e497f;           /* AZUL corporativo */
+  color:#ffffff !important;     /* TEXTO BLANCO FORZADO */
+  border:2px solid #0e497f;     /* BORDE azul */
   text-transform:uppercase;
-  font-weight:inherit;          /* mantiene el peso original */
-  font-size:inherit;            /* MANTIENE el tamaño original del h2 */
-  padding:10px 18px;            /* IGUAL que el botón */
-  border-radius:999px;          /* IGUAL que el botón */
-  border:2px solid #0e497f;     /* azul corporativo */
-  color:#ffffff;                /* texto blanco */
-  background:#0e497f;           /* fondo azul */
   letter-spacing:.6px;
   margin-bottom:18px;
+
+  /* MUY IMPORTANTE: NO tocamos tamaño */
+  font-size:inherit;
+  font-weight:inherit;
 }
+
 
 section p{
   font-size: 1.05rem;   /* +1 punto aprox */
@@ -609,7 +612,7 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
   <section id="autoconsumo" class="section">
   <div class="container">
 
-    <h2>Autoconsumo</h2>
+    <h2>AUTOCONSUMO</h2>
 
     <p>
       Diseñamos e instalamos sistemas de autoconsumo fotovoltaico conectados a red,
