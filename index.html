@@ -481,10 +481,21 @@ justify-content:flex-end; /* menú alineado con el botón */}
 .slideText p{
   color:#ffffff !important;}
 section h2{
-  text-transform: uppercase;
-  color: #0e497f;        /* azul corporativo */
-  font-weight: 1000;
-  letter-spacing: 1px;}
+ /* TITULOS DE SECCION CON FORMA DE BOTON */
+section h2{
+  display:inline-block;
+  text-transform:uppercase;
+  font-weight:inherit;          /* mantiene el peso original */
+  font-size:inherit;            /* MANTIENE el tamaño original del h2 */
+  padding:10px 18px;            /* IGUAL que el botón */
+  border-radius:999px;          /* IGUAL que el botón */
+  border:2px solid #0e497f;     /* azul corporativo */
+  color:#ffffff;                /* texto blanco */
+  background:#0e497f;           /* fondo azul */
+  letter-spacing:.6px;
+  margin-bottom:18px;
+}
+
 section p{
   font-size: 1.05rem;   /* +1 punto aprox */
   line-height: 1.7;
