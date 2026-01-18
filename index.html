@@ -841,25 +841,51 @@ justify-content:flex-end; /* menú alineado con el botón */}
 <script>
   (function(){
     const slides = Array.from(document.querySelectorAll(".slide"));
+    const btnPrev = document.querySelector(".sliderArrow.left");
+    const btnNext = document.querySelector(".sliderArrow.right");
     if (!slides.length) return;
 
     let i = 0;
-
-    // Cambia aquí el tiempo (en ms):
-    // 5000 = 5 segundos | 10000 = 10 segundos
-    const intervalMs = 8000; // <-- pon 5000 o 10000 si quieres
+    const intervalMs = 8000; // 5000 = 5s | 10000 = 10s
 
     function show(index){
       slides.forEach(s => s.classList.remove("active"));
       slides[index].classList.add("active");
     }
 
-    setInterval(() => {
+    function next(){
       i = (i + 1) % slides.length;
       show(i);
-    }, intervalMs);
+    }
+
+    function prev(){
+      i = (i - 1 + slides.length) % slides.length;
+      show(i);
+    }
+
+    // Auto
+    let timer = setInterval(next, intervalMs);
+
+    // Si el usuario pulsa flechas, avanza y reinicia el contador
+    function resetTimer(){
+      clearInterval(timer);
+      timer = setInterval(next, intervalMs);
+    }
+
+    if (btnNext) btnNext.addEventListener("click", () => { next(); resetTimer(); });
+    if (btnPrev) btnPrev.addEventListener("click", () => { prev(); resetTimer(); });
+
+    // Opcional: teclado
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { next(); resetTimer(); }
+      if (e.key === "ArrowLeft") { prev(); resetTimer(); }
+    });
+
+    // Asegura que la primera esté activa
+    show(i);
   })();
 </script>
+
 
 </body>
 </html>
