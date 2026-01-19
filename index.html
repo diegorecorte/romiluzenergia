@@ -545,8 +545,8 @@ font-weight:inherit !important;}
     flex-direction:column;
   }
 }
-/* CONTENEDOR BOTONES CONTACTO */
-.contact-buttons{
+/* CONTACTO: botones en vertical y con color */
+#contacto .contact-buttons{
   display:flex;
   flex-direction:column;
   gap:14px;
@@ -554,44 +554,44 @@ font-weight:inherit !important;}
   max-width:320px;
 }
 
-/* Base común */
-.contact-buttons .btn{
+#contacto .contact-buttons a{
+  display:block;
   padding:12px 20px;
   border-radius:999px;
-  font-weight:700;
+  font-weight:800;
   text-align:center;
   text-decoration:none;
   font-size:1rem;
-  transition:all .2s ease;
 }
 
-/* 1️⃣ WhatsApp – VERDE */
-.contact-buttons .whatsapp{
+/* WhatsApp – verde */
+#contacto .contact-buttons a.whatsapp{
   background:#378327;
-  color:#ffffff;
+  color:#fff;
   border:2px solid #378327;
 }
 
-/* 2️⃣ Llamar – AZUL */
-.contact-buttons .call{
+/* Llamar – azul */
+#contacto .contact-buttons a.call{
   background:#0e497f;
-  color:#ffffff;
+  color:#fff;
   border:2px solid #0e497f;
 }
 
-/* 3️⃣ Email – blanco con borde azul */
-.contact-buttons .email{
-  background:#ffffff;
+/* Email – blanco borde azul */
+#contacto .contact-buttons a.email{
+  background:#fff;
   color:#0e497f;
   border:2px solid #0e497f;
 }
 
-/* 4️⃣ Instagram – blanco con borde gris */
-.contact-buttons .instagram{
-  background:#ffffff;
+/* Instagram – blanco borde gris */
+#contacto .contact-buttons a.instagram{
+  background:#fff;
   color:#555;
   border:2px solid #ccc;
 }
+
 
 /* Hover (opcional pero muy pro) */
 .contact-buttons .btn:hover{
@@ -621,7 +621,7 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
       <!-- DERECHA: BOTÓN + MENÚ -->
       <div class="rightcol">
         <div class="ctaRow">
-          <a class="btn primary" href="#contacto">PIDE TU PRESUPUESTO</a>
+          <a class="btn primary" href="#">PIDE TU PRESUPUESTO</a>
         </div>
 
         <nav class="mainnav">
@@ -631,7 +631,7 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
           <a href="#camper">CAMPER / AUTOCARAVANAS</a>
           <a href="#recarga">CARGADOR VE</a>
           <a href="#electricidad">ELECTRICIDAD EN GENERAL</a>
-          <a href="#contacto">CONTACTO</a>
+          <a href="#"></a>
         </nav>
       </div>
     </div>
@@ -884,25 +884,13 @@ style="width:170px;max-width:70vw;height:auto;object-fit:contain;background:tran
   
 
 
-     <div class="contact-buttons">
-
-  <a href="https://wa.me/34617919944" target="_blank" class="btn whatsapp">
-    💬 WhatsApp
-  </a>
-
-  <a href="tel:+34617919944" class="btn call">
-    📞 Llamar
-  </a>
-
-  <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn email">
-    📧 Email
-  </a>
-
-  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" class="btn instagram">
-    📸 Instagram
-  </a>
-
+   <div class="contact-buttons">
+  <a href="https://wa.me/34617919944" target="_blank" rel="noopener" class="btn whatsapp">💬 WhatsApp</a>
+  <a href="tel:+34617919944" class="btn call">📞 Llamar</a>
+  <a href="mailto:Romiluzenergíarenovable@gmail.com" class="btn email">📧 Email</a>
+  <a href="https://www.instagram.com/romiluzenergiarenovable/" target="_blank" rel="noopener" class="btn instagram">📸 Instagram</a>
 </div>
+
 
         <div class="card">
           <h3>Formulario</h3>
