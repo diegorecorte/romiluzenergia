@@ -22,6 +22,11 @@
     <loc>https://romiluzenergia.es/recarga.html</loc>
     <priority>0.8</priority>
   </url>
+    <url>
+    <loc>https://romiluzenergia.es/electricidad.html</loc>
+    <priority>0.8</priority>
+  </url>
+
 
 </urlset>
 
