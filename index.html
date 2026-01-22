@@ -301,10 +301,14 @@ nav a{
   flex-wrap:wrap;}
 
 .mainnav{
+  .mainnav{
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;.mainnav
-  margin-left:-12px;}
+  flex-wrap:nowrap;     /* CLAVE: no permite salto de línea */
+  align-items:center;
+  gap:12px;
+  white-space:nowrap;  /* evita que las palabras se rompan */
+}
+
 
 
 .mainnav a{
