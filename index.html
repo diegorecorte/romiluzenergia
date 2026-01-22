@@ -104,11 +104,13 @@
 
   /* Header */
   header{
-    position:relative;z-index:50;
-    backdrop-filter: blur(10px);
-    background:rgba(255,255,255,.80);
-    border-bottom:1px solid rgba(15,23,42,.08);
-  }
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15,23,42,.10);
+}
 
   .head{
     display:flex;
@@ -180,6 +182,10 @@ nav a{
   }
 
   /* Secciones */
+  section{
+  scroll-margin-top: 120px;
+}
+
   .section{padding:46px 0}
   .section.alt{
     background:linear-gradient(180deg, rgba(14,73,127,.05), rgba(55,131,39,.04));
