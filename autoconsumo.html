@@ -7,43 +7,40 @@
   <meta name="description" content="Instalaciones de autoconsumo fotovoltaico para viviendas y negocios en Cádiz. Estudio gratuito, instalación profesional, legalización y soporte." />
 
   <style>
-   :root{
-  /* Fondo y base */
-  --bg:#0e497f;                 /* azul corporativo */
-  --bg-soft:#123f66;            /* azul suavizado para degradados */
-  --card:#ffffff;               /* tarjetas blancas */
-  --text:#0e1a2b;               /* texto principal oscuro */
-  --muted:#5f6f82;              /* texto secundario */
+  :root{
+  /* Base */
+  --bg:#ffffff;                 /* fondo blanco */
+  --card:#ffffff;
+  --text:#1f2937;               /* gris oscuro legible */
+  --muted:#6b7280;              /* texto secundario */
 
   /* Colores corporativos */
-  --blue:#0e497f;
-  --green:#378327;
-  --orange:#ff7b23;
+  --blue:#0e497f;               /* azul Romiluz */
+  --green:#378327;              /* verde Romiluz */
+  --orange:#ff7b23;             /* naranja Romiluz */
   --white:#ffffff;
 
   /* Uso funcional */
-  --accent:var(--green);        /* detalles y confianza */
-  --cta:var(--orange);          /* botones importantes */
+  --accent:var(--green);
+  --cta:var(--orange);
 
   --border:rgba(14,73,127,.15);
-  --shadow:0 12px 30px rgba(0,0,0,.12);
+  --shadow:0 10px 24px rgba(0,0,0,.08);
   --radius:18px;
   --max:1120px;
 }
 
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 15% -10%, rgba(56,189,248,.18), transparent 60%),
-        radial-gradient(900px 700px at 85% 0%, rgba(34,197,94,.16), transparent 55%),
-        radial-gradient(900px 700px at 60% 110%, rgba(99,102,241,.10), transparent 55%),
-        var(--bg);
-      line-height:1.55;
-    }
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
 
     a{color:inherit; text-decoration:none}
     img{max-width:100%; height:auto; display:block}
@@ -66,12 +63,14 @@
     }
 
     /* Header / Nav */
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background:rgba(11,18,32,.55);
-      border-bottom:1px solid var(--border);
-    }
+   header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#ffffff;
+  border-bottom:1px solid var(--border);
+}
+
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding:14px 0; gap:14px;
@@ -96,7 +95,7 @@
       padding:10px 12px;
       border-radius:12px;
       border:1px solid transparent;
-      color:var(--muted);
+      color:var(--blue);
       font-size:14px;
     }
     .menu a:hover{
