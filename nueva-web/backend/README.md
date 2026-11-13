@@ -44,7 +44,7 @@ La aplicación lee variables de entorno. `.env.example` es una plantilla; no se 
 
 1. Completar titular, NIF y demás datos legales. Revisar las políticas, destinatarios y conservación. Marcar privacidad como revisada en panel y poner `ROMILUZ_PRIVACY_READY=1`.
 2. Configurar SMTP con remitente verificado. Hacer un envío real y comprobar el aviso en el correo de ROMILUZ. Los tests usan un buzón de pruebas, no el correo real.
-3. Para habilitar adjuntos, instalar y mantener actualizado `clamscan` en el alojamiento y configurar `ROMILUZ_INVOICE_SCANNER` con su ruta absoluta. El servidor debe poder ejecutarlo. Sin él, se permite consultar sin adjunto; si falla el análisis, el archivo no se acepta. El contenedor básico no instala el antivirus.
+3. Para habilitar adjuntos, instalar y mantener actualizado `clamscan` en el alojamiento y configurar `ROMILUZ_INVOICE_SCANNER` con su ruta absoluta. El servidor debe poder ejecutarlo. Sin él, se permite consultar sin adjunto. El selector sigue visible para revisar el formulario, pero el servidor rechaza cualquier adjunto hasta activar la carga privada; si falla el análisis, el archivo tampoco se acepta. El contenedor básico no instala el antivirus.
 4. Configurar dominio permitido, clave secreta robusta, HTTPS y almacenamiento persistente privado. En producción `DJANGO_DEBUG=0`; las cookies seguras y redirección HTTPS están activadas. `DJANGO_TRUST_PROXY=1` solo detrás de un proxy propio que limpie y sobrescriba la cabecera de protocolo; no exponer el puerto de la aplicación directamente a Internet.
 5. Crear usuarios con permisos mínimos desde `/admin/`; el superusuario puede administrar grupos y permisos. Limitar el acceso al panel por el alojamiento cuando proceda. Hay limitación básica de intentos por IP, sin confiar en cabeceras de proxy arbitrarias; afinarla con el alojamiento para no agrupar usuarios tras un proxy.
 
@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-25 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+27 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 

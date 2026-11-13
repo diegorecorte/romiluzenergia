@@ -150,3 +150,18 @@ class WebsiteTests(TestCase):
         response=self.client.post('/admin/web/article/add/',data)
         self.assertEqual(response.status_code,302)
         self.assertTrue(Article.objects.get(slug='articulo-desde-panel').cover.name.endswith('.webp'))
+
+    @override_settings(UPLOADS_ENABLED=False)
+    def test_pdf_picker_visible_before_activation(self):
+        response=self.client.get('/compara-tu-factura')
+        self.assertContains(response,'type="file"')
+        self.assertContains(response,'accept=".pdf,.jpg,.jpeg,.png"')
+        self.assertContains(response,'Subir factura (PDF, JPG o PNG, opcional)')
+        self.assertContains(response,'No se envía ni se almacena')
+    @override_settings(PRIVACY_READY=True,UPLOADS_ENABLED=False)
+    def test_disabled_private_upload_is_not_silently_ignored(self):
+        response=self.client.post('/compara-tu-factura',self.data(factura=SimpleUploadedFile('factura.pdf',b'%PDF-1.4\ntest')))
+        self.assertEqual(response.status_code,400)
+        self.assertContains(response,'La carga privada todavía no está disponible.',status_code=400)
+        self.assertEqual(Lead.objects.count(),0)
+        self.assertEqual(Invoice.objects.count(),0)

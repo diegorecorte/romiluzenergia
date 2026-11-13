@@ -66,6 +66,21 @@ if (leadForm) {
   service.addEventListener('change', syncService);
   zone.addEventListener('change', syncZone);
   syncService();syncZone();
+  const attachment = leadForm.elements.factura;
+  if (attachment) {
+    attachment.addEventListener('change', () => {
+      const file = attachment.files[0];
+      const status = document.querySelector('#attachment-status');
+      attachment.setCustomValidity('');
+      if (!file) { status.textContent = ''; return; }
+      let error = '';
+      if (file.size > 8 * 1024 * 1024) error = 'El archivo no puede superar 8 MB.';
+      else if (!/\.(pdf|jpe?g|png)$/i.test(file.name)) error = 'Selecciona una factura PDF o una imagen JPG/PNG.';
+      attachment.setCustomValidity(error);
+      status.textContent = error || 'Archivo seleccionado: ' + file.name + '. Aún no se ha enviado.';
+      if (error) attachment.reportValidity();
+    });
+  }
   const phone = leadForm.elements.telefono;
   function validate() {
     const digits = phone.value.replace(/[\s().+-]/g, '');

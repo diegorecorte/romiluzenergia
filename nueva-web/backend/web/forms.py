@@ -23,12 +23,9 @@ class ContactForm(forms.Form):
     zona = forms.ChoiceField(label='Zona',choices=[('','Selecciona tu zona')]+[(z,z) for z in ZONES])
     municipio = forms.CharField(label='Municipio',max_length=100,required=False)
     comentario = forms.CharField(label='Comentario (opcional)',max_length=2000,required=False,widget=forms.Textarea(attrs={'rows':4}))
-    factura = forms.FileField(label='Factura o fotografía (opcional)',required=False,widget=forms.ClearableFileInput(attrs={'accept':'.pdf,.jpg,.jpeg,.png'}))
+    factura = forms.FileField(label='Subir factura (PDF, JPG o PNG, opcional)',required=False,widget=forms.ClearableFileInput(attrs={'accept':'.pdf,.jpg,.jpeg,.png','aria-describedby':'invoice-help attachment-status'}))
     privacidad = forms.BooleanField(label='He leído la política de privacidad y solicito que ROMILUZ contacte conmigo.')
     web = forms.CharField(required=False,widget=forms.HiddenInput)
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        if not settings.UPLOADS_ENABLED:self.fields.pop('factura')
     def clean_telefono(self):
         value=self.cleaned_data['telefono']
         if not re.fullmatch(r'\+?[\d ().-]{9,25}',value) or not 9<=len(re.sub(r'\D','',value))<=15:
