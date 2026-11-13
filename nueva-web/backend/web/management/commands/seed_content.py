@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from django.core.management.base import BaseCommand
-from web.models import Service,FAQ,LegalText,HomeSection,HeroSlide,Review
+from web.models import Service,FAQ,LegalText,HomeSection,HeroSlide,Review,SocialProfile
 class Command(BaseCommand):
     help='Carga contenido inicial sin sobrescribir ediciones del propietario. No crea usuarios, proyectos ni tarifas de ejemplo.'
     def handle(self,*args,**options):
@@ -31,4 +31,6 @@ class Command(BaseCommand):
             order=row.pop('order');HeroSlide.objects.get_or_create(order=order,defaults=row)
         for row in home['reviews']:
             author=row.pop('author');Review.objects.get_or_create(author=author,defaults=row)
+        profiles={'instagram':'https://www.instagram.com/romiluzenergiarenovable/','facebook':'https://www.facebook.com/profile.php?id=61553369920060','linkedin':'','google':'https://www.google.com/maps/place/ROMILUZ+Energ%C3%ADa+Renovable/@36.442496,-5.9839708,9z/data=!4m8!3m7!1s0x805038c5f7df8745:0xd5ad3d06f6b91d2!8m2!3d36.4443094!4d-5.3245481!9m1!1b1!16s%2Fg%2F11ywh4w2dc?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D'}
+        for network,url in profiles.items():SocialProfile.objects.get_or_create(network=network,defaults={'url':url,'visible':bool(url)})
         self.stdout.write(self.style.SUCCESS('Contenido inicial cargado. Los textos legales siguen pendientes de revisión.'))

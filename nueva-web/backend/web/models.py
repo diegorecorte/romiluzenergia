@@ -155,7 +155,9 @@ class HeroSlide(models.Model):
     def __str__(self):return self.title
 
 class Review(models.Model):
-    author = models.CharField('Nombre público del autor',max_length=120,unique=True)
+    author = models.CharField('Nombre público del autor',max_length=120)
+    external_id = models.CharField('ID de reseña de Google',max_length=250,unique=True,null=True,blank=True)
+    synced_at = models.DateTimeField('Última sincronización',null=True,blank=True)
     body = models.TextField('Reseña')
     rating = models.PositiveIntegerField('Estrellas',default=5,validators=[MinValueValidator(1),MaxValueValidator(5)])
     source = models.URLField('Fuente de la reseña')
@@ -181,3 +183,16 @@ def validate_picture(field):
             with Image.open(field) as image:
                 if image.width*image.height>40_000_000:raise ValidationError('La imagen no puede superar los 40 megapíxeles.')
         finally:field.seek(position)
+
+
+class SocialProfile(models.Model):
+    network = models.CharField('Red',max_length=30,unique=True,choices=[('instagram','Instagram'),('facebook','Facebook'),('linkedin','LinkedIn'),('google','Reseñas de Google')])
+    url = models.URLField('Enlace oficial',blank=True)
+    visible = models.BooleanField('Mostrar enlace',default=True)
+    class Meta: verbose_name='Perfil social';verbose_name_plural='Perfiles sociales'
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        from urllib.parse import urlparse
+        domains={'instagram':['instagram.com','www.instagram.com'],'facebook':['facebook.com','www.facebook.com'],'linkedin':['linkedin.com','www.linkedin.com'],'google':['google.com','www.google.com','maps.google.com','g.page','maps.app.goo.gl']}
+        if self.url and (urlparse(self.url).scheme!='https' or urlparse(self.url).hostname not in domains[self.network]):raise ValidationError({'url':'Introduce un enlace HTTPS del perfil en la red elegida.'})
+    def __str__(self):return self.get_network_display()

@@ -19,8 +19,8 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | OCR y tres ofertas automáticas reales | Pendiente de datos, fuente vigente y autorización; no hay API confirmada |
 | Condiciones y simulador de financiación | Implementado, oculto sin condiciones verificadas; falta documentación real de entidad |
 | Legal y privacidad | Borradores editables; falta titular/NIF/domicilio profesional y revisión |
-| Redes sociales oficiales | Pendientes de verificar; no se inventan enlaces |
-| Reseñas | Copia inicial desde la referencia, sin autor repetido; gestión manual en panel |
+| Redes sociales oficiales | Instagram y Facebook enlazados desde la referencia; LinkedIn pendiente de URL. Conexión automática de cuentas pendiente |
+| Reseñas | Instantánea inicial y panel; importador de API oficial Google implementado y probado con respuestas simuladas. Falta autorización real y actualización en alojamiento |
 | Acceso privado, roles y protección de archivos | Implementado con Django; faltan cuenta del propietario y alojamiento |
 | Copias de datos y fotos, exportación | Comando privado implementado; pendiente política de conservación y prueba de restauración final |
 | SEO, canónicas, sitemap, robots y redirecciones iniciales | Implementado; indexación bloqueada por defecto; falta inventario completo de URLs y Search Console |
@@ -29,6 +29,6 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 
 ## Comprobaciones
 
-27 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
+30 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
 
 La siguiente validación debe hacerse en el alojamiento elegido con el propietario: navegación visual y móvil, creación/edición desde panel, factura real de prueba privada, aviso SMTP, backup/restauración y flujo completo antes de DNS.

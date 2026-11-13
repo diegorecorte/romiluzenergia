@@ -60,3 +60,8 @@ class HeroSlideAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display=['author','rating','verified','order'];list_editable=['verified','order']
+
+from .models import SocialProfile
+@admin.register(SocialProfile)
+class SocialProfileAdmin(admin.ModelAdmin):
+    list_display=['network','url','visible'];list_editable=['url','visible']

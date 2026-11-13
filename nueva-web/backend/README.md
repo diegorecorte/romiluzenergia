@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-27 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+30 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -84,3 +84,15 @@ Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión d
 - Tienda y automatizaciones futuras, fuera de esta primera implantación.
 
 No cambiar DNS ni cancelar la web actual hasta verificar el lanzamiento.
+
+## Identidad, WhatsApp, reseñas y redes
+
+El logotipo de cabecera/pie utiliza el PNG original con transparencia aportado por el propietario (`assets/logo-transparente.png`), sin regenerarlo. El menú principal aumenta a 19 px en escritorio (17 px en anchos intermedios) y el WhatsApp flotante aparece en todas las páginas, con etiqueta accesible y espacio en el pie para no taparlo.
+
+«Perfiles sociales» permite editar enlaces oficiales de Instagram, Facebook, LinkedIn y Google. Instagram/Facebook y Google se han tomado de la web de referencia; LinkedIn queda vacío hasta recibir la URL correcta. Los enlaces vacíos no se publican.
+
+`python manage.py sync_google_reviews` usa la API oficial de Google Business Profile, pagina las reseñas y actualiza por ID, evitando duplicados. Conserva el contenido anterior si falla la autorización o la respuesta. Cuando sincroniza correctamente sustituye la instantánea inicial y oculta importadas que Google ya no devuelve. La operación requiere una ubicación verificada, acceso de API y OAuth `business.manage`; configurar los valores privados de `.env.example` en el alojamiento. Admite token temporal o renovación mediante refresh token y cliente OAuth. No se guardan tokens en Git ni se extraen reseñas del HTML de Google.
+
+Documentación comprobada: https://developers.google.com/my-business/reference/rest/v4/accounts.locations.reviews/list . No se ha autorizado una cuenta real ni realizado una sincronización real. Las pruebas de importación usan respuestas simuladas. Programar la actualización en el alojamiento cuando la conexión esté verificada; este chat no ha creado una tarea recurrente.
+
+La demostración privada sigue siendo estática y no consulta cuentas externas. La conexión de Metricool disponible informa que no tiene redes conectadas. Conectar Instagram/Facebook/LinkedIn y determinar sus permisos/API es un paso pendiente: mostrar sus enlaces no sincroniza publicaciones ni estadísticas. No se han solicitado contraseñas ni publicado mensajes en redes.

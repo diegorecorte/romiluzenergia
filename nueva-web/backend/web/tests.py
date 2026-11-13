@@ -165,3 +165,26 @@ class WebsiteTests(TestCase):
         self.assertContains(response,'La carga privada todavía no está disponible.',status_code=400)
         self.assertEqual(Lead.objects.count(),0)
         self.assertEqual(Invoice.objects.count(),0)
+    def test_brand_links_and_whatsapp(self):
+        response=self.client.get('/')
+        self.assertContains(response,'logo-transparente.png')
+        self.assertContains(response,'class="whatsapp-float"')
+        self.assertContains(response,'https://www.instagram.com/romiluzenergiarenovable/')
+        self.assertContains(response,'https://www.facebook.com/profile.php?id=61553369920060')
+        self.assertNotContains(response,'linkedin.com/company/')
+    @patch('web.management.commands.sync_google_reviews.fetch_google_reviews')
+    def test_google_review_import_updates_without_duplicates(self,fetch):
+        from .models import Review
+        fetch.return_value=[{'reviewId':'test-official-id','starRating':'FOUR','comment':'Opinión de prueba','reviewer':{'displayName':'Cliente de prueba'}}]
+        call_command('sync_google_reviews',verbosity=0)
+        call_command('sync_google_reviews',verbosity=0)
+        self.assertEqual(Review.objects.filter(external_id='test-official-id').count(),1)
+        self.assertEqual(Review.objects.get(external_id='test-official-id').rating,4)
+        self.assertContains(self.client.get('/'),'Opinión de prueba')
+    def test_google_import_without_configuration_changes_nothing(self):
+        from .models import Review
+        from django.core.management.base import CommandError
+        before=list(Review.objects.values_list('pk','verified'))
+        with patch.dict('os.environ',{'GOOGLE_BUSINESS_LOCATION':''}):
+            with self.assertRaises(CommandError):call_command('sync_google_reviews')
+        self.assertEqual(list(Review.objects.values_list('pk','verified')),before)
