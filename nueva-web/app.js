@@ -19,6 +19,7 @@ const groups = [
   []
 ];
 const service = document.querySelector('#service');
+if (service) {
 const need = document.querySelector('#need');
 function updateService() {
   const choices = groups[service.selectedIndex - 1] || [];
@@ -66,3 +67,36 @@ form.addEventListener('submit', event => {
 form.elements.nombre.addEventListener('input', () => form.elements.nombre.setCustomValidity(''));
 updateService();
 updateZone();
+
+}
+
+// Carrusel independiente, con controles, pausa y respeto por movimiento reducido.
+const hero = document.querySelector('.hero');
+if (hero) {
+  const slides = [...hero.querySelectorAll('.slide')];
+  const dots = [...hero.querySelectorAll('.slide-dots button')];
+  const pause = hero.querySelector('.slide-pause');
+  let index = 0;
+  let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(next) {
+    index = (next + slides.length) % slides.length;
+    slides.forEach((slide, i) => { slide.hidden = i !== index; });
+    dots.forEach((dot, i) => dot.setAttribute('aria-pressed', String(i === index)));
+  }
+  function updatePause() {
+    pause.textContent = paused ? 'Reanudar' : 'Pausar';
+    pause.setAttribute('aria-pressed', String(paused));
+  }
+  hero.querySelector('.slide-prev').addEventListener('click', () => show(index - 1));
+  hero.querySelector('.slide-next').addEventListener('click', () => show(index + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+  pause.addEventListener('click', () => { paused = !paused; updatePause(); });
+  hero.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') show(index - 1);
+    if (event.key === 'ArrowRight') show(index + 1);
+  });
+  setInterval(() => {
+    if (!paused && !document.hidden && !hero.matches(':hover') && !hero.contains(document.activeElement)) show(index + 1);
+  }, 7000);
+  updatePause();
+}
