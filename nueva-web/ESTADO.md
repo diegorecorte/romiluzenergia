@@ -14,7 +14,7 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | Gestión de proyectos, varias fotos, publicación/ocultación y orden | Implementado; faltan fichas y fotos seleccionadas por ROMILUZ |
 | Filtros, ficha y CTA de proyectos | Implementado |
 | Administración de servicios, FAQs, presentación, textos de financiación, carrusel y reseñas | Implementado; algunos textos secundarios de portada/pie siguen en plantillas |
-| Blog con categorías, borradores, fecha programada y foto | Implementado; texto y enlaces, sin editor visual avanzado |
+| Blog con categorías, borradores, fecha programada y foto | Implementado; tres guías originales con secciones y enlaces a servicios. Sin editor visual avanzado |
 | Tarifas y comparativa manual | Formulario e información implementados; comparación la realiza ROMILUZ |
 | OCR y tres ofertas automáticas reales | Pendiente de datos, fuente vigente y autorización; no hay API confirmada |
 | Condiciones y simulador de financiación | Implementado, oculto sin condiciones verificadas; falta documentación real de entidad |
@@ -29,6 +29,6 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 
 ## Comprobaciones
 
-30 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
+31 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
 
 La siguiente validación debe hacerse en el alojamiento elegido con el propietario: navegación visual y móvil, creación/edición desde panel, factura real de prueba privada, aviso SMTP, backup/restauración y flujo completo antes de DNS.

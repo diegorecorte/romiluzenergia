@@ -18,7 +18,7 @@ from .services import allowed_rate,notify,payment
 def homepage(request):
     services={s.slug:s for s in Service.objects.all()}
     order=['autoconsumo-solar','aisladas-baterias','puntos-de-recarga','camper-autocaravanas','instalaciones-electricas']
-    return render(request,'web/home.html',{'title':'Energía Renovable en Conil y Cádiz','projects':Project.objects.filter(published=True)[:3],'home_services':[services[k] for k in order if k in services],'sections':{s.key:s for s in HomeSection.objects.all()},'slides':HeroSlide.objects.filter(published=True),'reviews':Review.objects.filter(verified=True)})
+    return render(request,'web/home.html',{'title':'Energía Renovable en Conil y Cádiz','projects':Project.objects.filter(published=True)[:3],'guides':Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))[:3],'home_services':[services[k] for k in order if k in services],'sections':{s.key:s for s in HomeSection.objects.all()},'slides':HeroSlide.objects.filter(published=True),'reviews':Review.objects.filter(verified=True)})
 
 def service(request,slug):
     return render(request,'web/service.html',{'service':get_object_or_404(Service,slug=slug)})
@@ -40,7 +40,10 @@ def photo(request,pk):
 
 def blog(request,slug=None):
     qs=Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))
-    if slug:return render(request,'web/article.html',{'article':get_object_or_404(qs,slug=slug)})
+    if slug:
+        article=get_object_or_404(qs,slug=slug)
+        related={'Autoconsumo':'autoconsumo-solar','Baterías':'aisladas-baterias','Recarga':'puntos-de-recarga','Electricidad':'instalaciones-electricas','Camper':'camper-autocaravanas'}
+        return render(request,'web/article.html',{'article':article,'related_service':Service.objects.filter(slug=related.get(article.category,'')).first()})
     return render(request,'web/blog.html',{'title':'Blog','articles':qs})
 
 def legal(request,slug):

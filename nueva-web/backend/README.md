@@ -20,7 +20,7 @@ python manage.py runserver 127.0.0.1:8090
 
 Abrir `http://127.0.0.1:8090/` y `http://127.0.0.1:8090/admin/`. El propietario crea su usuario y contraseña localmente. No hay usuario ni contraseña predeterminados. No se ha arrancado servidor ni publicado desde este chat.
 
-`seed_content` es idempotente: añade servicios, FAQs y borradores legales sin sobrescribir ediciones. No crea proyectos, artículos ni tarifas de muestra.
+`seed_content` es idempotente: añade servicios, FAQs y borradores legales sin sobrescribir ediciones. No crea proyectos ni tarifas de muestra. Incluye tres guías originales sobre factura eléctrica, backup y puntos de recarga; no son noticias ni testimonios ficticios.
 
 ## Funciones implementadas
 
@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-30 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+31 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 

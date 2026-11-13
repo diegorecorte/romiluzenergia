@@ -188,3 +188,15 @@ class WebsiteTests(TestCase):
         with patch.dict('os.environ',{'GOOGLE_BUSINESS_LOCATION':''}):
             with self.assertRaises(CommandError):call_command('sync_google_reviews')
         self.assertEqual(list(Review.objects.values_list('pk','verified')),before)
+
+    def test_guides_render_semantic_headings_and_safe_text(self):
+        response=self.client.get('/blog/placas-solares-apagon-backup')
+        self.assertEqual(response.status_code,200)
+        self.assertContains(response,'<h2>Una batería no equivale siempre a backup</h2>',html=True)
+        self.assertContains(response,'/autoconsumo-solar')
+        self.assertEqual(Article.objects.filter(published=True).count(),3)
+
+        Article.objects.filter(slug='placas-solares-apagon-backup').update(body='## Título\n\n<script>alert(1)</script>')
+        response=self.client.get('/blog/placas-solares-apagon-backup')
+        self.assertContains(response,'&lt;script&gt;alert(1)&lt;/script&gt;')
+        self.assertNotContains(response,'<script>alert(1)</script>')
