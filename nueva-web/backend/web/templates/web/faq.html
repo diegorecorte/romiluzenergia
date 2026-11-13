@@ -1,0 +1,1 @@
+{% extends 'web/base.html' %}{% block content %}<section class="wrap section"><h1>Preguntas frecuentes</h1>{% for faq in faqs %}<details class="faq"><summary>{{ faq.question }}</summary>{{ faq.answer|linebreaks }}{% if faq.service %}<a href="{% url 'service' faq.service.slug %}">Ver {{ faq.service.title }}</a>{% endif %}</details>{% endfor %}</section>{% endblock %}

@@ -1,0 +1,1 @@
+{% extends 'web/base.html' %}{% block content %}<section class="wrap section prose"><h1>{{ legal.title }}</h1>{% if not legal.reviewed %}<p class="notice">Documento pendiente de completar y revisar. No constituye una política definitiva.</p>{% endif %}{{ legal.body|linebreaks }}</section>{% endblock %}

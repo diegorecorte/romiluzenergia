@@ -1,0 +1,1 @@
+{% extends 'web/base.html' %}{% block content %}<section class="wrap section"><h1>Solicitud registrada</h1>{% for message in messages %}<p role="status">{{ message }}</p>{% empty %}<p>Si has enviado una solicitud correctamente, ROMILUZ la revisará. Si necesitas confirmar su recepción, llámanos.</p>{% endfor %}<a class="button" href="/">Volver al inicio</a></section>{% endblock %}

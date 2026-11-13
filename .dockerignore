@@ -1,0 +1,9 @@
+.git
+**/private-data
+**/__pycache__
+**/static-collected
+**/.env
+**/.env.*
+!**/.env.example
+**/*.sqlite3*
+**/backups

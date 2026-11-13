@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Autoconsumo solar",
+    "slug": "autoconsumo-solar",
+    "summary": "Estudiamos tu consumo y diseñamos una instalación conectada a red, con paneles, inversor, protecciones y monitorización.",
+    "body": "Estudiamos tu consumo y diseñamos una instalación conectada a red, con paneles, inversor, protecciones y monitorización.\n\nBaterías y backup\n\nUna batería puede mejorar el aprovechamiento de la energía. Para disponer de suministro durante un corte de red hace falta un sistema de backup compatible, diseñado para las cargas que quieras alimentar.\n\nEstudio, montaje y seguimiento\n\n1. Revisamos tu consumo y la ubicación.\n2. Diseñamos la potencia y seleccionamos equipos y protecciones.\n3. Ejecutamos el montaje y la instalación eléctrica.\n4. Configuramos la monitorización y realizamos la puesta en marcha.\n5. Gestionamos la documentación y legalización cuando corresponda, y valoramos mantenimiento o ampliaciones.\n\nExcedentes\n\nLa compensación depende del tipo de instalación y del contrato de suministro. Revisamos las condiciones antes de proponer alternativas.",
+    "image": "autoconsumo.webp",
+    "order": 0
+  },
+  {
+    "title": "Aisladas y baterías",
+    "slug": "aisladas-baterias",
+    "summary": "Soluciones para viviendas rurales, fincas y otros emplazamientos sin conexión eléctrica: paneles, inversores/cargadores, baterías, reguladores y protecciones.",
+    "body": "Soluciones para viviendas rurales, fincas y otros emplazamientos sin conexión eléctrica: paneles, inversores/cargadores, baterías, reguladores y protecciones.\n\nAutonomía a tu medida\n\nRevisamos consumos, potencia de arranque y autonomía necesaria. Cuando el proyecto lo requiere, estudiamos la integración de un generador auxiliar.\n\nInstalaciones sin conexión a red\n\nIntegramos paneles, inversores/cargadores, baterías, reguladores, cuadros, protecciones y monitorización. Revisamos consumos diarios, cargas simultáneas, potencia de arranque, ubicación y autonomía. No necesitas conocer esos datos para iniciar la consulta.\n\nDiagnóstico y mantenimiento\n\nEstudiamos averías, estado del almacenamiento y posibilidades de ampliación. Las baterías para instalaciones conectadas a red se valoran dentro del servicio de Autoconsumo solar.",
+    "image": "aislada.webp",
+    "order": 1
+  },
+  {
+    "title": "Instalaciones eléctricas",
+    "slug": "instalaciones-electricas",
+    "summary": "Instalaciones nuevas, reformas, ampliaciones, cuadros y protecciones, iluminación, nuevas líneas, averías y documentación cuando corresponda.",
+    "body": "Instalaciones nuevas, reformas, ampliaciones, cuadros y protecciones, iluminación, nuevas líneas, averías y documentación cuando corresponda.\n\nDomótica y seguridad\n\nControl de iluminación, programación, dispositivos inteligentes, accesos, cámaras y monitorización, según las necesidades del proyecto.\n\nElectricidad general\n\nTrabajamos en viviendas y locales: mecanismos, nuevas líneas, iluminación, cuadros, reformas, instalaciones nuevas y ampliaciones. Los boletines y la legalización se tramitan en los casos que correspondan. Puedes solicitar presupuesto o indicar que tienes una avería.",
+    "image": "electricidad.webp",
+    "order": 2
+  },
+  {
+    "title": "Puntos de recarga",
+    "slug": "puntos-de-recarga",
+    "summary": "Instalación de cargadores en viviendas, garajes comunitarios y empresas. Estudiamos el cuadro, el recorrido de línea y las protecciones.",
+    "body": "Instalación de cargadores en viviendas, garajes comunitarios y empresas. Estudiamos el cuadro, el recorrido de línea y las protecciones.\n\nCarga adaptada a tu instalación\n\nValoramos el balanceo dinámico y la integración con fotovoltaica. Configuración y puesta en marcha de los equipos seleccionados para cada caso.\n\nCómo planteamos la instalación\n\nEstudiamos la potencia contratada, la capacidad del cuadro, el recorrido de línea y las protecciones necesarias. Valoramos viviendas unifamiliares, garajes comunitarios, empresas, comercios y aparcamientos. Seleccionamos los equipos según el proyecto, configuramos su funcionamiento y realizamos la puesta en marcha.\n\n¿Quieres instalar un punto de recarga?\n\nCuéntanos dónde necesitas cargar y revisamos las posibilidades contigo.",
+    "image": "recarga.webp",
+    "order": 3
+  },
+  {
+    "title": "Camper y autocaravanas",
+    "slug": "camper-autocaravanas",
+    "summary": "Instalaciones y ampliaciones de 12/24 V y 230 V: solar, MPPT, baterías auxiliares, carga desde alternador, inversores, iluminación y protecciones.",
+    "body": "Instalaciones y ampliaciones de 12/24 V y 230 V: solar, MPPT, baterías auxiliares, carga desde alternador, inversores, iluminación y protecciones.\n\nInstalación, ampliación y diagnóstico\n\nEstudiamos los consumos y el espacio disponible. Las consultas de náutica se revisan con criterios técnicos específicos para embarcaciones.\n\nCarga, almacenamiento y consumos\n\nPaneles solares, reguladores MPPT, baterías auxiliares y LiFePO4 según proyecto, carga DC/DC desde alternador, carga externa, inversores, tomas USB, iluminación, protecciones y monitorización. También estudiamos reparaciones y diagnóstico.\n\nLas consultas sobre embarcaciones se revisan con criterios técnicos propios: no se traslada una instalación camper sin adaptar su diseño.",
+    "image": "camper.webp",
+    "order": 4
+  }
+]

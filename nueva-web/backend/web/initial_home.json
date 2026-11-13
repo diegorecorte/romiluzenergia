@@ -1,0 +1,127 @@
+{
+  "sections": {
+    "intro": {
+      "title": "Soluciones energéticas pensadas para tus necesidades reales en Cádiz",
+      "body": "En ROMILUZ Energía Renovable ayudamos a viviendas, negocios y profesionales a aprovechar mejor la energía mediante instalaciones diseñadas específicamente para cada proyecto. Contamos con alrededor de 6 años de experiencia en el sector, trabajando especialmente con energía fotovoltaica, movilidad eléctrica, instalaciones eléctricas y soluciones energéticas para camper y autocaravanas.\n\nNo creemos en instalar equipos simplemente porque tengan unas determinadas prestaciones. Antes estudiamos qué consumes, dónde necesitas energía, qué potencia tienes disponible y cómo utilizas realmente la instalación. A partir de ahí planteamos una solución equilibrada, segura y preparada para funcionar en el día a día.\n\nAdemás, contamos con instalador eléctrico autorizado, lo que nos permite abordar los trabajos desde una perspectiva técnica y profesional."
+    },
+    "finance": {
+      "title": "Financia tu instalación y empieza a producir tu propia energía",
+      "body": "Queremos facilitar que instalar fotovoltaica o un punto de recarga sea accesible también para quienes prefieren no realizar toda la inversión inicial de una sola vez.\n\nConsulta las opciones de financiación disponibles. Las condiciones y la aprobación deben confirmarse con la entidad.\n\nTrabajamos desde Conil de la Frontera y Cádiz, atendiendo también determinados proyectos en Sevilla y Málaga según viabilidad.\n\nCuéntanos qué instalación estás valorando y prepararemos un presupuesto adaptado a tu caso."
+    },
+    "why": {
+      "title": "¿Por qué confiar en ROMILUZ Energía Renovable?",
+      "body": "Una instalación renovable no debería diseñarse pensando únicamente en colocar paneles, baterías o un cargador. Es importante comprender cómo va a utilizarse y qué necesidades debe cubrir durante los próximos años. En ROMILUZ abordamos cada proyecto desde una visión técnica, buscando seguridad, eficiencia y facilidad de uso."
+    }
+  },
+  "slides": [
+    {
+      "title": "Energía solar en Conil de la Frontera y Cádiz",
+      "body": "Diseñamos e instalamos sistemas fotovoltaicos aislados para viviendas, fincas y negocios sin conexión a la red.\n\nCalculamos generación, baterías y respaldo para que dispongas de energía con seguridad y autonomía.",
+      "button": "Solicitar estudio gratuito",
+      "asset": "solar.webp",
+      "order": 0
+    },
+    {
+      "title": "Carga tu vehículo eléctrico donde realmente lo necesitas",
+      "body": "Instalamos cargadores para vehículos eléctricos en viviendas, garajes comunitarios, empresas y aparcamientos, estudiando potencia, protecciones y opciones de balanceo dinámico.",
+      "button": "Instalar mi punto de recarga",
+      "asset": "slide-recarga.webp",
+      "order": 1
+    },
+    {
+      "title": "Más autonomía para viajar",
+      "body": "Diseñamos instalaciones para que puedas generar, almacenar y utilizar energía a bordo con mayor autonomía, combinando placas solares, baterías, carga desde alternador y sistemas de 12/24 V y 230 V.",
+      "button": "Mejorar mi camper/autocaravana",
+      "asset": "slide-camper.webp",
+      "order": 2
+    },
+    {
+      "title": "Instalaciones eléctricas seguras y preparadas para el futuro",
+      "body": "Realizamos instalaciones, reformas, cuadros eléctricos, ampliaciones y reparación de averías con un enfoque especialmente orientado a preparar los espacios para fotovoltaica, baterías y movilidad eléctrica.",
+      "button": "Solicitar servicio",
+      "asset": "slide-electricidad.webp",
+      "order": 3
+    },
+    {
+      "title": "Empieza a ahorrar sin asumir toda la inversión de golpe",
+      "body": "Consulta las opciones de financiación para instalaciones fotovoltaicas y puntos de recarga. Condiciones y aprobación pendientes de confirmar con la entidad.",
+      "button": "Consultar financiación",
+      "asset": "slide-financiacion.webp",
+      "order": 4
+    }
+  ],
+  "reviews": [
+    {
+      "author": "Iván Begines",
+      "body": "Profesional al 100%, trabajo impecable, rápido, eficaz y muy atento a la hora de explicártelo todo. Desde mi experiencia no solo ha sido un montador de placas, ha sido una nueva amistad por como es, con la humildad con la que trabaja y el conocimiento que tiene hace que todo sea mucho más fácil.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 0
+    },
+    {
+      "author": "Víctor Manuel Costales",
+      "body": "Seriedad y profesionalidad de 10, me instalaron un cargador eléctrico para el coche y quede muy satisfecho con el trabajo. Muchas gracias por vuestra dedicación.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 1
+    },
+    {
+      "author": "Diego Amaya",
+      "body": "Buen servicio, buena calidad y profesionalidad.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 2
+    },
+    {
+      "author": "Manuel Hurtado",
+      "body": "Muy serio, asesoramiento perfecto y muy formal. Voy a volver a contar con él para una ampliación de lo que tengo instalado.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 3
+    },
+    {
+      "author": "Thijs Straver",
+      "body": "Muy contento con el servicio de ROMILUZ. Hicieron un diagnóstico claro de mi instalación solar y optimizaron el rendimiento. Instalaron dos paneles nuevos, modificaron el cableado a paralelo y revisaron todo a fondo. ¡Totalmente recomendable!",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 4
+    },
+    {
+      "author": "Jósal Sierra",
+      "body": "Grandes profesionales, además están disponibles para cualquier duda en cualquier momento, muy recomendable.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 5
+    },
+    {
+      "author": "Patrick Colling",
+      "body": "Trabajo perfecto con muy agradables profesionales de la materia. Desde hace 10 años no he encontrado tan buena empresa. Hasta la próxima.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 6
+    },
+    {
+      "author": "Aun Nolose",
+      "body": "Perfecto todo, unos profesionales. Diego y Miguel instalación perfecta y todo el asesoramiento recomendable mil por mil",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 7
+    },
+    {
+      "author": "Isabel Ponce",
+      "body": "Servicio profesional, instalación rápida, buen asesoramiento y disposición para cualquier tipo de duda. Muy buen servicio. Lo recomiendo.",
+      "rating": 5,
+      "source": "https://www.romiluzenergiarenovable.com/",
+      "verified": true,
+      "order": 8
+    }
+  ]
+}
