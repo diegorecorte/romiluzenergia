@@ -1,0 +1,47 @@
+{
+  "growatt.png": {
+    "source": "https://en.growatt.com/upload/image/20220724/322171ae39029a00108a80679869c69a.png",
+    "consulted_on": "2026-11-14"
+  },
+  "solis.png": {
+    "source": "https://cmsdata.solisinverters.com/uploads/image/5bdc2304dbfda.png",
+    "consulted_on": "2026-11-14"
+  },
+  "sungrow.svg": {
+    "source": "https://official-oversears-file.sungrowpower.com/website/_next/static/media/logo.84e5bb0c.svg",
+    "consulted_on": "2026-11-14"
+  },
+  "jinko.png": {
+    "source": "https://jinkosolarcdn.shwebspace.com/themes/basicen/skin/images/logony.png",
+    "consulted_on": "2026-11-14"
+  },
+  "longi.svg": {
+    "source": "https://www.longi.com/en/products/modules/hi-mo-x6/ (embedded header SVG)",
+    "consulted_on": "2026-11-14"
+  },
+  "victron.svg": {
+    "source": "https://www.victronenergy.com/ (embedded white header logo)",
+    "consulted_on": "2026-11-14"
+  },
+  "canadian.png": {
+    "source": "https://www.canadiansolar.com/wp-content/uploads/2024/06/CS-LOGO-RED-RGB-NEW-2024-W-TAG-2.png",
+    "consulted_on": "2026-11-14"
+  },
+  "trina.png": {
+    "source": "https://www.trinasolar.com/en-glb/wp-content/themes/Child-EN/images/header/TrinasolarLogo_blackBluebackground_EN_PNG.png?v=1",
+    "consulted_on": "2026-11-14"
+  },
+  "astronergy.png": {
+    "source": "https://www.astronergy.com.au/wp-content/uploads/2024/07/Astronergy-LOGO-black.png",
+    "consulted_on": "2026-11-14"
+  },
+  "ja-solar.svg": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/c/c9/JA_Solar_Logo.svg",
+    "reference": "https://en.wikipedia.org/wiki/JA_Solar_Holdings",
+    "consulted_on": "2026-11-14"
+  },
+  "deye.webp": {
+    "source": "https://deyeess.com/wp-content/themes/deye/images/logo.webp",
+    "consulted_on": "2026-11-14"
+  }
+}

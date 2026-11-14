@@ -43,3 +43,6 @@ Actualización del catálogo de marcas (14/11/2026):
 - Catálogo administrable: marca, tipo, orden, visibilidad y fotografía alternativa. Filtros por marca/tipo y consulta del modelo con datos precargados.
 - Verificación: 43 pruebas Django correctas, sintaxis JavaScript correcta y 22 páginas de prueba con enlaces/recursos locales comprobados. No hubo revisión visual en navegador: la infraestructura disponible no permite abrirlo.
 - La demostración conserva acceso privado y el envío desactivado. No se cambia el dominio de producción.
+
+
+Selección visual de marcas: los desplegables del catálogo se han sustituido por once tarjetas con logotipo y nombre. Pulsar una marca muestra sus equipos y lleva al bloque de resultados; el acceso «Todas las marcas» permite volver al conjunto. Los tipos también se eligen mediante botones. Inicio usa los mismos logotipos. Comprobados enlaces, archivos locales, filtrado por logotipo/tipo, selección activa, apertura con Ctrl y navegación Atrás; 43 pruebas Django correctas. Sigue pendiente la revisión visual en navegador por falta de esa infraestructura.

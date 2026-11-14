@@ -1,0 +1,1 @@
+{% load static %}{% if brand.logo_asset %}{% get_static_prefix as STATIC_PREFIX %}<span class="brand-logo{% if brand.logo_dark %} brand-logo-dark{% endif %}"><img src="{{ STATIC_PREFIX }}assets/brands/{{ brand.logo_asset }}" alt="" width="180" height="60" loading="lazy"></span>{% endif %}<span class="brand-name">{{ brand.name }}</span>
