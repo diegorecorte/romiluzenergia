@@ -117,7 +117,7 @@ def robots(request):
 
 def sitemap(request):
     from xml.sax.saxutils import escape
-    paths=['/','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
+    paths=['/','/asi-funciona','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
     xml='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+escape(settings.CANONICAL_ORIGIN+path)+'</loc></url>' for path in paths)+'</urlset>'
     return HttpResponse(xml,content_type='application/xml')
 
@@ -129,3 +129,7 @@ def content_image(request,kind,pk):
     else:raise Http404
     if not field:raise Http404
     return FileResponse(field.open('rb'),content_type='image/webp')
+
+@require_GET
+def energy(request):
+    return render(request,'web/energy.html',{'title':'Así funciona tu instalación solar'})

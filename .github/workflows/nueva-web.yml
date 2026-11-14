@@ -25,3 +25,5 @@ jobs:
       - run: python nueva-web/backend/manage.py makemigrations --check --dry-run
       - run: python nueva-web/backend/manage.py test web
       - run: node --check nueva-web/backend/web/static/web/main.js
+      - run: node --check nueva-web/backend/web/static/web/energy-3d.mjs
+      - run: node --test nueva-web/backend/tests/energy-state.test.mjs

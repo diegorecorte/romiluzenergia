@@ -5,6 +5,7 @@ from web import views
 urlpatterns=[
  path('admin/',admin.site.urls),
  path('',views.homepage,name='home'),
+ path('asi-funciona',views.energy,name='energy'),
  path('contacto',views.contact,name='contact'),
  path('solicitud-registrada',views.success,name='contact-success'),
  path('compara-tu-factura',views.contact,{'invoice':True},name='compare'),

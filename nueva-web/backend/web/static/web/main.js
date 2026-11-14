@@ -121,3 +121,9 @@ if (finance) {
     } catch(error) { output.textContent = error.message || 'No se ha podido calcular la cuota. Inténtalo más tarde.'; }
   });
 }
+if (document.querySelector('#energy-experience')) {
+  import('./energy-3d.mjs').catch(() => {
+    const notice = document.querySelector('#energy-loading');
+    if (notice) notice.textContent = 'No se ha podido cargar la vista 3D. Recarga la página o consulta la explicación del funcionamiento que aparece debajo.';
+  });
+}

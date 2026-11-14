@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-31 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+32 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -96,3 +96,14 @@ El logotipo de cabecera/pie utiliza el PNG original con transparencia aportado p
 Documentación comprobada: https://developers.google.com/my-business/reference/rest/v4/accounts.locations.reviews/list . No se ha autorizado una cuenta real ni realizado una sincronización real. Las pruebas de importación usan respuestas simuladas. Programar la actualización en el alojamiento cuando la conexión esté verificada; este chat no ha creado una tarea recurrente.
 
 La demostración privada sigue siendo estática y no consulta cuentas externas. La conexión de Metricool disponible informa que no tiene redes conectadas. Conectar Instagram/Facebook/LinkedIn y determinar sus permisos/API es un paso pendiente: mostrar sus enlaces no sincroniza publicaciones ni estadísticas. No se han solicitado contraseñas ni publicado mensajes en redes.
+
+
+## Vivienda interactiva en 3D
+
+`/asi-funciona` contiene una escena tridimensional navegable con casa, módulos fotovoltaicos con células, batería mural, inversor, coche, cargador y cable de carga. Permite girar y acercar la cámara, volver a la vista inicial y cambiar día/noche/apagón con o sin backup. Los recorridos superpuestos explican el flujo de energía; no representan un trazado de cableado para ejecutar una instalación.
+
+El modelo es genérico y no corresponde a una obra, producto ni medición real de ROMILUZ. No se inventan producción, ahorro, autonomía o condiciones financieras. El apagón con backup representa alimentación de cargas críticas desde batería y excluye la carga del coche y la inyección a red. No se representa producción solar aislada durante el corte.
+
+Three.js y OrbitControls 0.180.0 están guardados localmente en `web/static/web/vendor`, con licencia MIT. No se cargan recursos de terceros durante la visita. Hay pausa de movimiento, respeto a movimiento reducido, reducción de resolución en móvil y texto alternativo si WebGL no está disponible. Las explicaciones se conservan como contenido HTML.
+
+Comprobados: rutas, enlaces de la exportación, sintaxis de módulos, dependencias locales y estados de funcionamiento. Pendiente inspección visual y prueba WebGL en móvil/escritorio; el entorno no ofrece la herramienta de navegador.

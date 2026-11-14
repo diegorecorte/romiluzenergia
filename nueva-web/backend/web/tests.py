@@ -200,3 +200,11 @@ class WebsiteTests(TestCase):
         response=self.client.get('/blog/placas-solares-apagon-backup')
         self.assertContains(response,'&lt;script&gt;alert(1)&lt;/script&gt;')
         self.assertNotContains(response,'<script>alert(1)</script>')
+
+    def test_energy_experience_and_home_entry(self):
+        response=self.client.get('/asi-funciona')
+        self.assertEqual(response.status_code,200)
+        self.assertContains(response,'id="energy-stage"')
+        self.assertContains(response,'data-energy-mode="outage"')
+        self.assertContains(response,'No representa una obra de ROMILUZ')
+        self.assertContains(self.client.get('/'),'href="/asi-funciona"')

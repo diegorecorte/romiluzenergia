@@ -1,0 +1,23 @@
+{% extends 'web/base.html' %}{% load static %}{% block title %}Así funciona una vivienda con energía solar{% endblock %}{% block description %}Explora una vivienda en 3D con placas solares, batería y coche eléctrico. Comprueba cómo cambia la energía de día, de noche y ante un corte de luz.{% endblock %}{% block content %}
+<section class="wrap section energy-experience" id="energy-experience">
+  <p class="eyebrow">ROMILUZ · TU INSTALACIÓN, PASO A PASO</p>
+  <h1>La energía de tu casa, en 3D.</h1>
+  <p class="energy-intro">Una vivienda, sus placas, una batería y un coche conectado. Gira la escena y descubre cómo trabajan juntos.</p>
+  <div class="energy-controls" aria-label="Situaciones de funcionamiento">
+    <div class="energy-modes"><button type="button" class="energy-mode" data-energy-mode="day" aria-pressed="true">De día</button><button type="button" class="energy-mode" data-energy-mode="night" aria-pressed="false">De noche</button><button type="button" class="energy-mode" data-energy-mode="outage" aria-pressed="false">Corte de luz</button></div>
+    <label class="energy-backup"><input type="checkbox" id="energy-backup" checked> Sistema de backup compatible</label>
+  </div>
+  <div class="energy-stage" id="energy-stage" aria-label="Escena interactiva de una vivienda con placas solares, batería y coche eléctrico">
+    <img class="energy-fallback" id="energy-fallback" src="{% static 'assets/financiacion.webp' %}" alt="Vivienda con paneles solares. La escena tridimensional se carga a continuación.">
+    <div class="energy-loading" id="energy-loading" role="status">Preparando la vivienda en 3D…</div>
+    <div class="energy-stage-tools"><button type="button" id="energy-reset">Centrar vista</button><label><input type="checkbox" id="energy-flows" checked> Ver energía</label><button type="button" id="energy-pause" aria-pressed="false">Pausar movimiento</button></div>
+    <div class="energy-stage-help">Arrastra para girar · Pellizca o usa la rueda para acercarte</div>
+  </div>
+  <div class="energy-components" aria-label="Estado de los equipos">
+    <div><strong>Placas solares</strong><span id="energy-solar-status">Produciendo</span></div><div><strong>Vivienda</strong><span id="energy-home-status">Con suministro</span></div><div><strong>Batería</strong><span id="energy-battery-status">Cargando</span></div><div><strong>Coche eléctrico</strong><span id="energy-car-status">Cargando</span></div><div><strong>Red eléctrica</strong><span id="energy-grid-status">Recibe excedentes</span></div>
+  </div>
+  <div class="energy-explanation"><h2 id="energy-title">De día: aprovecha el sol.</h2><p id="energy-description" aria-live="polite">Cuando la producción es suficiente, las placas pueden alimentar la vivienda, cargar la batería y recargar el coche. El excedente puede ir a la red cuando la instalación y el contrato lo permiten.</p></div>
+  <p class="note">Demostración de funcionamiento con un modelo 3D genérico. No representa una obra de ROMILUZ ni muestra datos de una instalación real. La compatibilidad, el reparto de energía y el respaldo dependen del diseño, de los equipos y de su configuración. En el ejemplo de apagón, el backup alimenta solo los circuitos críticos y no el coche.</p>
+  <a class="button" href="{% url 'contact' %}">Quiero estudiar una instalación así</a>
+</section>
+{% endblock %}
