@@ -256,3 +256,54 @@ class WebsiteTests(TestCase):
         for slug,equipment in [('autoconsumo-solar','solar'),('aisladas-baterias','battery'),('puntos-de-recarga','car')]:
             response=self.client.get('/'+slug)
             self.assertContains(response,'href="/asi-funciona?equipo='+equipment+'"')
+
+@override_settings(DEBUG=True,SECURE_SSL_REDIRECT=False)
+class EquipmentCatalogTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):call_command('seed_content',verbosity=0)
+    def test_filter_by_brand_and_type(self):
+        response=self.client.get('/equipos',{'marca':'Deye'})
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(len(response.context['products']),3)
+        self.assertContains(response,'16 kWh nominales')
+        self.assertContains(response,'5,12 kWh nominales')
+        response=self.client.get('/equipos',{'marca':'Deye','tipo':'battery'})
+        self.assertEqual(len(response.context['products']),2)
+        self.assertNotContains(response,'SUN-SG06LP1-EU')
+        self.assertEqual(len(self.client.get('/equipos',{'tipo':'panel'}).context['products']),6)
+        self.assertContains(self.client.get('/equipos',{'marca':'Astronergy'}),'ASTRO N7 2.0 All Black')
+    def test_unpublished_equipment_and_brand_are_excluded(self):
+        from .models import CatalogProduct,Brand
+        CatalogProduct.objects.filter(slug='deye-se-f16-max').update(visible=False)
+        response=self.client.get('/equipos',{'marca':'Deye'})
+        self.assertNotContains(response,'SE-F16 Max / Max-H')
+        Brand.objects.filter(name='Deye').update(visible=False)
+        self.assertEqual(len(self.client.get('/equipos',{'marca':'Deye'}).context['products']),0)
+        self.assertEqual(self.client.get('/imagenes/equipo/1').status_code,404)
+    def test_product_enquiry_uses_trusted_record(self):
+        from .models import CatalogProduct
+        product=CatalogProduct.objects.get(slug='deye-se-f16-max')
+        response=self.client.get(product.contact_url+'&comentario=texto-no-fiable')
+        initial=response.context['form'].initial
+        self.assertEqual(initial['comentario'],product.interest_text)
+        self.assertEqual(initial['necesidad'],'Batería')
+        self.assertNotIn('comentario',self.client.get('/contacto',{'producto':'no-existe','comentario':'inventado'}).context['form'].initial)
+        product.visible=False;product.save()
+        self.assertNotIn('comentario',self.client.get(product.contact_url).context['form'].initial)
+    def test_seed_is_idempotent_and_preserves_owner_edits(self):
+        from .models import CatalogProduct
+        product=CatalogProduct.objects.get(slug='astronergy-astro-n7-455')
+        product.description='Descripción revisada por ROMILUZ';product.save()
+        call_command('seed_content',verbosity=0)
+        product.refresh_from_db()
+        self.assertEqual(product.description,'Descripción revisada por ROMILUZ')
+        self.assertEqual(CatalogProduct.objects.count(),16)
+    def test_reference_images_are_valid_local_products(self):
+        from .models import CatalogProduct
+        from django.conf import settings
+        for product in CatalogProduct.objects.all():
+            path=settings.SITE_DIR/'assets'/product.asset
+            self.assertTrue(path.is_file(),product.slug)
+            with Image.open(path) as image:
+                self.assertGreaterEqual(min(image.size),200,product.slug)
+            self.assertTrue(product.source_url.startswith('https://'))

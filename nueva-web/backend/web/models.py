@@ -199,8 +199,46 @@ class SocialProfile(models.Model):
 
 class Brand(models.Model):
     name = models.CharField('Marca',max_length=100,unique=True)
+    category = models.CharField('Familia',max_length=12,choices=[('energy','Inversores y baterías'),('panel','Paneles solares')],default='energy')
     url = models.URLField('Web oficial (opcional)',blank=True)
     order = models.PositiveIntegerField('Orden',default=0)
     visible = models.BooleanField('Mostrar en la web',default=True)
     class Meta: ordering=['order','name'];verbose_name='Marca';verbose_name_plural='Marcas con las que trabajamos'
     def __str__(self):return self.name
+
+
+class CatalogProduct(models.Model):
+    brand = models.ForeignKey(Brand,on_delete=models.CASCADE,related_name='products',verbose_name='Marca')
+    slug = models.SlugField(unique=True)
+    title = models.CharField('Modelo o gama',max_length=160)
+    kind = models.CharField('Tipo',max_length=12,choices=[('inverter','Inversor'),('battery','Batería'),('panel','Panel solar')])
+    capacity = models.CharField('Potencia o capacidad',max_length=160)
+    description = models.TextField('Descripción')
+    asset = models.CharField('Imagen del catálogo inicial',max_length=160,blank=True)
+    image = models.ImageField('Foto propia alternativa',upload_to='catalog/',blank=True)
+    source_url = models.URLField('Ficha de referencia',max_length=500)
+    image_source_url = models.URLField('Procedencia de la imagen',max_length=500,blank=True)
+    verified_on = models.DateField('Fecha de consulta de la ficha')
+    order = models.PositiveIntegerField('Orden',default=0)
+    visible = models.BooleanField('Mostrar en la web',default=True)
+    class Meta:
+        ordering=['brand__order','brand__name','order','id']
+        verbose_name='Equipo';verbose_name_plural='Catálogo de equipos'
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        validate_picture(self.image)
+        if self.asset and (not self.asset.startswith('catalog/') or '..' in self.asset or '\\' in self.asset):
+            raise ValidationError({'asset':'Utiliza una imagen de la carpeta catalog/.'})
+        if not self.asset and not self.image:
+            raise ValidationError('Añade una imagen antes de publicar el equipo.')
+    def save(self,*args,**kwargs):
+        optimize_image(self.image)
+        super().save(*args,**kwargs)
+    @property
+    def interest_text(self):return f'Me interesa {self.brand.name} {self.title} ({self.capacity}). Quisiera asesoramiento para mi instalación.'
+    @property
+    def contact_url(self):
+        from urllib.parse import urlencode
+        from django.urls import reverse
+        return reverse('contact')+'?'+urlencode({'producto':self.slug,'servicio':'Solar, baterías y eólica','necesidad':'Batería' if self.kind=='battery' else 'Nueva instalación solar','comentario':self.interest_text})
+    def __str__(self):return f'{self.brand.name} · {self.title}'

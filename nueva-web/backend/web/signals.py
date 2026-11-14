@@ -1,7 +1,8 @@
 from django.db import transaction
 from django.db.models.signals import post_delete,pre_save
 from django.dispatch import receiver
-from .models import Invoice,ProjectPhoto,Article,HeroSlide
+from .models import Invoice,ProjectPhoto,Article,HeroSlide,CatalogProduct
+@receiver(post_delete,sender=CatalogProduct)
 @receiver(post_delete,sender=Article)
 @receiver(post_delete,sender=HeroSlide)
 @receiver(post_delete,sender=Invoice)
@@ -11,6 +12,7 @@ def delete_file(sender,instance,**kwargs):
     if field.name:
         storage,name=field.storage,field.name
         transaction.on_commit(lambda:storage.delete(name))
+@receiver(pre_save,sender=CatalogProduct)
 @receiver(pre_save,sender=Article)
 @receiver(pre_save,sender=HeroSlide)
 @receiver(pre_save,sender=ProjectPhoto)

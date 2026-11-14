@@ -69,4 +69,14 @@ class SocialProfileAdmin(admin.ModelAdmin):
 from .models import Brand
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display=['name','order','visible'];list_editable=['order','visible'];search_fields=['name']
+    list_display=['name','category','order','visible'];list_editable=['category','order','visible'];search_fields=['name']
+
+
+from .models import CatalogProduct
+@admin.register(CatalogProduct)
+class CatalogProductAdmin(admin.ModelAdmin):
+    list_display=['title','brand','kind','capacity','visible','order']
+    list_filter=['brand','kind','visible']
+    list_editable=['visible','order']
+    search_fields=['title','brand__name','capacity']
+    prepopulated_fields={'slug':('title',)}

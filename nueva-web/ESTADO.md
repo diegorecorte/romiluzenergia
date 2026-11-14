@@ -33,3 +33,13 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 38 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
 
 La siguiente validación debe hacerse en el alojamiento elegido con el propietario: navegación visual y móvil, creación/edición desde panel, factura real de prueba privada, aviso SMTP, backup/restauración y flujo completo antes de DNS.
+
+
+Actualización del catálogo de marcas (14/11/2026):
+
+- Inicio enlaza cada marca con su catálogo; el menú Servicios también ofrece acceso.
+- 16 referencias con imágenes de productos, modelo/gama, capacidad, ficha y botón de consulta. Deye: inversor SG06 y baterías de 16 y 5,12 kWh nominales. Otras marcas muestran sus gamas reales sin atribuir equivalencias ni compatibilidades por asociación.
+- Paneles: Jinko Solar, JA Solar, LONGi, Trina Solar, Canadian Solar y Astronergy (añadida por el propietario).
+- Catálogo administrable: marca, tipo, orden, visibilidad y fotografía alternativa. Filtros por marca/tipo y consulta del modelo con datos precargados.
+- Verificación: 43 pruebas Django correctas, sintaxis JavaScript correcta y 22 páginas de prueba con enlaces/recursos locales comprobados. No hubo revisión visual en navegador: la infraestructura disponible no permite abrirlo.
+- La demostración conserva acceso privado y el envío desactivado. No se cambia el dominio de producción.

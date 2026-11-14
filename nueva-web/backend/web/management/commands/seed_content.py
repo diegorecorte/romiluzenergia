@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from django.core.management.base import BaseCommand
-from web.models import Service,FAQ,LegalText,HomeSection,HeroSlide,Review,SocialProfile,Article,Brand
+from web.models import Service,FAQ,LegalText,HomeSection,HeroSlide,Review,SocialProfile,Article,Brand,CatalogProduct
 class Command(BaseCommand):
     help='Carga contenido inicial sin sobrescribir ediciones del propietario. No crea usuarios, proyectos ni tarifas de ejemplo.'
     def handle(self,*args,**options):
@@ -38,4 +38,10 @@ class Command(BaseCommand):
             slug=row.pop('slug');Article.objects.get_or_create(slug=slug,defaults=row)
         for index,name in enumerate(['Deye','Growatt','Solis','Victron Energy','Sungrow']):
             Brand.objects.get_or_create(name=name,defaults={'order':index})
+        for index,name in enumerate(['Jinko Solar','JA Solar','LONGi','Trina Solar','Canadian Solar','Astronergy']):
+            Brand.objects.get_or_create(name=name,defaults={'order':index+5,'category':'panel'})
+        products=json.loads((Path(__file__).resolve().parents[2]/'initial_products.json').read_text())
+        for index,row in enumerate(products):
+            brand=Brand.objects.get(name=row.pop('brand'));slug=row.pop('slug')
+            CatalogProduct.objects.get_or_create(slug=slug,defaults={**row,'brand':brand,'order':index})
         self.stdout.write(self.style.SUCCESS('Contenido inicial cargado. Los textos legales siguen pendientes de revisión.'))
