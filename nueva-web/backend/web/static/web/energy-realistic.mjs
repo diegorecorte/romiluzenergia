@@ -26,6 +26,7 @@ if(root){
    const item=equipment[selectedEquipment];
    root.querySelector('#energy-equipment-reading').textContent=labels[item.reading];
   }
+  root.querySelectorAll('[data-equipment-grid-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.equipmentGridMode===mode)));
   root.querySelectorAll('[data-equipment-backup]').forEach(button=>button.setAttribute('aria-pressed',String((button.dataset.equipmentBackup==='true')===backup.checked)));
   for(const [key,value] of Object.entries(labels)){root.querySelector('#energy-'+key+'-status').textContent=value;root.querySelectorAll('[data-reading="'+key+'"]').forEach(pin=>{pin.textContent=value;});}
   const directions={
@@ -92,8 +93,22 @@ if(root){
   root.querySelector('#energy-equipment-contact').href=equipmentContact(selectedEquipment,root.dataset.contactUrl||'/contacto');
   root.querySelector('#energy-equipment-service').href=item.page+(root.dataset.staticPreview==='true'?'/':'');
   root.querySelector('#equipment-backup-actions').hidden=selectedEquipment!=='backup';
+  root.querySelector('#equipment-grid-actions').hidden=selectedEquipment!=='grid';
+  root.querySelector('#equipment-grid-note').textContent='';
   root.querySelector('[data-energy-mode="'+item.scenario+'"]').click();
   requestAnimationFrame(()=>panel.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+ }));
+ root.querySelectorAll('[data-equipment-grid-mode]').forEach(button=>button.addEventListener('click',()=>{
+  const next=button.dataset.equipmentGridMode;
+  if(next==='night'&&!custom){config={...defaults,batteryKWh:0};syncFields();}
+  root.querySelector('[data-energy-mode="'+next+'"]').click();
+  let note='';
+  if(next==='night'){
+   const rows=simulateDay(config,options()).rows;
+   if(rows[Number(hour.value)].gridImport<=.001){const best=rows.reduce((a,b)=>b.gridImport>a.gridImport?b:a,rows[21]);if(best.gridImport>.001)hour.value=best.hour;else note='Con tus parámetros, el modelo no necesita comprar energía durante este día. Las lecturas se mantienen calculadas.';}
+   if(!custom)note='Para mostrar la compra, este ejemplo usa una vivienda sin batería de noche. Puedes adaptar los equipos debajo.';
+  }
+  root.querySelector('#equipment-grid-note').textContent=note;render();
  }));
  root.querySelectorAll('[data-equipment-backup]').forEach(button=>button.addEventListener('click',()=>{
   backup.checked=button.dataset.equipmentBackup==='true';

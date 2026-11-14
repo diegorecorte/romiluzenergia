@@ -228,12 +228,12 @@ class WebsiteTests(TestCase):
 
     def test_house_equipment_points_are_available(self):
         response=self.client.get('/asi-funciona')
-        for key in ['solar','battery','car','backup']:
+        for key in ['solar','battery','car','backup','grid']:
             self.assertContains(response,'data-equipment="'+key+'"')
         self.assertContains(response,'id="energy-equipment-panel"')
         self.assertContains(response,'Quiero esto en mi instalación')
     def test_equipment_contact_preselects_valid_service_and_need(self):
-        for service,need in [('Solar, baterías y eólica','Nueva instalación solar'),('Solar, baterías y eólica','Batería'),('Electricidad y punto de recarga','Punto de recarga'),('Solar, baterías y eólica','Backup (autoconsumo)')]:
+        for service,need in [('Solar, baterías y eólica','Nueva instalación solar'),('Solar, baterías y eólica','Batería'),('Electricidad y punto de recarga','Punto de recarga'),('Solar, baterías y eólica','Backup (autoconsumo)'),('Ahorro en factura y tarifas','Revisar mi factura')]:
             response=self.client.get('/contacto',{'servicio':service,'necesidad':need})
             form=response.context['form']
             self.assertEqual(form.initial['servicio'],service)
