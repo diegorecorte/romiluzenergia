@@ -5,57 +5,72 @@ if(root){
  const hour=root.querySelector('#energy-hour');
  const backup=root.querySelector('#energy-backup');
  const form=root.querySelector('#energy-data');
- let mode='day',config={...defaults},loaded=false;
+ const surplus={...defaults,pvKW:6,batteryKWh:5,dailyKWh:8,carNeedKWh:0};
+ let mode='day',config={...defaults},loaded=false,custom=false;
  const f=new Intl.NumberFormat('es-ES',{maximumFractionDigits:2});
  const power=n=>f.format(n)+' kW';
+ const options=()=>({outage:mode==='outage',backup:backup.checked,zeroExport:mode==='zero'});
+ function syncFields(){for(const [key,value] of Object.entries(config))form.elements[key].value=value;}
  function render(){
-  const result=simulateDay(config,{outage:mode==='outage',backup:backup.checked});
+  const result=simulateDay(config,options());
   const r=result.rows[Number(hour.value)];
   const h=String(r.hour).padStart(2,'0');
   root.querySelector('#energy-hour-label').textContent=h+':00–'+String(r.hour+1).padStart(2,'0')+':00';
-  root.querySelector('#energy-photo').classList.toggle('is-night',r.hour<7||r.hour>=19);
-  root.querySelector('#energy-photo').classList.toggle('is-cut',r.cut);
+  photo.classList.toggle('is-night',r.hour<7||r.hour>=19);photo.classList.toggle('is-cut',r.cut);
+  backup.closest('label').hidden=mode!=='outage';
   for(const button of root.querySelectorAll('[data-energy-mode]'))button.setAttribute('aria-pressed',String(button.dataset.energyMode===mode));
-  const labels={solar:power(r.pv),home:power(r.home),battery:(r.charge>.001?'Carga '+power(r.charge):r.discharge>.001?'Entrega '+power(r.discharge):'En espera')+' · '+f.format(r.soc)+' %',car:power(r.car),grid:r.cut?'Sin suministro':r.gridImport>.001?'Compra '+power(r.gridImport):r.gridExport>.001?'Vierte '+power(r.gridExport):'Disponible'};
+  root.querySelector('#energy-scenario-context').textContent=(custom?'Tus parámetros del ejemplo: ':'Parámetros de este ejemplo: ')+f.format(config.pvKW)+' kWp solares · batería '+f.format(config.batteryKWh)+' kWh · casa '+f.format(config.dailyKWh)+' kWh/día · coche solicita '+f.format(config.carNeedKWh)+' kWh. '+(mode==='export'||mode==='zero'?'Puedes comparar ambos apartados con las mismas condiciones.':'Puedes adaptar los datos debajo.');
+  const labels={solar:power(r.pv),home:power(r.home),battery:(r.charge>.001?'Carga '+power(r.charge):r.discharge>.001?'Entrega '+power(r.discharge):'En espera')+' · '+f.format(r.soc)+' %',car:power(r.car),grid:r.cut?'Sin suministro':r.gridImport>.001?'Importando '+power(r.gridImport):r.gridExport>.001?'Exportando '+power(r.gridExport):mode==='zero'?'Sin vertido · 0 kW':'Sin intercambio · 0 kW'};
   for(const [key,value] of Object.entries(labels)){root.querySelector('#energy-'+key+'-status').textContent=value;const pin=root.querySelector('[data-reading="'+key+'"]');if(pin)pin.textContent=value;}
-  root.querySelector('#energy-total-solar').textContent=f.format(result.solarKWh)+' kWh';
-  root.querySelector('#energy-total-home').textContent=f.format(result.consumptionKWh)+' kWh';
-  root.querySelector('#energy-total-grid').textContent=f.format(result.gridImportKWh)+' kWh';
-  root.querySelector('#energy-total-export').textContent=f.format(result.gridExportKWh)+' kWh';
-  const active=[];const reverse=[];
-  if(r.pv>.001)active.push('solar');
-  if(r.home>.001)active.push('home');
-  if(r.charge+r.discharge>.001)active.push('battery');
-  if(r.discharge>.001)reverse.push('battery');
-  if(r.car>.001)active.push('car');
-  if(r.gridImport+r.gridExport>.001)active.push('grid');
-  if(r.gridImport>.001)reverse.push('grid');
-  root.querySelectorAll('[data-photo-flow]').forEach(path=>{const key=path.dataset.photoFlow;path.hidden=!active.includes(key);path.style.display=active.includes(key)?'':'none';path.classList.toggle('reverse',reverse.includes(key));});
-  const title=r.cut?(backup.checked?'Apagón: respaldo limitado a consumos críticos.':'Apagón: sin backup no hay suministro.'):(r.pv>.01?'El sol cubre parte o todo el consumo.':'Sin sol: batería y red según necesidad.');
-  const text=r.cut?'La batería solo entrega la energía disponible por encima de su reserva. En este ejemplo no se recarga el coche ni se utiliza generación solar durante el corte.':r.gridImport>.001?'En esta hora la generación y la descarga disponible de batería no cubren todo el consumo. La diferencia procede de la red.':r.charge>.001?'La generación atiende los consumos de esta hora y la energía sobrante carga la batería hasta sus límites.':r.gridExport>.001?'La energía que no utiliza la vivienda ni puede almacenar la batería se vierte a la red en este ejemplo.':r.discharge>.001?'La batería entrega energía almacenada. El coche solo carga dentro del horario configurado, si no hay corte.':'El reparto corresponde a las condiciones del ejemplo durante la hora seleccionada.';
-  root.querySelector('#energy-title').textContent=title;
-  root.querySelector('#energy-description').textContent=text;
-  const eventState={...labels,active,reverse,night:r.hour<7||r.hour>=19||r.cut,houseOn:r.home>.001};
-  root.dispatchEvent(new CustomEvent('energy:state',{detail:eventState}));
+  for(const [id,key] of [['solar','solarKWh'],['home','consumptionKWh'],['grid','gridImportKWh'],['export','gridExportKWh'],['curtailed','curtailedKWh']])root.querySelector('#energy-total-'+id).textContent=f.format(result[key])+' kWh';
+  const active=[],reverse=[];
+  if(r.pv>.001)active.push('solar');if(r.home>.001)active.push('home');
+  if(r.charge+r.discharge>.001)active.push('battery');if(r.discharge>.001)reverse.push('battery');
+  if(r.car>.001)active.push('car');if(r.gridImport+r.gridExport>.001)active.push('grid');if(r.gridImport>.001)reverse.push('grid');
+  root.querySelectorAll('[data-photo-flow]').forEach(path=>{const key=path.dataset.photoFlow;path.style.display=active.includes(key)?'':'none';path.classList.toggle('reverse',reverse.includes(key));});
+  let title,text;
+  if(r.cut){
+   title=!backup.checked?'Corte de red: sin backup no hay suministro.':r.home>.001?'Corte de red: la batería mantiene lo esencial.':'Corte de red: la batería no tiene energía disponible.';
+   text=!backup.checked?'La instalación se desconecta por seguridad. En este ejemplo no se alimenta la casa, no se carga el coche y no circula energía hacia la red.':r.home>.001?'El backup compatible alimenta los consumos críticos previstos con la batería disponible. El coche no carga y la vivienda permanece separada de la red.':'Aunque el backup esté habilitado, no puede alimentar cargas si la batería ha llegado a su reserva o no hay almacenamiento. La red sigue sin suministro.';
+  }else if(mode==='zero'){
+   title=r.curtailed>.001?'Inyección cero: se limita la producción.':'Inyección cero: sin energía vertida a la red.';
+   text=r.curtailed>.001?'Hay más generación posible de la que pueden aprovechar la casa, el coche y la batería. El control reduce la potencia del inversor para no exportar ese sobrante.':r.gridImport>.001?'Inyección cero impide el vertido; no convierte la vivienda en aislada. Si la producción y la batería no bastan, la casa puede importar energía de la red.':'Toda la producción de esta hora se aprovecha en consumos o almacenamiento. No hace falta reducirla. Si aparece un sobrante que no se pueda aprovechar, el sistema la limitará.';
+   text+=' Requiere medida y control de vertido compatibles y bien configurados; aquí se muestra un comportamiento horario idealizado.';
+  }else if(mode==='export'){
+   title=r.gridExport>.001?'Más producción que consumo: exportando a la red.':'En esta hora todavía no hay excedentes a la red.';
+   text=r.gridExport>.001?'Primero se atienden los consumos y se carga la batería dentro de sus límites. La energía sobrante se exporta a la red. La posible compensación depende del contrato y de los requisitos aplicables.':r.charge>.001?'El sobrante solar está cargando la batería. Solo se exportará lo que no se consuma ni se pueda almacenar. Puedes mover la hora para ver cómo cambia.':'Con estos datos, la generación disponible no deja un sobrante exportable en esta hora. Cambia la hora o adapta la producción y el consumo para explorar otro caso.';
+  }else{
+   title=r.pv>.01?'El sol alimenta los consumos y el almacenamiento.':'Sin sol: batería y red según necesidad.';
+   text=r.gridImport>.001?'La generación y la descarga disponible de batería no cubren todo el consumo. La diferencia se importa de la red.':r.gridExport>.001?'Se atienden los consumos y se carga la batería dentro de sus límites. El sobrante que no puede aprovecharse se exporta a la red.':r.charge>.001?'La generación atiende los consumos y la energía sobrante carga la batería hasta sus límites.':r.discharge>.001?'La batería entrega energía almacenada para atender los consumos. Al alcanzar la reserva, la red puede aportar lo que falte.':'No hay intercambio significativo en esta hora del ejemplo.';
+   if(mode==='outage')text+=' El corte está programado de 18:00 a 22:00; fuera de ese horario la red vuelve a estar disponible.';
+  }
+  root.querySelector('#energy-title').textContent=title;root.querySelector('#energy-description').textContent=text;
+  root.querySelector('#energy-zero-readings').hidden=mode!=='zero';
+  root.querySelector('#energy-potential-pv').textContent=power(r.availablePV);root.querySelector('#energy-used-pv').textContent=power(r.pv);
+  root.querySelector('#energy-curtailed-status').textContent=r.curtailed>.001?'Producción limitada en esta hora: '+power(r.curtailed)+'. No se genera ni se almacena esa parte del potencial solar.':'En esta hora no hace falta limitar producción solar.';
+  root.dispatchEvent(new CustomEvent('energy:state',{detail:{...labels,active,reverse,night:r.hour<7||r.hour>=19||r.cut,houseOn:r.home>.001}}));
  }
- root.querySelectorAll('[data-energy-mode]').forEach(button=>button.addEventListener('click',()=>{mode=button.dataset.energyMode;hour.value=mode==='night'?21:mode==='outage'?19:12;render();}));
- hour.addEventListener('input',()=>{if(mode!=='outage')mode=Number(hour.value)>=7&&Number(hour.value)<19?'day':'night';render();});backup.addEventListener('change',render);
+ root.querySelectorAll('[data-energy-mode]').forEach(button=>button.addEventListener('click',()=>{
+  mode=button.dataset.energyMode;
+  if(!custom){if(mode==='export'||mode==='zero')config={...surplus};else if(mode==='day')config={...defaults};syncFields();}
+  hour.value=mode==='night'?21:mode==='outage'?19:12;
+  if(mode==='export'||mode==='zero'){
+   const metric=mode==='export'?'gridExport':'curtailed';const rows=simulateDay(config,options()).rows;
+   // Preferir mediodía; si no muestra el fenómeno, buscar la hora con más excedente.
+   if(rows[12][metric]<=.001){const best=rows.reduce((a,b)=>b[metric]>a[metric]?b:a,rows[12]);if(best[metric]>.001)hour.value=best.hour;}
+  }
+  render();
+ }));
+ hour.addEventListener('input',()=>{if(mode==='day'||mode==='night')mode=Number(hour.value)>=7&&Number(hour.value)<19?'day':'night';render();});backup.addEventListener('change',render);
  form.addEventListener('submit',event=>{
-  event.preventDefault();
-  if(!form.reportValidity())return;
+  event.preventDefault();if(!form.reportValidity())return;
   const next={};for(const key of Object.keys(defaults))next[key]=Number(form.elements[key].value);
-  try{simulateDay(next);config=next;render();root.querySelector('#energy-data-status').textContent='Ejemplo recalculado. Los valores siguen siendo simulados, no mediciones reales.';}catch(error){root.querySelector('#energy-data-status').textContent=error.message;}
+  try{simulateDay(next);config=next;custom=true;render();root.querySelector('#energy-data-status').textContent='Ejemplo recalculado. Se mantendrán estos parámetros al cambiar de apartado. Son datos simulados, no mediciones reales.';}catch(error){root.querySelector('#energy-data-status').textContent=error.message;}
  });
- const photoPause=root.querySelector('#energy-photo-pause');
- let photoPaused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const photoPause=root.querySelector('#energy-photo-pause');let photoPaused=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function updatePause(){photo.classList.toggle('photo-paused',photoPaused);photoPause.setAttribute('aria-pressed',String(photoPaused));photoPause.textContent=photoPaused?'Reanudar recorridos':'Pausar recorridos';}
  photoPause.addEventListener('click',()=>{photoPaused=!photoPaused;updatePause();});updatePause();
  const explore=root.querySelector('#energy-explore-3d');
- explore.addEventListener('toggle',async()=>{
-  if(!explore.open||loaded)return;
-  loaded=true;
-  try{await import('./energy-3d.mjs');render();}catch(error){root.querySelector('#energy-loading').textContent='No se ha podido abrir la vista 3D. La vista realista y los cálculos siguen disponibles.';}
- });
- root.querySelector('#energy-calculation-disclosure').hidden=false;
- render();
+ explore.addEventListener('toggle',async()=>{if(!explore.open||loaded)return;loaded=true;try{await import('./energy-3d.mjs');render();}catch(error){root.querySelector('#energy-loading').textContent='No se ha podido abrir la vista 3D. La vista realista y los cálculos siguen disponibles.';}});
+ root.querySelector('#energy-calculation-disclosure').hidden=false;render();
 }

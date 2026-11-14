@@ -217,3 +217,11 @@ class WebsiteTests(TestCase):
         self.assertContains(response,'name="batteryKWh"')
         self.assertContains(response,'id="energy-hour"')
         self.assertContains(response,'No representa una obra de ROMILUZ')
+
+    def test_energy_export_zero_and_dashed_flow_controls(self):
+        response=self.client.get('/asi-funciona')
+        self.assertContains(response,'data-energy-mode="export"')
+        self.assertContains(response,'data-energy-mode="zero"')
+        self.assertContains(response,'Inyección cero')
+        self.assertContains(response,'id="energy-curtailed-status"')
+        self.assertNotContains(response,'photo-arrow')

@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-33 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+34 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -117,4 +117,15 @@ El panel `energy-model.mjs` calcula un día de ejemplo por horas, con parámetro
 
 Hipótesis visibles en la propia página: perfil solar idealizado de 07:00 a 19:00 con pico del 85 % de potencia nominal, límite AC de inversor de 5 kW, consumo doméstico distribuido por perfil horario sintético, batería inicial al 50 %, reserva del 20 %, límite de carga/descarga de 3,6 kW, carga de coche de 10:00 a 17:00 hasta completar su demanda, sin modelar pérdidas dinámicas, sombras, orientación o temperatura. El escenario de apagón desconecta la red de 18:00 a 22:00, no utiliza PV ni carga de coche y limita el respaldo a 0,35 kW de cargas críticas, sujeto a energía disponible. Las potencias mostradas son medias horarias, no potencia instantánea medida. La batería muestra su estado al final de cada hora. Los resúmenes de energía incluyen la variación de almacenamiento desde su carga inicial.
 
-Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 9 pruebas de lógica en Node, además de las 33 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
+Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 11 pruebas de lógica en Node, además de las 34 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
+
+
+## Apartados de funcionamiento, excedentes e inyección cero
+
+La experiencia ofrece cinco apartados: solar/batería/coche, excedentes a la red, inyección cero, noche y corte de red. Cada cambio actualiza las líneas discontinuas en movimiento, los estados de los equipos, el cálculo horario y una explicación breve situada junto a los controles. Las líneas no llevan puntas de flecha; la dirección se muestra por el movimiento, con pausa y respeto a movimiento reducido. La opción de backup se muestra al seleccionar corte de red.
+
+Para enseñar excedentes e inyección cero, el ejemplo predeterminado usa 6 kWp, batería de 5 kWh, casa de 8 kWh/día y coche sin demanda. Todos esos supuestos son visibles. Al mediodía la batería ya está llena; con vertido permitido el sobrante se exporta, y con inyección cero se reduce la generación por esa misma cantidad. Si el visitante recalcula sus propios parámetros del ejemplo, se conservan al cambiar de apartado: no se fuerzan excedentes ni lecturas ficticias.
+
+El modelo añade `availablePV` y `curtailed`: potencial disponible después del límite de inversor y producción reducida por control de vertido. Solo la producción efectivamente generada alimenta el balance energético. No se contabiliza como consumo, almacenamiento, vertido ni ahorro la parte que se limita. Se muestra producción posible frente a aprovechada y un resumen de generación limitada durante el día.
+
+Inyección cero no equivale a instalación aislada ni a corte de red: permite importar si falta energía. La interfaz indica la necesidad de medida y control compatibles y que no se modelan transitorios ni se garantiza un cero instantáneo real. Las pruebas cubren conservación horaria y diaria con/sin limitación, ausencia de exportación en inyección cero, limitación con batería llena y capacidad de importar cuando es necesario.
