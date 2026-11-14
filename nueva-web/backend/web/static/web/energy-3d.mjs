@@ -166,16 +166,22 @@ function initEnergy(root) {
   box(.36,.48,.16,white,-8.1,1.5,6.65);
   const flowColors=Object.fromEntries(['solar','home','battery','car','grid'].map(key=>[key,getComputedStyle(root).getPropertyValue('--energy-'+key).trim()||'#45a4ff']));
   const flowDefinitions={
-    solar:[[-1,4.35,-.25],[.15,3.65,1.48],[.15,2.52,1.48]],
-    home:[[-.2,2.1,1.53],[-1.3,2.1,1.53],[-2.6,1.8,1.53]],
-    battery:[[.4,1.9,1.56],[1.1,1.9,1.56],[1.3,1.7,1.56]],
-    car:[[.1,1.6,1.6],[2.8,.2,2.4],[4.45,.2,4.25],[4.45,1.32,4.44]],
-    grid:[[.1,1.6,1.6],[-.1,.18,3.8],[-5,.18,5.7],[-8.1,.18,6.5],[-8.1,1.1,6.7]]
+    solar:[[-1,4.35,-.25],[-1,4.35,1.48],[.15,4.35,1.48],[.15,2.52,1.48]],
+    home:[[-.2,2.1,1.53],[-2.6,2.1,1.53],[-2.6,1.8,1.53]],
+    battery:[[.4,1.9,1.56],[1.3,1.9,1.56],[1.3,1.7,1.56]],
+    car:[[.1,1.6,1.6],[2.8,1.6,1.6],[2.8,.2,1.6],[2.8,.2,4.44],[4.45,.2,4.44],[4.45,1.32,4.44]],
+    grid:[[.1,1.6,1.6],[-.1,1.6,1.6],[-.1,.18,1.6],[-.1,.18,5.7],[-8.1,.18,5.7],[-8.1,.18,6.7],[-8.1,1.1,6.7]]
   };
   const flows={};
   for(const [key,points] of Object.entries(flowDefinitions)){
     const group=new THREE.Group();scene.add(group);const mat=new THREE.MeshBasicMaterial({color:flowColors[key],transparent:true,opacity:.8,depthTest:false});
-    const curve=cable(points,mat,.022,group);const dots=[];
+    const curve=new THREE.CurvePath();
+    for(let i=1;i<points.length;i++){
+      const segment=new THREE.LineCurve3(new THREE.Vector3(...points[i-1]),new THREE.Vector3(...points[i]));
+      curve.add(segment);
+      group.add(new THREE.Mesh(new THREE.TubeGeometry(segment,1,.022,8,false),mat));
+    }
+    const dots=[];
     for(let i=0;i<5;i++){const dot=new THREE.Mesh(new THREE.SphereGeometry(.065,8,8),new THREE.MeshBasicMaterial({color:flowColors[key],depthTest:false}));dot.renderOrder=6;group.add(dot);dots.push(dot);}
     group.renderOrder=5;flows[key]={group,curve,dots};
   }

@@ -132,3 +132,5 @@ Inyección cero no equivale a instalación aislada ni a corte de red: permite im
 
 
 Los recorridos usan colores por equipo: placas naranja, red azul, vivienda verde, coche violeta y batería turquesa. La leyenda y las marcas de las lecturas conservan esa correspondencia en todas las situaciones. La escena 3D obtiene los mismos colores de las variables CSS de la vista principal. Los nombres y estados siguen visibles para que la explicación no dependa solo del color.
+
+Los recorridos de energía de la imagen usan únicamente tramos horizontales y verticales con esquinas de 90°. La escena 3D usa polilíneas con tramos alineados a los ejes del espacio y partículas que siguen esos mismos tramos, sin interpolación curva.

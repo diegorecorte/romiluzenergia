@@ -32,3 +32,5 @@
 .photo-flow[data-photo-flow]{color:var(--channel);stroke-width:3.5;filter:drop-shadow(0 0 2px #102632) drop-shadow(0 1px 3px #102632)}
 .energy-reading[data-energy-channel]{border-left:4px solid var(--channel)}.energy-components>[data-energy-channel]{border-left-color:var(--channel)}
 @media(max-width:500px){.energy-legend{gap:9px 16px}.energy-legend li{font-size:12px}.energy-color-key{width:21px}.photo-flow[data-photo-flow]{stroke-width:4.5}}
+
+.photo-flow[data-photo-flow]{stroke-linejoin:miter;stroke-miterlimit:4}

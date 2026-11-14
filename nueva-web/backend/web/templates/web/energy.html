@@ -15,11 +15,11 @@
     <img src="{% static 'assets/vivienda-realista.png' %}" alt="Imagen ilustrativa generada de una vivienda mediterránea con paneles, batería mural y coche eléctrico conectado por cable.">
     <span class="energy-image-credit">Imagen ilustrativa generada</span>
     <button type="button" class="photo-pause" id="energy-photo-pause" aria-pressed="false">Pausar recorridos</button>
-    <svg class="photo-flows" viewBox="0 0 1000 563" preserveAspectRatio="none" aria-hidden="true">    <path class="photo-flow" data-photo-flow="solar" d="M740 190 630 230 553 285"/>
-    <path class="photo-flow" data-photo-flow="home" d="M542 289 468 289 424 295"/>
-    <path class="photo-flow" data-photo-flow="battery" d="M561 302 578 317 594 317"/>
-    <path class="photo-flow" data-photo-flow="car" d="M559 298 642 325 669 386 740 418"/>
-    <path class="photo-flow" data-photo-flow="grid" d="M547 304 510 420 340 485 170 505"/>
+    <svg class="photo-flows" viewBox="0 0 1000 563" preserveAspectRatio="none" aria-hidden="true">    <path class="photo-flow" data-photo-flow="solar" d="M740 190 V235 H553 V285"/>
+    <path class="photo-flow" data-photo-flow="home" d="M542 289 H480 V295 H424"/>
+    <path class="photo-flow" data-photo-flow="battery" d="M561 302 H579 V317 H594"/>
+    <path class="photo-flow" data-photo-flow="car" d="M559 298 H800 V418 H740"/>
+    <path class="photo-flow" data-photo-flow="grid" d="M547 304 H470 V452 H300 V505 H170"/>
     </svg>
     <div class="energy-reading reading-solar" data-energy-channel="solar"><span>Placas solares</span><strong data-reading="solar">Cargando datos…</strong></div>
     <div class="energy-reading reading-house" data-energy-channel="home"><span>Vivienda</span><strong data-reading="home">Cargando datos…</strong></div>
@@ -27,7 +27,7 @@
     <div class="energy-reading reading-car" data-energy-channel="car"><span>Coche eléctrico</span><strong data-reading="car">Cargando datos…</strong></div>
     <div class="energy-reading reading-grid" data-energy-channel="grid"><span>Red eléctrica</span><strong data-reading="grid">Cargando datos…</strong></div>
   </div>
-  <p class="note energy-flow-caption">Las líneas discontinuas se mueven en el sentido de la energía y solo aparecen donde hay intercambio.</p>
+  <p class="note energy-flow-caption">Los recorridos rectos con giros de 90° se mueven en el sentido de la energía y solo aparecen donde hay intercambio.</p>
   <label class="energy-hour-control" for="energy-hour">Hora del ejemplo: <strong id="energy-hour-label">12:00–13:00</strong><input type="range" min="0" max="23" value="12" step="1" id="energy-hour"><span>00:00 <span>23:00</span></span></label>
   <details class="energy-data-details"><summary>Adaptar los datos de la vivienda</summary><form id="energy-data"><label>Potencia de placas (kWp)<input name="pvKW" type="number" min="0.5" max="20" step="0.1" value="4.4" required></label><label>Batería (kWh)<input name="batteryKWh" type="number" min="0" max="40" step="0.1" value="10" required></label><label>Consumo diario de la casa (kWh), sin coche<input name="dailyKWh" type="number" min="2" max="80" step="0.1" value="14" required></label><label>Potencia durante la carga del coche (kW)<input name="carKW" type="number" min="1.4" max="11" step="0.1" value="2.3" required></label><label>Energía que necesita el coche ese día (kWh)<input name="carNeedKWh" type="number" min="0" max="60" step="0.1" value="8" required></label><div><button class="button" type="submit">Recalcular ejemplo</button><p class="note" id="energy-data-status" role="status">Valores de partida ilustrativos. Puedes sustituirlos por las características de tu vivienda; el resultado seguirá siendo una simulación.</p></div></form></details>
   <details class="energy-3d-details" id="energy-explore-3d"><summary>También puedes explorar el modelo 3D</summary><p class="note">El modelo 3D anterior es una representación geométrica distinta de la imagen ilustrativa. Ambos explican los mismos escenarios; no representan una vivienda real monitorizada.</p>
