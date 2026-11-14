@@ -56,7 +56,10 @@ def contact(request,invoice=False):
     ready=settings.PRIVACY_READY and bool(policy)
     initial={}
     if invoice:initial={'servicio':'Ahorro en factura y tarifas','necesidad':'Revisar mi factura'}
-    elif request.GET.get('servicio') in GROUPS:initial['servicio']=request.GET['servicio']
+    elif request.GET.get('servicio') in GROUPS:
+        initial['servicio']=request.GET['servicio']
+        if request.GET.get('necesidad') in GROUPS[initial['servicio']]:
+            initial['necesidad']=request.GET['necesidad']
     form=ContactForm(request.POST if request.method=='POST' else None,request.FILES if request.method=='POST' else None,initial=initial)
     status=200
     blocked_error=""

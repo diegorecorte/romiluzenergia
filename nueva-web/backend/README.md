@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-34 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+36 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -117,7 +117,7 @@ El panel `energy-model.mjs` calcula un día de ejemplo por horas, con parámetro
 
 Hipótesis visibles en la propia página: perfil solar idealizado de 07:00 a 19:00 con pico del 85 % de potencia nominal, límite AC de inversor de 5 kW, consumo doméstico distribuido por perfil horario sintético, batería inicial al 50 %, reserva del 20 %, límite de carga/descarga de 3,6 kW, carga de coche de 10:00 a 17:00 hasta completar su demanda, sin modelar pérdidas dinámicas, sombras, orientación o temperatura. El escenario de apagón desconecta la red de 18:00 a 22:00, no utiliza PV ni carga de coche y limita el respaldo a 0,35 kW de cargas críticas, sujeto a energía disponible. Las potencias mostradas son medias horarias, no potencia instantánea medida. La batería muestra su estado al final de cada hora. Los resúmenes de energía incluyen la variación de almacenamiento desde su carga inicial.
 
-Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 11 pruebas de lógica en Node, además de las 34 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
+Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 11 pruebas de lógica en Node, además de las 36 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
 
 
 ## Apartados de funcionamiento, excedentes e inyección cero
@@ -136,3 +136,10 @@ Los recorridos usan colores por equipo: placas naranja, red azul, vivienda verde
 Los recorridos de energía de la imagen usan únicamente tramos horizontales y verticales con esquinas de 90°. La escena 3D usa polilíneas con tramos alineados a los ejes del espacio y partículas que siguen esos mismos tramos, sin interpolación curva.
 
 Las cinco lecturas y sus direcciones se integran en el panel de la imagen y permanecen visibles en móvil. La escena 3D opcional también muestra sus propios indicadores superpuestos. Las flechas se actualizan en el inicio o final de cada tramo según carga/descarga e importación/exportación; se retiran cuando no existe intercambio.
+
+
+## Equipos pulsables en la vivienda
+
+La imagen de `/asi-funciona` incorpora cuatro botones accesibles para placas, batería, coche y cuadro/backup. La selección muestra una ficha con explicación breve, lectura del ejemplo y enlaces al servicio y a contacto. Placas y coche activan el escenario solar; batería muestra noche; cuadro activa corte de red y permite comparar con/sin backup. Los recorridos correspondientes se resaltan y las lecturas se actualizan al cambiar la hora o los parámetros. Los puntos representan elementos del ejemplo, no identificaciones técnicas de equipos comerciales.
+
+El enlace «Quiero esto en mi instalación» lleva `servicio` y `necesidad` en la URL. El servidor solo acepta la combinación si figura en los selectores válidos, y no permite alterar el propósito del formulario de factura. La demostración estática aplica la misma selección al abrir el enlace y mantiene deshabilitado el envío de solicitudes. Las selecciones no envían datos por sí solas.

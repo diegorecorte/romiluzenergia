@@ -225,3 +225,20 @@ class WebsiteTests(TestCase):
         self.assertContains(response,'Inyección cero')
         self.assertContains(response,'id="energy-curtailed-status"')
         self.assertNotContains(response,'photo-arrow')
+
+    def test_house_equipment_points_are_available(self):
+        response=self.client.get('/asi-funciona')
+        for key in ['solar','battery','car','backup']:
+            self.assertContains(response,'data-equipment="'+key+'"')
+        self.assertContains(response,'id="energy-equipment-panel"')
+        self.assertContains(response,'Quiero esto en mi instalación')
+    def test_equipment_contact_preselects_valid_service_and_need(self):
+        for service,need in [('Solar, baterías y eólica','Nueva instalación solar'),('Solar, baterías y eólica','Batería'),('Electricidad y punto de recarga','Punto de recarga'),('Solar, baterías y eólica','Backup (autoconsumo)')]:
+            response=self.client.get('/contacto',{'servicio':service,'necesidad':need})
+            form=response.context['form']
+            self.assertEqual(form.initial['servicio'],service)
+            self.assertEqual(form.initial['necesidad'],need)
+        response=self.client.get('/contacto',{'servicio':'Solar, baterías y eólica','necesidad':'Punto de recarga'})
+        self.assertNotIn('necesidad',response.context['form'].initial)
+        response=self.client.get('/compara-tu-factura',{'servicio':'Solar, baterías y eólica','necesidad':'Batería'})
+        self.assertEqual(response.context['form'].initial['necesidad'],'Revisar mi factura')
