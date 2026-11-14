@@ -21,13 +21,26 @@ if(root){
   for(const button of root.querySelectorAll('[data-energy-mode]'))button.setAttribute('aria-pressed',String(button.dataset.energyMode===mode));
   root.querySelector('#energy-scenario-context').textContent=(custom?'Tus parámetros del ejemplo: ':'Parámetros de este ejemplo: ')+f.format(config.pvKW)+' kWp solares · batería '+f.format(config.batteryKWh)+' kWh · casa '+f.format(config.dailyKWh)+' kWh/día · coche solicita '+f.format(config.carNeedKWh)+' kWh. '+(mode==='export'||mode==='zero'?'Puedes comparar ambos apartados con las mismas condiciones.':'Puedes adaptar los datos debajo.');
   const labels={solar:power(r.pv),home:power(r.home),battery:(r.charge>.001?'Carga '+power(r.charge):r.discharge>.001?'Entrega '+power(r.discharge):'En espera')+' · '+f.format(r.soc)+' %',car:power(r.car),grid:r.cut?'Sin suministro':r.gridImport>.001?'Importando '+power(r.gridImport):r.gridExport>.001?'Exportando '+power(r.gridExport):mode==='zero'?'Sin vertido · 0 kW':'Sin intercambio · 0 kW'};
-  for(const [key,value] of Object.entries(labels)){root.querySelector('#energy-'+key+'-status').textContent=value;const pin=root.querySelector('[data-reading="'+key+'"]');if(pin)pin.textContent=value;}
+  for(const [key,value] of Object.entries(labels)){root.querySelector('#energy-'+key+'-status').textContent=value;root.querySelectorAll('[data-reading="'+key+'"]').forEach(pin=>{pin.textContent=value;});}
+  const directions={
+   solar:r.pv>.001?'Placas → inversor':'Sin producción',
+   home:r.home>.001?'Sistema → vivienda':'Sin suministro',
+   battery:r.charge>.001?'Sistema → batería':r.discharge>.001?'Batería → sistema':'Sin intercambio',
+   car:r.car>.001?'Sistema → coche':'Sin carga',
+   grid:r.cut?'Red desconectada':r.gridImport>.001?'Red → vivienda':r.gridExport>.001?'Vivienda → red':mode==='zero'?'Vertido bloqueado':'Sin intercambio'
+  };
+  for(const [key,direction] of Object.entries(directions))root.querySelectorAll('[data-flow-direction="'+key+'"]').forEach(label=>{label.textContent=direction;});
   for(const [id,key] of [['solar','solarKWh'],['home','consumptionKWh'],['grid','gridImportKWh'],['export','gridExportKWh'],['curtailed','curtailedKWh']])root.querySelector('#energy-total-'+id).textContent=f.format(result[key])+' kWh';
   const active=[],reverse=[];
   if(r.pv>.001)active.push('solar');if(r.home>.001)active.push('home');
   if(r.charge+r.discharge>.001)active.push('battery');if(r.discharge>.001)reverse.push('battery');
   if(r.car>.001)active.push('car');if(r.gridImport+r.gridExport>.001)active.push('grid');if(r.gridImport>.001)reverse.push('grid');
-  root.querySelectorAll('[data-photo-flow]').forEach(path=>{const key=path.dataset.photoFlow;path.style.display=active.includes(key)?'':'none';path.classList.toggle('reverse',reverse.includes(key));});
+  root.querySelectorAll('[data-photo-flow]').forEach(path=>{
+   const key=path.dataset.photoFlow,enabled=active.includes(key),reversed=reverse.includes(key);
+   path.style.display=enabled?'':'none';path.classList.toggle('reverse',reversed);
+   path.removeAttribute('marker-start');path.removeAttribute('marker-end');
+   if(enabled)path.setAttribute(reversed?'marker-start':'marker-end','url(#energy-direction-'+key+')');
+  });
   let title,text;
   if(r.cut){
    title=!backup.checked?'Corte de red: sin backup no hay suministro.':r.home>.001?'Corte de red: la batería mantiene lo esencial.':'Corte de red: la batería no tiene energía disponible.';

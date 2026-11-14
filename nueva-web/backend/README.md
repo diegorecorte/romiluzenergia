@@ -122,7 +122,7 @@ Se verifica conservación de energía por hora y por día, límites de batería 
 
 ## Apartados de funcionamiento, excedentes e inyección cero
 
-La experiencia ofrece cinco apartados: solar/batería/coche, excedentes a la red, inyección cero, noche y corte de red. Cada cambio actualiza las líneas discontinuas en movimiento, los estados de los equipos, el cálculo horario y una explicación breve situada junto a los controles. Las líneas no llevan puntas de flecha; la dirección se muestra por el movimiento, con pausa y respeto a movimiento reducido. La opción de backup se muestra al seleccionar corte de red.
+La experiencia ofrece cinco apartados: solar/batería/coche, excedentes a la red, inyección cero, noche y corte de red. Cada cambio actualiza las líneas discontinuas en movimiento, los estados de los equipos, el cálculo horario y una explicación breve situada junto a los controles. Las líneas discontinuas incluyen una flecha en el extremo correspondiente al sentido del flujo; se conserva la pausa y el respeto a movimiento reducido. La opción de backup se muestra al seleccionar corte de red.
 
 Para enseñar excedentes e inyección cero, el ejemplo predeterminado usa 6 kWp, batería de 5 kWh, casa de 8 kWh/día y coche sin demanda. Todos esos supuestos son visibles. Al mediodía la batería ya está llena; con vertido permitido el sobrante se exporta, y con inyección cero se reduce la generación por esa misma cantidad. Si el visitante recalcula sus propios parámetros del ejemplo, se conservan al cambiar de apartado: no se fuerzan excedentes ni lecturas ficticias.
 
@@ -134,3 +134,5 @@ Inyección cero no equivale a instalación aislada ni a corte de red: permite im
 Los recorridos usan colores por equipo: placas naranja, red azul, vivienda verde, coche violeta y batería turquesa. La leyenda y las marcas de las lecturas conservan esa correspondencia en todas las situaciones. La escena 3D obtiene los mismos colores de las variables CSS de la vista principal. Los nombres y estados siguen visibles para que la explicación no dependa solo del color.
 
 Los recorridos de energía de la imagen usan únicamente tramos horizontales y verticales con esquinas de 90°. La escena 3D usa polilíneas con tramos alineados a los ejes del espacio y partículas que siguen esos mismos tramos, sin interpolación curva.
+
+Las cinco lecturas y sus direcciones se integran en el panel de la imagen y permanecen visibles en móvil. La escena 3D opcional también muestra sus propios indicadores superpuestos. Las flechas se actualizan en el inicio o final de cada tramo según carga/descarga e importación/exportación; se retiran cuando no existe intercambio.
