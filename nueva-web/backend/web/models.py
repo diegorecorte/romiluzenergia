@@ -196,3 +196,11 @@ class SocialProfile(models.Model):
         domains={'instagram':['instagram.com','www.instagram.com'],'facebook':['facebook.com','www.facebook.com'],'linkedin':['linkedin.com','www.linkedin.com'],'google':['google.com','www.google.com','maps.google.com','g.page','maps.app.goo.gl']}
         if self.url and (urlparse(self.url).scheme!='https' or urlparse(self.url).hostname not in domains[self.network]):raise ValidationError({'url':'Introduce un enlace HTTPS del perfil en la red elegida.'})
     def __str__(self):return self.get_network_display()
+
+class Brand(models.Model):
+    name = models.CharField('Marca',max_length=100,unique=True)
+    url = models.URLField('Web oficial (opcional)',blank=True)
+    order = models.PositiveIntegerField('Orden',default=0)
+    visible = models.BooleanField('Mostrar en la web',default=True)
+    class Meta: ordering=['order','name'];verbose_name='Marca';verbose_name_plural='Marcas con las que trabajamos'
+    def __str__(self):return self.name

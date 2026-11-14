@@ -65,3 +65,8 @@ from .models import SocialProfile
 @admin.register(SocialProfile)
 class SocialProfileAdmin(admin.ModelAdmin):
     list_display=['network','url','visible'];list_editable=['url','visible']
+
+from .models import Brand
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display=['name','order','visible'];list_editable=['order','visible'];search_fields=['name']

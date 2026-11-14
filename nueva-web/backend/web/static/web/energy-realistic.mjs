@@ -125,5 +125,8 @@ if(root){
  photoPause.addEventListener('click',()=>{photoPaused=!photoPaused;updatePause();});updatePause();
  const explore=root.querySelector('#energy-explore-3d');
  explore.addEventListener('toggle',async()=>{if(!explore.open||loaded)return;loaded=true;try{await import('./energy-3d.mjs');render();}catch(error){root.querySelector('#energy-loading').textContent='No se ha podido abrir la vista 3D. La vista realista y los cálculos siguen disponibles.';}});
- root.querySelector('#energy-calculation-disclosure').hidden=false;render();
+ root.querySelector('#energy-calculation-disclosure').hidden=false;
+ const requestedEquipment=new URLSearchParams(location.search).get('equipo');
+ if(requestedEquipment&&Object.hasOwn(equipment,requestedEquipment))root.querySelector('[data-equipment="'+requestedEquipment+'"]').click();
+ else render();
 }

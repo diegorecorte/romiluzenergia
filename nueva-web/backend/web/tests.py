@@ -242,3 +242,17 @@ class WebsiteTests(TestCase):
         self.assertNotIn('necesidad',response.context['form'].initial)
         response=self.client.get('/compara-tu-factura',{'servicio':'Solar, baterías y eólica','necesidad':'Batería'})
         self.assertEqual(response.context['form'].initial['necesidad'],'Revisar mi factura')
+
+    def test_home_places_interactive_house_after_services_and_shows_editable_brands(self):
+        from .models import Brand
+        response=self.client.get('/')
+        text=response.content.decode()
+        self.assertLess(text.index('id="servicios"'),text.index('id="explora-tu-instalacion"'))
+        self.assertLess(text.index('id="explora-tu-instalacion"'),text.index('id="brands-title"'))
+        for name in ['Deye','Growatt','Solis','Victron Energy','Sungrow']:self.assertContains(response,name)
+        Brand.objects.filter(name='Sungrow').update(visible=False)
+        self.assertNotContains(self.client.get('/'),'Sungrow')
+    def test_service_entries_open_the_corresponding_house_equipment(self):
+        for slug,equipment in [('autoconsumo-solar','solar'),('aisladas-baterias','battery'),('puntos-de-recarga','car')]:
+            response=self.client.get('/'+slug)
+            self.assertContains(response,'href="/asi-funciona?equipo='+equipment+'"')

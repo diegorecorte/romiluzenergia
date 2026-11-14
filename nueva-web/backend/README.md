@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-36 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+38 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -117,7 +117,7 @@ El panel `energy-model.mjs` calcula un día de ejemplo por horas, con parámetro
 
 Hipótesis visibles en la propia página: perfil solar idealizado de 07:00 a 19:00 con pico del 85 % de potencia nominal, límite AC de inversor de 5 kW, consumo doméstico distribuido por perfil horario sintético, batería inicial al 50 %, reserva del 20 %, límite de carga/descarga de 3,6 kW, carga de coche de 10:00 a 17:00 hasta completar su demanda, sin modelar pérdidas dinámicas, sombras, orientación o temperatura. El escenario de apagón desconecta la red de 18:00 a 22:00, no utiliza PV ni carga de coche y limita el respaldo a 0,35 kW de cargas críticas, sujeto a energía disponible. Las potencias mostradas son medias horarias, no potencia instantánea medida. La batería muestra su estado al final de cada hora. Los resúmenes de energía incluyen la variación de almacenamiento desde su carga inicial.
 
-Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 11 pruebas de lógica en Node, además de las 36 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
+Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 11 pruebas de lógica en Node, además de las 38 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.
 
 
 ## Apartados de funcionamiento, excedentes e inyección cero
@@ -145,3 +145,12 @@ La imagen de `/asi-funciona` incorpora cinco botones accesibles para placas, bat
 El enlace «Quiero esto en mi instalación» lleva `servicio` y `necesidad` en la URL. El servidor solo acepta la combinación si figura en los selectores válidos, y no permite alterar el propósito del formulario de factura. La demostración estática aplica la misma selección al abrir el enlace y mantiene deshabilitado el envío de solicitudes. Las selecciones no envían datos por sí solas.
 
 Los rótulos de la foto y los marcadores se han compactado manteniendo áreas de pulsación de 44 px. La red tiene ficha propia y controles de compra, excedentes e inyección cero. El caso de compra sin parámetros personalizados utiliza un ejemplo sin batería de noche y lo indica; con parámetros personalizados se conservan los datos y se busca una hora con compra, sin inventarla si el modelo no la necesita.
+
+
+## Inicio, accesos por servicio y marcas
+
+El acceso «Descubre cómo funciona tu instalación» está inmediatamente después de las cinco tarjetas de servicios de Inicio. La sección «Marcas con las que trabajamos» aparece a continuación, antes de financiación. La portada carga solo una imagen y un enlace; el modelo 3D se mantiene bajo demanda en la experiencia.
+
+Autoconsumo abre `/asi-funciona?equipo=solar`, Aisladas y baterías abre `equipo=battery` y Recarga abre `equipo=car`. Al cargar la página se selecciona el punto válido, se activa su escenario y se muestra su ficha. Los valores de URL no reconocidos se ignoran. En la página de aisladas se explica que la demostración corresponde a una vivienda conectada a red, para distinguir ambos diseños.
+
+El propietario ha indicado Deye, Growatt, Solis, Victron Energy y «Subgrow», interpretada como Sungrow. Los nombres se muestran como marcas con las que trabaja ROMILUZ; no se atribuye condición de distribuidor oficial, instalador certificado ni acuerdos comerciales específicos. Se usan nombres en texto, sin recrear logotipos. El panel «Marcas con las que trabajamos» permite añadir, editar, ordenar u ocultar marcas y, opcionalmente, enlazar su web oficial.
