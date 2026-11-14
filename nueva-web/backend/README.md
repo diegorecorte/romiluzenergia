@@ -129,3 +129,6 @@ Para enseñar excedentes e inyección cero, el ejemplo predeterminado usa 6 kWp,
 El modelo añade `availablePV` y `curtailed`: potencial disponible después del límite de inversor y producción reducida por control de vertido. Solo la producción efectivamente generada alimenta el balance energético. No se contabiliza como consumo, almacenamiento, vertido ni ahorro la parte que se limita. Se muestra producción posible frente a aprovechada y un resumen de generación limitada durante el día.
 
 Inyección cero no equivale a instalación aislada ni a corte de red: permite importar si falta energía. La interfaz indica la necesidad de medida y control compatibles y que no se modelan transitorios ni se garantiza un cero instantáneo real. Las pruebas cubren conservación horaria y diaria con/sin limitación, ausencia de exportación en inyección cero, limitación con batería llena y capacidad de importar cuando es necesario.
+
+
+Los recorridos usan colores por equipo: placas naranja, red azul, vivienda verde, coche violeta y batería turquesa. La leyenda y las marcas de las lecturas conservan esa correspondencia en todas las situaciones. La escena 3D obtiene los mismos colores de las variables CSS de la vista principal. Los nombres y estados siguen visibles para que la explicación no dependa solo del color.

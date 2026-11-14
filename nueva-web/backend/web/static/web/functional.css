@@ -20,3 +20,15 @@
 .energy-scenario-context{margin:0 0 14px;max-width:1100px}.energy-controls{align-items:flex-start}.energy-modes{gap:9px}.energy-modes .energy-mode{font-size:14px}.energy-zero-readings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 25px;padding:20px;background:#f1f6f3;border-radius:7px;margin:20px 0}.energy-zero-readings span{display:block;font-size:13px;color:#4a6576}.energy-zero-readings strong{font-size:24px;color:#054e83}.energy-zero-readings p{grid-column:1/-1;margin:0;font-size:14px}.energy-backup{padding:10px 0}@media(max-width:600px){.energy-zero-readings{grid-template-columns:1fr}.energy-mode{flex:1 1 auto}.energy-modes{width:100%}}
 
 .energy-experience>.energy-explanation{margin:14px 0 20px;max-width:1100px}.energy-experience>.energy-explanation h2{font-size:23px;margin-bottom:10px}.energy-experience>.energy-explanation p{font-size:15px;margin-bottom:0}.energy-flow-caption{margin:12px 0 0}
+
+/* Colores estables por equipo, compartidos por recorridos y leyenda. */
+.energy-experience{--energy-solar:#ffb020;--energy-grid:#45a4ff;--energy-home:#58d273;--energy-car:#c084fc;--energy-battery:#22d3c5}
+.energy-experience [data-energy-channel="solar"],.photo-flow[data-photo-flow="solar"]{--channel:var(--energy-solar)}
+.energy-experience [data-energy-channel="grid"],.photo-flow[data-photo-flow="grid"]{--channel:var(--energy-grid)}
+.energy-experience [data-energy-channel="home"],.photo-flow[data-photo-flow="home"]{--channel:var(--energy-home)}
+.energy-experience [data-energy-channel="car"],.photo-flow[data-photo-flow="car"]{--channel:var(--energy-car)}
+.energy-experience [data-energy-channel="battery"],.photo-flow[data-photo-flow="battery"]{--channel:var(--energy-battery)}
+.energy-legend{display:flex;flex-wrap:wrap;gap:12px 23px;padding:0;margin:15px 0 18px;list-style:none}.energy-legend li{display:flex;align-items:center;gap:9px;font-size:14px;color:#173346;font-weight:600}.energy-color-key{width:26px;height:5px;display:inline-block;flex-shrink:0;background:var(--channel);border-radius:3px}
+.photo-flow[data-photo-flow]{color:var(--channel);stroke-width:3.5;filter:drop-shadow(0 0 2px #102632) drop-shadow(0 1px 3px #102632)}
+.energy-reading[data-energy-channel]{border-left:4px solid var(--channel)}.energy-components>[data-energy-channel]{border-left-color:var(--channel)}
+@media(max-width:500px){.energy-legend{gap:9px 16px}.energy-legend li{font-size:12px}.energy-color-key{width:21px}.photo-flow[data-photo-flow]{stroke-width:4.5}}

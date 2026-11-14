@@ -164,7 +164,7 @@ function initEnergy(root) {
   // Acometida simplificada y punto de conexión a red.
   cylinder(.09,.12,3.7,wood,-8.1,1.85,6.5);box(.7,.08,.1,darkMetal,-8.1,3.65,6.5);
   box(.36,.48,.16,white,-8.1,1.5,6.65);
-  const flowColors={solar:0xe0a02b,home:0x2d9a64,battery:0x2d9a64,car:0x2d9a64,grid:0x367fbd};
+  const flowColors=Object.fromEntries(['solar','home','battery','car','grid'].map(key=>[key,getComputedStyle(root).getPropertyValue('--energy-'+key).trim()||'#45a4ff']));
   const flowDefinitions={
     solar:[[-1,4.35,-.25],[.15,3.65,1.48],[.15,2.52,1.48]],
     home:[[-.2,2.1,1.53],[-1.3,2.1,1.53],[-2.6,1.8,1.53]],
