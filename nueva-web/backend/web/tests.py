@@ -208,3 +208,12 @@ class WebsiteTests(TestCase):
         self.assertContains(response,'data-energy-mode="outage"')
         self.assertContains(response,'No representa una obra de ROMILUZ')
         self.assertContains(self.client.get('/'),'href="/asi-funciona"')
+
+    def test_energy_example_discloses_simulation_and_editable_parameters(self):
+        response=self.client.get('/asi-funciona')
+        self.assertContains(response,'DATOS SIMULADOS')
+        self.assertContains(response,'Imagen ilustrativa generada')
+        self.assertContains(response,'name="pvKW"')
+        self.assertContains(response,'name="batteryKWh"')
+        self.assertContains(response,'id="energy-hour"')
+        self.assertContains(response,'No representa una obra de ROMILUZ')

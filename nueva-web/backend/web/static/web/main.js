@@ -122,7 +122,7 @@ if (finance) {
   });
 }
 if (document.querySelector('#energy-experience')) {
-  import('./energy-3d.mjs').catch(() => {
+  import('./energy-realistic.mjs').catch(() => {
     const notice = document.querySelector('#energy-loading');
     if (notice) notice.textContent = 'No se ha podido cargar la vista 3D. Recarga la página o consulta la explicación del funcionamiento que aparece debajo.';
   });

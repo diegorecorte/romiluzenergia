@@ -24,12 +24,12 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | Acceso privado, roles y protección de archivos | Implementado con Django; faltan cuenta del propietario y alojamiento |
 | Copias de datos y fotos, exportación | Comando privado implementado; pendiente política de conservación y prueba de restauración final |
 | SEO, canónicas, sitemap, robots y redirecciones iniciales | Implementado; indexación bloqueada por defecto; falta inventario completo de URLs y Search Console |
-| Vista 3D de vivienda | Escena navegable en /asi-funciona con día, noche y apagón; modelo genérico, sin datos de una obra real. Pendiente revisión visual en navegador |
+| Experiencia de vivienda y energía | Vista fotográfica generada con ejemplo horario editable y modelo 3D opcional. Cálculos simulados, no lecturas reales. Pendiente revisión visual en navegador y datos de una vivienda concreta |
 | Tienda y sincronización de publicaciones sociales | Pendientes |
 | Dominio y publicación | Sin cambios, pendientes de solicitud cuando corresponda |
 
 ## Comprobaciones
 
-32 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
+33 pruebas de servidor, JavaScript válido, migraciones coherentes y recursos estáticos empaquetados. El correo usa un buzón de pruebas; los análisis de facturas se prueban con un escáner simulado o ausente. Ninguna factura de cliente se ha utilizado. No hay cuenta administrativa con contraseña predeterminada. No se ha arrancado un servidor público ni contratado infraestructura.
 
 La siguiente validación debe hacerse en el alojamiento elegido con el propietario: navegación visual y móvil, creación/edición desde panel, factura real de prueba privada, aviso SMTP, backup/restauración y flujo completo antes de DNS.

@@ -8,6 +8,7 @@ function initEnergy(root) {
   const stage = root.querySelector('#energy-stage');
   const loading = root.querySelector('#energy-loading');
   const fallback = root.querySelector('#energy-fallback');
+  const managed=!!root.querySelector('#energy-data');
   const modes = [...root.querySelectorAll('[data-energy-mode]')];
   const backup = root.querySelector('#energy-backup');
   const flowToggle = root.querySelector('#energy-flows');
@@ -17,17 +18,19 @@ function initEnergy(root) {
   let state = energyState(mode, backup.checked);
   let syncScene = () => {};
   function update() {
-    state = energyState(mode, backup.checked);
+    if(!managed)state = energyState(mode, backup.checked);
+    if(!managed){
     for (const part of ['solar','home','battery','car','grid']) root.querySelector('#energy-'+part+'-status').textContent = state[part];
     root.querySelector('#energy-title').textContent = state.title;
     root.querySelector('#energy-description').textContent = state.description;
     modes.forEach(button => button.setAttribute('aria-pressed',String(button.dataset.energyMode === mode)));
+    }
     pauseButton.setAttribute('aria-pressed',String(paused));
     pauseButton.textContent = paused ? 'Reanudar movimiento' : 'Pausar movimiento';
     syncScene();
   }
-  modes.forEach(button => button.addEventListener('click', () => {mode = button.dataset.energyMode;update();}));
-  backup.addEventListener('change',update);
+  if(!managed){modes.forEach(button => button.addEventListener('click', () => {mode = button.dataset.energyMode;update();}));backup.addEventListener('change',update);}
+  root.addEventListener('energy:state',event=>{state=event.detail;syncScene();});
   flowToggle.addEventListener('change',update);
   pauseButton.addEventListener('click',() => {paused = !paused;update();});
   update();

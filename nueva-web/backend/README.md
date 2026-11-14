@@ -71,7 +71,7 @@ DJANGO_DEBUG=1 python manage.py makemigrations --check --dry-run
 DJANGO_DEBUG=1 python manage.py test web
 ```
 
-32 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
+33 pruebas de servidor cubren rutas, persistencia, privacidad, validación dinámica, CSRF, límites, permisos de facturas, antivirus fallido/simulado, ocultación de borradores y fotos, programación de artículos, administración, correo de pruebas, redirecciones y cálculo financiero.
 
 Pendiente: QA visual en navegador/móvil, correo y antivirus reales, revisión de financiación, copia/restauración en el alojamiento final, pruebas de carga y revisión de seguridad previa al dominio.
 
@@ -107,3 +107,14 @@ El modelo es genérico y no corresponde a una obra, producto ni medición real d
 Three.js y OrbitControls 0.180.0 están guardados localmente en `web/static/web/vendor`, con licencia MIT. No se cargan recursos de terceros durante la visita. Hay pausa de movimiento, respeto a movimiento reducido, reducción de resolución en móvil y texto alternativo si WebGL no está disponible. Las explicaciones se conservan como contenido HTML.
 
 Comprobados: rutas, enlaces de la exportación, sintaxis de módulos, dependencias locales y estados de funcionamiento. Pendiente inspección visual y prueba WebGL en móvil/escritorio; el entorno no ofrece la herramienta de navegador.
+
+
+## Vista fotográfica y ejemplo energético editable
+
+La vista principal de `/asi-funciona` utiliza una imagen ilustrativa generada, sin atribuirla a una obra de ROMILUZ. El modelo geométrico navegable anterior se conserva como opción secundaria y se carga solo al abrirlo. No representan la misma vivienda ni se presentan como un gemelo digital. La imagen original queda en `assets/vivienda-realista.png`.
+
+El panel `energy-model.mjs` calcula un día de ejemplo por horas, con parámetros editables: 4,4 kWp solares, batería de 10 kWh, consumo doméstico de 14 kWh/día y coche con carga de hasta 2,3 kW que solicita 8 kWh. Son supuestos ilustrativos, no datos verificados de una casa. Los controles no se envían al servidor ni se guardan.
+
+Hipótesis visibles en la propia página: perfil solar idealizado de 07:00 a 19:00 con pico del 85 % de potencia nominal, límite AC de inversor de 5 kW, consumo doméstico distribuido por perfil horario sintético, batería inicial al 50 %, reserva del 20 %, límite de carga/descarga de 3,6 kW, carga de coche de 10:00 a 17:00 hasta completar su demanda, sin modelar pérdidas dinámicas, sombras, orientación o temperatura. El escenario de apagón desconecta la red de 18:00 a 22:00, no utiliza PV ni carga de coche y limita el respaldo a 0,35 kW de cargas críticas, sujeto a energía disponible. Las potencias mostradas son medias horarias, no potencia instantánea medida. La batería muestra su estado al final de cada hora. Los resúmenes de energía incluyen la variación de almacenamiento desde su carga inicial.
+
+Se verifica conservación de energía por hora y por día, límites de batería e inversor, demanda/horario del coche, respaldo y rechazo de entradas inválidas. Hay 9 pruebas de lógica en Node, además de las 33 pruebas Django. No se ha probado visualmente en navegador. Para datos reales falta una fuente autorizada de medidas y las características de la vivienda; introducir capacidades reales por sí solo no convierte la simulación en monitorización.

@@ -27,3 +27,5 @@ jobs:
       - run: node --check nueva-web/backend/web/static/web/main.js
       - run: node --check nueva-web/backend/web/static/web/energy-3d.mjs
       - run: node --test nueva-web/backend/tests/energy-state.test.mjs
+      - run: node --check nueva-web/backend/web/static/web/energy-realistic.mjs
+      - run: node --test nueva-web/backend/tests/energy-model.test.mjs
