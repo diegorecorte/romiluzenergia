@@ -19,7 +19,7 @@ if (hero) {
   let index = 0;
   let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let autoplayTimer;
-  const autoplayDelay = 30000;
+  const autoplayDelay = 20000;
   function show(next) {
     index = (next + slides.length) % slides.length;
     slides.forEach((slide, i) => { slide.hidden = i !== index; });
