@@ -343,3 +343,31 @@ class EquipmentCatalogTests(TestCase):
         response=self.client.get('/compara-tu-factura',{'producto':product.slug,'modalidad':'suministro'})
         self.assertEqual(response.context['form'].initial['servicio'],'Ahorro en factura y tarifas')
         self.assertNotIn('comentario',response.context['form'].initial)
+
+@override_settings(DEBUG=True,SECURE_SSL_REDIRECT=False)
+class FinanceReferenceTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):call_command('seed_content',verbosity=0)
+    def test_screenshot_reference_is_available_without_claiming_verified_costs(self):
+        for path in ['/financiacion','/ahorro-financiacion']:
+            response=self.client.get(path)
+            self.assertEqual(response.status_code,200)
+            config=response.context['finance_config']
+            self.assertEqual(config['annualRate'],8.95)
+            self.assertEqual(config['months'],[60,96,120,144,180,240,300])
+            self.assertFalse(config['feesConfirmed'])
+            self.assertIsNone(config['upfrontFee'])
+            self.assertIsNone(config['minAmount'])
+            self.assertIsNone(config['maxAmount'])
+            self.assertContains(response,'300 meses · 25 años')
+            self.assertContains(response,'No incluye comisiones, seguros')
+            self.assertContains(response,'id="finance-config"')
+        self.assertNotContains(self.client.get('/tarifas-comercializadoras'),'id="finance-form"')
+        self.assertEqual(self.client.get('/api/financiacion?importe=10000&plazo=60').status_code,503)
+    def test_verified_conditions_override_the_partial_reference(self):
+        FinanceTerms.objects.create(lender='Entidad verificada',source='https://example.test',annual_rate=6,upfront_fee=100,min_amount=1000,max_amount=20000,months='12,24',conditions='Condiciones documentadas',verified=True,updated=timezone.now().date())
+        response=self.client.get('/financiacion');config=response.context['finance_config']
+        self.assertTrue(config['feesConfirmed']);self.assertEqual(config['annualRate'],6)
+        self.assertEqual(config['months'],[12,24]);self.assertEqual(config['upfrontFee'],100)
+        self.assertEqual(config['minAmount'],1000);self.assertEqual(config['maxAmount'],20000)
+        self.assertContains(response,'Condiciones documentadas')

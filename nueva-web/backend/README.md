@@ -35,7 +35,7 @@ Abrir `http://127.0.0.1:8090/` y `http://127.0.0.1:8090/admin/`. El propietario 
 - Proyectos con categoría, municipio, descripción, equipos, fecha, orden, publicación/ocultación y varias fotos por ficha. Subirlas con las filas del panel; conversión a WebP, máximo 1920 px, eliminación de EXIF y ALT obligatorio. Solo se sirven fotos de proyectos publicados.
 - Blog con texto, enlaces, imagen de portada con ALT, categorías, borradores y publicación programada por fecha. No se publica nada ficticio. Aún no tiene editor visual avanzado.
 - Textos principales de portada, carrusel y reseñas editables en el panel; siguen existiendo algunos textos secundarios en plantillas.
-- Condiciones de financiación editables. Simulador solo con una ficha marcada como verificada: capital, plazos autorizados, TIN, comisión inicial fija pagada al inicio, cuota, total y TAE calculada. No modela otros productos financieros ni seguros; completar solo condiciones compatibles con esa fórmula. Revisar cuota y redondeo con la documentación de la entidad antes de activar.
+- Condiciones de financiación editables. El simulador puede usar una ficha marcada como verificada: capital, plazos autorizados, TIN, comisión inicial fija pagada al inicio, cuota, total y TAE calculada. No modela otros productos financieros ni seguros; completar solo condiciones compatibles con esa fórmula. Revisar cuota y redondeo con la documentación de la entidad antes de activar.
 - Políticas legales editables y marcadas como borrador; redirecciones 301 iniciales, sitemap, canónicas y bloqueo de indexación por defecto.
 
 ## Preparación de recepción real
@@ -182,3 +182,14 @@ Consulta del proveedor (15/11/2026): el dominio indicado `suministrodelsol.com` 
 
 
 El carrusel de Inicio avanza automáticamente cada 20 segundos y vuelve al comienzo tras la última diapositiva. Flechas, puntos y teclado reinician la espera completa de 20 segundos. Conserva Pausar/Reanudar, respeta movimiento reducido, detiene el temporizador al ocultar la pestaña y espera si el enlace de la diapositiva tiene el foco. El puntero encima de la imagen no impide el avance.
+
+
+## Calculadora de financiación a partir de la captura de Pontio
+
+La calculadora de `/financiacion` y `/ahorro-financiacion` usa el TIN **8,95 %** y los siete plazos aportados por ROMILUZ: **60, 96, 120, 144, 180, 240 y 300 meses** (5, 8, 10, 12, 15, 20 y 25 años). La referencia está en `web/finance_reference.json`; no se guarda la captura, el expediente ni los datos personales visibles al fondo. Pontio no se identifica como entidad prestamista ni se afirma una oferta aprobada o una integración con su portal.
+
+Importe y plazo actualizan la cuota localmente en el navegador, sin enviar ni almacenar esos valores. Se muestra capital, intereses y total, comparación de plazos, resumen por año y desglose mensual bajo demanda. La amortización calcula intereses y pagos en céntimos y ajusta la última cuota para cerrar el capital a cero. Los plazos de la captura tienen el mismo TIN; no se atribuyen productos ni límites adicionales.
+
+Comisiones, seguros, otros gastos y límites de importe no aparecen en la captura y se conservan como desconocidos (`null`). No se muestran como comisión cero ni se publica una TAE derivada de costes incompletos. La estimación indica expresamente lo que excluye y que queda sujeta a estudio, aprobación y condiciones finales. Si se carga una ficha `FinanceTerms` verificada, sustituye los datos parciales en el simulador e incorpora su comisión fija y límites. La TAE matemática de ese modo asume exclusivamente los costes indicados y no sustituye la documentación de la entidad. El endpoint anterior `/api/financiacion` conserva su requisito de condiciones verificadas; el ejemplo parcial funciona sin activarlo.
+
+Verificación de esta entrega: 48 pruebas Django y 19 pruebas JavaScript; cuotas, capital e intereses conservados al céntimo, saldo final cero, resumen anual, gastos desconocidos y condiciones verificadas. Interacción del formulario comprobada con un DOM simulado: actualización automática, siete plazos, cambio de selección y 300 mensualidades. Revisión visual en navegador pendiente por falta de infraestructura.

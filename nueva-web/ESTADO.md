@@ -17,7 +17,7 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | Blog con categorías, borradores, fecha programada y foto | Implementado; tres guías originales con secciones y enlaces a servicios. Sin editor visual avanzado |
 | Tarifas y comparativa manual | Formulario e información implementados; comparación la realiza ROMILUZ |
 | OCR y tres ofertas automáticas reales | Pendiente de datos, fuente vigente y autorización; no hay API confirmada |
-| Condiciones y simulador de financiación | Implementado, oculto sin condiciones verificadas; falta documentación real de entidad |
+| Condiciones y simulador de financiación | Calculadora orientativa con TIN y siete plazos de la captura aportada; comisiones, TAE, límites y condiciones finales pendientes. Puede sustituirse por una ficha completa verificada |
 | Legal y privacidad | Borradores editables; falta titular/NIF/domicilio profesional y revisión |
 | Redes sociales oficiales | Instagram y Facebook enlazados desde la referencia; LinkedIn pendiente de URL. Conexión automática de cuentas pendiente |
 | Reseñas | Instantánea inicial y panel; importador de API oficial Google implementado y probado con respuestas simuladas. Falta autorización real y actualización en alojamiento |
@@ -54,3 +54,11 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Dieciséis fichas individuales con imagen y opciones de consulta «Solo suministro» y «Con instalación ROMILUZ». La modalidad se conserva en el formulario sin admitir textos arbitrarios de URL.
 - Muestra «Compra online con entrega a domicilio» desactivada: pendiente de decidir modalidad comercial y confirmar acuerdo con proveedor. Sin pagos ni pedidos.
 - Verificación: 46 pruebas Django y 14 pruebas JavaScript correctas; 38 páginas estáticas con enlaces y recursos locales comprobados. Revisión visual en navegador pendiente por falta de infraestructura. Se mantiene la prueba privada y el dominio de producción intacto.
+
+
+15/11/2026 — Financiación con importe y desplegable de plazo:
+
+- TIN 8,95 % y opciones de 60/96/120/144/180/240/300 meses según la captura de ROMILUZ. Cuota automática y equivalencia en años, intereses y total estimado.
+- Comparación de los siete plazos, pagos anuales y cuadro de amortización mensual. Última cuota ajustada para cerrar el capital, sin comisiones desconocidas inventadas.
+- La captura no documenta comisiones, seguros, otros gastos ni límites: se mantiene una estimación parcial y no se presenta una TAE de oferta. Ninguna conexión al portal Pontio ni solicitudes de crédito.
+- 48 pruebas Django y 19 JavaScript correctas; interacción comprobada con DOM simulado y 38 páginas exportadas con enlaces/recursos locales comprobados. Revisión visual en navegador pendiente.

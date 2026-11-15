@@ -100,7 +100,13 @@ def private_invoice(request,pk):
     return response
 
 def savings(request,part='index'):
-    return render(request,'web/savings.html',{'title':{'index':'Ahorro y financiación','rates':'Tarifas y comercializadoras','finance':'Financiación'}[part],'part':part,'terms':FinanceTerms.objects.filter(verified=True).order_by('-updated').first()})
+    import json
+    terms=FinanceTerms.objects.filter(verified=True).order_by('-updated').first()
+    config=json.loads((Path(__file__).parent/'finance_reference.json').read_text())
+    if terms:
+        config={'annualRate':float(terms.annual_rate),'months':[int(x.strip()) for x in terms.months.split(',')],'upfrontFee':float(terms.upfront_fee),'minAmount':float(terms.min_amount),'maxAmount':float(terms.max_amount),'reference':terms.lender,'feesConfirmed':True,'reviewedOn':str(terms.updated)}
+    options=[{'months':m,'label':str(m)+' meses · '+str(m//12)+(' año' if m//12==1 else ' años')+(' y '+str(m%12)+' meses' if m%12 else '')} for m in config['months']]
+    return render(request,'web/savings.html',{'title':{'index':'Ahorro y financiación','rates':'Tarifas y comercializadoras','finance':'Financiación'}[part],'part':part,'terms':terms,'finance_config':config,'finance_options':options})
 
 @require_GET
 def finance_calculate(request):

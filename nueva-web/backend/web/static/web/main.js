@@ -113,24 +113,6 @@ if (leadForm) {
     window.open('https://wa.me/34617919944?text='+encodeURIComponent(message), '_blank', 'noopener,noreferrer');
   });
 }
-const finance = document.querySelector('#finance-form');
-if (finance) {
-  const months = finance.elements.plazo;
-  months.dataset.months.split(',').forEach(n => months.add(new Option(n.trim()+' meses', n.trim())));
-  finance.addEventListener('submit', async event => {
-    event.preventDefault();
-    const output = document.querySelector('#finance-result');
-    output.textContent = 'Calculando…';
-    try {
-      const query = new URLSearchParams({importe:finance.elements.importe.value,plazo:months.value});
-      const response = await fetch('/api/financiacion?'+query);
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error);
-      const euros = new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
-      output.textContent = `Cuota mensual: ${euros.format(data.monthly)}\nComisión inicial: ${euros.format(data.fee)}\nTotal pagadero: ${euros.format(data.total)}\nTIN: ${data.tin} %. TAE calculada: ${data.tae} %.\n${data.notice}`;
-    } catch(error) { output.textContent = error.message || 'No se ha podido calcular la cuota. Inténtalo más tarde.'; }
-  });
-}
 if (document.querySelector('#energy-experience')) {
   import('./energy-realistic.mjs').catch(() => {
     const notice = document.querySelector('#energy-loading');

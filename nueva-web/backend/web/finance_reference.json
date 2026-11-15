@@ -1,0 +1,10 @@
+{
+  "annualRate": 8.95,
+  "months": [60, 96, 120, 144, 180, 240, 300],
+  "upfrontFee": null,
+  "minAmount": null,
+  "maxAmount": null,
+  "reference": "Opciones mostradas en Pontio, según la captura aportada por ROMILUZ.",
+  "feesConfirmed": false,
+  "reviewedOn": "2026-11-15"
+}
