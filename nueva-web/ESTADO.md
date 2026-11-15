@@ -46,3 +46,11 @@ Actualización del catálogo de marcas (14/11/2026):
 
 
 Selección visual de marcas: los desplegables del catálogo se han sustituido por once tarjetas con logotipo y nombre. Pulsar una marca muestra sus equipos y lleva al bloque de resultados; el acceso «Todas las marcas» permite volver al conjunto. Los tipos también se eligen mediante botones. Inicio usa los mismos logotipos. Comprobados enlaces, archivos locales, filtrado por logotipo/tipo, selección activa, apertura con Ctrl y navegación Atrás; 43 pruebas Django correctas. Sigue pendiente la revisión visual en navegador por falta de esa infraestructura.
+
+
+15/11/2026 — Vivienda conectada con catálogo y muestra de suministro:
+
+- Nuevo punto «Inversor» y referencias por categoría al pulsar placas, inversor o batería. Cada bloque enlaza a las fichas y al catálogo filtrado. Las referencias comerciales no se usan para dimensionar ni modificar la simulación.
+- Dieciséis fichas individuales con imagen y opciones de consulta «Solo suministro» y «Con instalación ROMILUZ». La modalidad se conserva en el formulario sin admitir textos arbitrarios de URL.
+- Muestra «Compra online con entrega a domicilio» desactivada: pendiente de decidir modalidad comercial y confirmar acuerdo con proveedor. Sin pagos ni pedidos.
+- Verificación: 46 pruebas Django y 14 pruebas JavaScript correctas; 38 páginas estáticas con enlaces y recursos locales comprobados. Revisión visual en navegador pendiente por falta de infraestructura. Se mantiene la prueba privada y el dominio de producción intacto.

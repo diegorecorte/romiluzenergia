@@ -6,6 +6,7 @@ urlpatterns=[
  path('admin/',admin.site.urls),
  path('',views.homepage,name='home'),
  path('equipos',views.catalog,name='catalog'),
+ path('equipos/<slug:slug>',views.catalog_product,name='catalog-product'),
  path('asi-funciona',views.energy,name='energy'),
  path('contacto',views.contact,name='contact'),
  path('solicitud-registrada',views.success,name='contact-success'),

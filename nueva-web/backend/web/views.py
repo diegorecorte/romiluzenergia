@@ -63,7 +63,7 @@ def contact(request,invoice=False):
     if not invoice and request.GET.get('producto'):
         product=CatalogProduct.objects.filter(slug=request.GET['producto'],visible=True,brand__visible=True).first()
         if product:
-            initial.update(servicio='Solar, baterías y eólica',necesidad='Batería' if product.kind=='battery' else 'Nueva instalación solar',comentario=product.interest_text)
+            initial.update(servicio='Solar, baterías y eólica',necesidad='Batería' if product.kind=='battery' else 'Nueva instalación solar',comentario=product.enquiry_text(request.GET.get('modalidad','')))
     form=ContactForm(request.POST if request.method=='POST' else None,request.FILES if request.method=='POST' else None,initial=initial)
     status=200
     blocked_error=""
@@ -124,7 +124,7 @@ def robots(request):
 
 def sitemap(request):
     from xml.sax.saxutils import escape
-    paths=['/','/equipos','/asi-funciona','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
+    paths=['/','/equipos','/asi-funciona','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/equipos/'+p.slug for p in CatalogProduct.objects.filter(visible=True,brand__visible=True)]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
     xml='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+escape(settings.CANONICAL_ORIGIN+path)+'</loc></url>' for path in paths)+'</urlset>'
     return HttpResponse(xml,content_type='application/xml')
 
@@ -140,7 +140,11 @@ def content_image(request,kind,pk):
 
 @require_GET
 def energy(request):
-    return render(request,'web/energy.html',{'title':'Así funciona tu instalación solar'})
+    products=CatalogProduct.objects.select_related('brand').filter(visible=True,brand__visible=True)
+    groups=[]
+    for key,kind,title in [('solar','panel','Paneles solares'),('inverter','inverter','Inversores'),('battery','battery','Baterías')]:
+        groups.append({'key':key,'kind':kind,'title':title,'products':list(products.filter(kind=kind)[:3])})
+    return render(request,'web/energy.html',{'title':'Así funciona tu instalación solar','equipment_groups':groups})
 
 
 @require_GET
@@ -151,3 +155,9 @@ def catalog(request):
     if brand:products=products.filter(brand__name=brand)
     if kind:products=products.filter(kind=kind)
     return render(request,'web/catalog.html',{'title':'Inversores, baterías y paneles solares','products':products,'selected_brand':brand,'selected_kind':kind,'product_kinds':CatalogProduct._meta.get_field('kind').choices})
+
+
+@require_GET
+def catalog_product(request,slug):
+    product=get_object_or_404(CatalogProduct.objects.select_related('brand'),slug=slug,visible=True,brand__visible=True)
+    return render(request,'web/catalog_product.html',{'title':str(product),'product':product})

@@ -1,5 +1,5 @@
 import {simulateDay,defaults} from './energy-model.mjs';
-import {equipment,equipmentContact} from './energy-hotspots.mjs';
+import {equipment,equipmentContact,equipmentCatalog} from './energy-hotspots.mjs';
 const root=document.querySelector('#energy-experience');
 if(root){
  const photo=root.querySelector('#energy-photo');
@@ -24,7 +24,7 @@ if(root){
   const labels={solar:power(r.pv),home:power(r.home),battery:(r.charge>.001?'Carga '+power(r.charge):r.discharge>.001?'Entrega '+power(r.discharge):'En espera')+' · '+f.format(r.soc)+' %',car:power(r.car),grid:r.cut?'Sin suministro':r.gridImport>.001?'Importando '+power(r.gridImport):r.gridExport>.001?'Exportando '+power(r.gridExport):mode==='zero'?'Sin vertido · 0 kW':'Sin intercambio · 0 kW'};
   if(selectedEquipment){
    const item=equipment[selectedEquipment];
-   root.querySelector('#energy-equipment-reading').textContent=labels[item.reading];
+   root.querySelector('#energy-equipment-reading').textContent=selectedEquipment==='inverter'?'Producción solar: '+labels.solar:labels[item.reading];
   }
   root.querySelectorAll('[data-equipment-grid-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.equipmentGridMode===mode)));
   root.querySelectorAll('[data-equipment-backup]').forEach(button=>button.setAttribute('aria-pressed',String((button.dataset.equipmentBackup==='true')===backup.checked)));
@@ -44,7 +44,7 @@ if(root){
   if(r.car>.001)active.push('car');if(r.gridImport+r.gridExport>.001)active.push('grid');if(r.gridImport>.001)reverse.push('grid');
   root.querySelectorAll('[data-photo-flow]').forEach(path=>{
    const key=path.dataset.photoFlow,enabled=active.includes(key),reversed=reverse.includes(key);
-   path.classList.toggle('equipment-highlight',!!selectedEquipment&&(selectedEquipment==='backup'?['home','battery'].includes(key):key===selectedEquipment));
+   path.classList.toggle('equipment-highlight',!!selectedEquipment&&(selectedEquipment==='backup'?['home','battery'].includes(key):key===(equipment[selectedEquipment].channel||selectedEquipment)));
    path.style.display=enabled?'':'none';path.classList.toggle('reverse',reversed);
    path.removeAttribute('marker-start');path.removeAttribute('marker-end');
    if(enabled)path.setAttribute(reversed?'marker-start':'marker-end','url(#energy-direction-'+key+')');
@@ -87,11 +87,15 @@ if(root){
   const item=equipment[selectedEquipment];
   photo.dataset.selectedEquipment=selectedEquipment;
   root.querySelectorAll('[data-equipment]').forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
-  const panel=root.querySelector('#energy-equipment-panel');panel.hidden=false;panel.dataset.energyChannel=selectedEquipment==='backup'?'home':selectedEquipment;
+  const panel=root.querySelector('#energy-equipment-panel');panel.hidden=false;panel.dataset.energyChannel=item.channel||(selectedEquipment==='backup'?'home':selectedEquipment);
   root.querySelector('#energy-equipment-title').textContent=item.title;
   root.querySelector('#energy-equipment-description').textContent=item.description;
   root.querySelector('#energy-equipment-contact').href=equipmentContact(selectedEquipment,root.dataset.contactUrl||'/contacto');
   root.querySelector('#energy-equipment-service').href=item.page+(root.dataset.staticPreview==='true'?'/':'');
+  const catalogLink=root.querySelector('#energy-equipment-catalog');
+  const catalogUrl=equipmentCatalog(selectedEquipment,root.dataset.catalogUrl||'/equipos');
+  catalogLink.hidden=!catalogUrl;if(catalogUrl)catalogLink.href=catalogUrl;
+  root.querySelectorAll('[data-related-equipment]').forEach(group=>{group.hidden=group.dataset.relatedEquipment!==selectedEquipment;});
   root.querySelector('#equipment-backup-actions').hidden=selectedEquipment!=='backup';
   root.querySelector('#equipment-grid-actions').hidden=selectedEquipment!=='grid';
   root.querySelector('#equipment-grid-note').textContent='';

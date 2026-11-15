@@ -241,9 +241,19 @@ class CatalogProduct(models.Model):
         super().save(*args,**kwargs)
     @property
     def interest_text(self):return f'Me interesa {self.brand.name} {self.title} ({self.capacity}). Quisiera asesoramiento para mi instalación.'
-    @property
-    def contact_url(self):
+    def enquiry_text(self,mode=''):
+        suffix={'suministro':' Me interesa solo el suministro del equipo.','instalacion':' Quiero un estudio con instalación.'}.get(mode,'')
+        return self.interest_text+suffix
+    def enquiry_url(self,mode=''):
         from urllib.parse import urlencode
         from django.urls import reverse
-        return reverse('contact')+'?'+urlencode({'producto':self.slug,'servicio':'Solar, baterías y eólica','necesidad':'Batería' if self.kind=='battery' else 'Nueva instalación solar','comentario':self.interest_text})
+        params={'producto':self.slug,'servicio':'Solar, baterías y eólica','necesidad':'Batería' if self.kind=='battery' else 'Nueva instalación solar','comentario':self.enquiry_text(mode)}
+        if mode in ('suministro','instalacion'):params['modalidad']=mode
+        return reverse('contact')+'?'+urlencode(params)
+    @property
+    def contact_url(self):return self.enquiry_url()
+    @property
+    def supply_contact_url(self):return self.enquiry_url('suministro')
+    @property
+    def installation_contact_url(self):return self.enquiry_url('instalacion')
     def __str__(self):return f'{self.brand.name} · {self.title}'

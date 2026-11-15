@@ -168,3 +168,14 @@ Deye incluye un inversor de la gama SG06, SE-F16 Max/Max-H de 16 kWh y SE-G5.1 P
 
 
 La selección del catálogo utiliza tarjetas pulsables con el logotipo y el nombre de cada marca, sin desplegables. Los tipos se eligen con botones «Todos», «Inversores», «Baterías» y «Paneles solares». Los enlaces funcionan con GET en Django aunque JavaScript esté desactivado y llevan al bloque de productos; la prueba estática filtra en la misma página, marca la selección y conserva la navegación Atrás. En Inicio también aparecen los once logotipos. Los archivos originales y su procedencia están en `assets/brands/SOURCES.json`; se conservan los colores originales y los logotipos blancos se muestran sobre fondo azul. Las marcas añadidas sin logotipo conocido mantienen su nombre como acceso.
+
+
+## De la vivienda a la ficha de un equipo
+
+La vivienda incorpora un punto de inversor, además de placas, batería, recarga, cuadro y red. Las placas, el inversor y la batería muestran hasta tres referencias públicas de su categoría y enlazan al catálogo filtrado. La red, el cuadro y la recarga mantienen sus enlaces de asesoramiento sin inventar referencias comerciales. La selección del inversor muestra la producción solar del ejemplo, sin atribuirle una medición independiente. Las referencias no alteran las capacidades ni los cálculos de la simulación y no se presentan como equipos dimensionados para esa casa.
+
+Cada equipo visible tiene una ficha en `/equipos/<slug>` con imagen, modelo/gama, capacidad y dos caminos: «Solo suministro» y «Con instalación ROMILUZ». Ambos llevan a contacto con producto y modalidad precargados. El servidor reconstruye el texto usando el registro visible y admite únicamente `suministro` o `instalacion`; no altera el formulario de facturas. Las fichas de marcas o equipos ocultos responden 404 y no aparecen en el sitemap. La prueba estática exporta las 16 fichas y mantiene los formularios sin recepción.
+
+La zona «Compra online con entrega a domicilio» es una muestra de diseño con botón desactivado. No hay carrito, pagos, precios, tarifas de envío, envío de pedidos ni transmisión de datos a proveedores. No se ha configurado afiliación ni dropshipping.
+
+Consulta del proveedor (15/11/2026): el dominio indicado `suministrodelsol.com` no pudo abrirse. Se localizó la tienda «Suministros del Sol» en `https://suministrosdelsol.com/es/`. Su página `https://suministrosdelsol.com/es/content/6-descuentos-profesionales` anuncia tarifas y descuentos para profesionales, pero las páginas consultadas no confirman un programa de afiliación ni una API de dropshipping. No se afirma una colaboración con ROMILUZ ni se han contactado terceros. Una futura integración requiere confirmar el proveedor y el acuerdo: en afiliación el cliente compra al proveedor mediante un enlace autorizado; en dropshipping ROMILUZ vende y cobra, y el proveedor tramita el envío bajo las condiciones acordadas.

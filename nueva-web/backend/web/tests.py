@@ -307,3 +307,39 @@ class EquipmentCatalogTests(TestCase):
             with Image.open(path) as image:
                 self.assertGreaterEqual(min(image.size),200,product.slug)
             self.assertTrue(product.source_url.startswith('https://'))
+    def test_product_details_and_hidden_records(self):
+        from .models import CatalogProduct
+        product=CatalogProduct.objects.get(slug='deye-se-f16-max')
+        response=self.client.get('/equipos/'+product.slug)
+        self.assertEqual(response.status_code,200)
+        self.assertContains(response,product.capacity)
+        self.assertContains(response,'Solo suministro')
+        self.assertContains(response,'Con instalación ROMILUZ')
+        self.assertContains(response,'Compra online aún no disponible')
+        product.brand.visible=False;product.brand.save()
+        self.assertEqual(self.client.get('/equipos/'+product.slug).status_code,404)
+        product.brand.visible=True;product.brand.save();product.visible=False;product.save()
+        self.assertEqual(self.client.get('/equipos/'+product.slug).status_code,404)
+    def test_house_has_category_examples_without_hidden_products(self):
+        from .models import CatalogProduct
+        CatalogProduct.objects.filter(slug='deye-se-f16-max').update(visible=False)
+        response=self.client.get('/asi-funciona')
+        groups={group['key']:group for group in response.context['equipment_groups']}
+        self.assertEqual(set(groups),{'solar','inverter','battery'})
+        for key,kind in [('solar','panel'),('inverter','inverter'),('battery','battery')]:
+            self.assertTrue(groups[key]['products'])
+            self.assertTrue(all(p.kind==kind and p.visible and p.brand.visible for p in groups[key]['products']))
+        self.assertNotContains(response,'SE-F16 Max / Max-H')
+        self.assertContains(response,'data-equipment="inverter"')
+        self.assertContains(response,'href="/equipos?tipo=panel#catalog-products"')
+    def test_supply_or_installation_enquiry_keeps_invoice_purpose(self):
+        from .models import CatalogProduct
+        product=CatalogProduct.objects.get(slug='deye-se-f16-max')
+        for mode,url in [('suministro',product.supply_contact_url),('instalacion',product.installation_contact_url)]:
+            response=self.client.get(url)
+            self.assertEqual(response.context['form'].initial['comentario'],product.enquiry_text(mode))
+        response=self.client.get('/contacto',{'producto':product.slug,'modalidad':'texto-inventado','comentario':'texto-no-fiable'})
+        self.assertEqual(response.context['form'].initial['comentario'],product.interest_text)
+        response=self.client.get('/compara-tu-factura',{'producto':product.slug,'modalidad':'suministro'})
+        self.assertEqual(response.context['form'].initial['servicio'],'Ahorro en factura y tarifas')
+        self.assertNotIn('comentario',response.context['form'].initial)
