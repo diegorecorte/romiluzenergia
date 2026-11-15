@@ -18,6 +18,8 @@ if (hero) {
   const pause = hero.querySelector('.slide-pause');
   let index = 0;
   let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoplayTimer;
+  const autoplayDelay = 30000;
   function show(next) {
     index = (next + slides.length) % slides.length;
     slides.forEach((slide, i) => { slide.hidden = i !== index; });
@@ -27,18 +29,26 @@ if (hero) {
     pause.textContent = paused ? 'Reanudar' : 'Pausar';
     pause.setAttribute('aria-pressed', String(paused));
   }
-  hero.querySelector('.slide-prev').addEventListener('click', () => show(index - 1));
-  hero.querySelector('.slide-next').addEventListener('click', () => show(index + 1));
-  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
-  pause.addEventListener('click', () => { paused = !paused; updatePause(); });
+  function restartAutoplay() {
+    clearInterval(autoplayTimer);
+    if (paused || document.hidden || slides.length < 2) return;
+    autoplayTimer = setInterval(() => {
+      // Mantener visible un enlace mientras se utiliza con el teclado.
+      if (!slides[index].contains(document.activeElement)) show(index + 1);
+    }, autoplayDelay);
+  }
+  function navigate(next) { show(next); restartAutoplay(); }
+  hero.querySelector('.slide-prev').addEventListener('click', () => navigate(index - 1));
+  hero.querySelector('.slide-next').addEventListener('click', () => navigate(index + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => navigate(i)));
+  pause.addEventListener('click', () => { paused = !paused; updatePause(); restartAutoplay(); });
   hero.addEventListener('keydown', event => {
-    if (event.key === 'ArrowLeft') show(index - 1);
-    if (event.key === 'ArrowRight') show(index + 1);
+    if (event.key === 'ArrowLeft') { event.preventDefault(); navigate(index - 1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); navigate(index + 1); }
   });
-  setInterval(() => {
-    if (!paused && !document.hidden && !hero.matches(':hover') && !hero.contains(document.activeElement)) show(index + 1);
-  }, 7000);
+  document.addEventListener('visibilitychange', restartAutoplay);
   updatePause();
+  restartAutoplay();
 }
 const leadForm = document.querySelector('#lead-form');
 if (leadForm) {
