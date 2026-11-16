@@ -197,10 +197,27 @@ Verificación de esta entrega: 48 pruebas Django y 19 pruebas JavaScript; cuotas
 
 ## Instalaciones eléctricas y domótica
 
-El servicio conserva `/instalaciones-electricas` y cambia su nombre a «Instalaciones eléctricas y domótica» en Inicio, menú y página. Incluye seis bloques: puertas automáticas y persianas, iluminación, piscina/riego, videovigilancia inteligente, cerraduras/accesos y WiFi. Se explican con ejemplos cotidianos, rutinas desplegables y preguntas frecuentes. El teléfono es una ilustración de funciones, claramente identificada y sin conexión a equipos reales; no añade controles, servicios remotos ni integración de IA.
+El servicio conserva `/instalaciones-electricas` y cambia su nombre a «Instalaciones eléctricas y domótica» en Inicio, menú y página. Incluye seis bloques: puertas automáticas y persianas, iluminación, piscina/riego, videovigilancia inteligente, cerraduras/accesos y WiFi. Se explican con ejemplos cotidianos, rutinas desplegables y preguntas frecuentes. El teléfono es una ilustración de funciones, claramente identificada y sin conexión a equipos reales. Sus controles actúan únicamente sobre una demostración local, sin servicios remotos ni integración de IA.
 
 El título, resumen y cuerpo se administran como el resto de servicios. Los bloques están en `web/home_automation.json`; la plantilla es `web/templates/web/home_automation.html`. Las funciones de detección de personas/vehículos, permisos temporales, control sin Internet y uso de una sola aplicación se describen como dependientes del equipo y su compatibilidad. No se atribuyen marcas, certificaciones ni capacidades universales.
 
 Cada bloque abre contacto con una necesidad válida precargada. Se mantiene el valor histórico del grupo «Electricidad y punto de recarga», mostrando al visitante la etiqueta «Electricidad, domótica y recarga», y se añaden seis necesidades específicas. El enlace de averías selecciona «Avería». La migración `0007_electrical_home_automation` actualiza únicamente los campos que aún coinciden con los textos iniciales; conserva ediciones personalizadas. Ejecutar `migrate` y `seed_content` para actualizar textos predeterminados y cargar las preguntas frecuentes adicionales.
 
 Verificación (16/11/2026): 48 pruebas Django correctas, coherencia de migraciones y 38 páginas exportadas con enlaces/recursos locales comprobados. En una base de datos temporal se comprobaron las seis consultas, su validación y la conservación de textos personalizados al aplicar la migración. No hubo revisión visual en navegador: la infraestructura disponible no proporciona el navegador de pruebas.
+
+
+## Demostraciones interactivas de domótica
+
+La vista `#domotics-demo` combina una vivienda dibujada en SVG y el móvil ilustrativo existente, ahora con controles. Las tarjetas de las seis categorías incluyen «Ver demostración»: ejecutan la acción, enfocan el control correspondiente y desplazan la página a la escena. Se puede activar un ejemplo directamente con `?demo=doors`, `lights`, `pool`, `security`, `access` o `wifi`.
+
+- La cancela corredera se desplaza horizontalmente detrás del muro. En esa categoría también puede subirse o bajarse la persiana.
+- Las luces cambian el cielo a una escena de tarde/noche y muestran luz cálida en fachada y camino.
+- Piscina y riego tienen controles independientes con recorridos de agua ilustrativos.
+- La cámara muestra una persona dibujada en movimiento y un recuadro de detección. Repetir vuelve a ejecutar la secuencia; no analiza imágenes, no reconoce personas reales ni usa IA o servicios de cámaras.
+- Acceso y WiFi muestran autorización y cobertura como ejemplos, sin abrir cerraduras ni probar redes reales.
+
+Los estados se combinan y «Reiniciar» los devuelve al inicio. Las animaciones responden a la interacción del visitante, no se reproducen automáticamente al entrar sin una selección de ejemplo. En movimiento reducido se muestran los estados finales sin animación. En móvil, la escena permanece visible mientras se recorren los controles. Los botones nativos permiten teclado y anuncian su estado y la explicación en una región de estado.
+
+La escena está en `automation_scene.html`, la interfaz en `automation_demo.html` y la lógica en `automation-state.mjs`/`automation-demo.mjs`. No se envían ni guardan las acciones; no hay acceso a dispositivos, cámaras, cuentas o proveedores. Sin JavaScript se conservan los textos y consultas y se indica cómo activar la demostración.
+
+Verificación: 48 pruebas Django y 23 JavaScript correctas. La interacción se comprobó con DOM simulado (tarjetas, controles, detección repetible y reinicio); los estados gráficos inicial y puerta abierta/luces encendidas se revisaron mediante renderizado del SVG. Las 38 páginas exportadas conservan enlaces y recursos locales válidos. La revisión de la página y sus animaciones en un navegador real sigue pendiente por falta de infraestructura.

@@ -71,3 +71,11 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Rutinas ilustrativas, vista de ejemplo en un móvil, cinco preguntas frecuentes nuevas y consultas que precargan la necesidad. No se conectan equipos ni cuentas de terceros.
 - Migración de textos predeterminados que conserva campos personalizados; cuerpo y FAQs siguen administrables. Los bloques específicos se editan en el JSON del repositorio.
 - 48 pruebas Django y 38 páginas exportadas comprobadas, incluidas las seis consultas y la conservación de ediciones. Revisión visual en navegador pendiente por falta de infraestructura. Se mantienen los permisos privados de la prueba.
+
+
+16/11/2026 — Animaciones de domótica:
+
+- El móvil ilustrativo controla una vivienda dibujada: puerta corredera, persiana, iluminación exterior, piscina, riego, detección de persona de ejemplo, acceso y WiFi.
+- Las tarjetas abren su demostración. Acciones combinables, detección repetible, reinicio y movimiento reducido. Escena visible al usar los controles en móvil.
+- Demostraciones locales, identificadas como simulaciones: no hay cámaras conectadas, análisis de imágenes, IA real ni apertura de dispositivos físicos.
+- 48 pruebas Django y 23 JavaScript correctas, interacción comprobada con DOM simulado y revisión de dos estados del SVG. Enlaces y recursos locales de 38 páginas exportadas comprobados. Pendiente revisión de la página en navegador real.
