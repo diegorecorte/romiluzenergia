@@ -37,7 +37,7 @@ class Command(BaseCommand):
         guides=json.loads((Path(__file__).resolve().parents[2]/'initial_guides.json').read_text())
         for row in guides:
             slug=row.pop('slug');Article.objects.get_or_create(slug=slug,defaults=row)
-        for index,name in enumerate(['Deye','Growatt','Solis','Victron Energy','Sungrow']):
+        for index,name in enumerate(['Deye','Growatt','Solis','Victron Energy','Sungrow','HinaESS']):
             Brand.objects.get_or_create(name=name,defaults={'order':index})
         for index,name in enumerate(['Jinko Solar','JA Solar','LONGi','Trina Solar','Canadian Solar','Astronergy']):
             Brand.objects.get_or_create(name=name,defaults={'order':index+5,'category':'panel'})

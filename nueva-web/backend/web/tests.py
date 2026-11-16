@@ -297,7 +297,9 @@ class EquipmentCatalogTests(TestCase):
         call_command('seed_content',verbosity=0)
         product.refresh_from_db()
         self.assertEqual(product.description,'Descripción revisada por ROMILUZ')
-        self.assertEqual(CatalogProduct.objects.count(),16)
+        import json
+        from pathlib import Path
+        self.assertEqual(CatalogProduct.objects.count(),len(json.loads((Path(__file__).parent/'initial_products.json').read_text())))
     def test_reference_images_are_valid_local_products(self):
         from .models import CatalogProduct
         from django.conf import settings
@@ -371,3 +373,40 @@ class FinanceReferenceTests(TestCase):
         self.assertEqual(config['months'],[12,24]);self.assertEqual(config['upfrontFee'],100)
         self.assertEqual(config['minAmount'],1000);self.assertEqual(config['maxAmount'],20000)
         self.assertContains(response,'Condiciones documentadas')
+
+@override_settings(DEBUG=True,SECURE_SSL_REDIRECT=False)
+class ExpandedEquipmentTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):call_command('seed_content',verbosity=0)
+    def test_requested_ranges_and_accessory_filters(self):
+        from .models import CatalogProduct
+        expected={'HinaESS':['PowerGem','PowerGem Plus','PowerGem Max'],'Growatt':['HOPE 16.0LM-A1','HOPE 5.0L/LW-B1','AXE LV Battery','SPE 8000–12000 ES','SPF 3000–5000 ES / ES LITE','SPM 2500–6000TL-HU/HU2'],'Solis':['SolisStorage FlexHome-L']}
+        for brand,titles in expected.items():
+            response=self.client.get('/equipos',{'marca':brand})
+            for title in titles:self.assertContains(response,title)
+        for kind,count in [('controller',1),('dccharger',2),('distribution',2)]:
+            response=self.client.get('/equipos',{'marca':'Victron Energy','tipo':kind})
+            self.assertEqual(len(response.context['products']),count)
+            self.assertTrue(all(p.kind==kind for p in response.context['products']))
+    def test_accessories_have_relevant_trusted_consultation_and_no_house_battery_link(self):
+        from .models import CatalogProduct
+        from .forms import GROUPS
+        for product in CatalogProduct.objects.filter(kind__in=['controller','dccharger','distribution']):
+            response=self.client.get(product.contact_url)
+            initial=response.context['form'].initial
+            self.assertEqual(initial['servicio'],product.enquiry_service)
+            self.assertIn(initial['necesidad'],GROUPS[initial['servicio']])
+            detail=self.client.get('/equipos/'+product.slug)
+            self.assertContains(detail,'Cuéntanos qué quieres conectar')
+            self.assertNotContains(detail,'?equipo=battery')
+        charger=CatalogProduct.objects.get(slug='victron-orion-xs')
+        self.assertEqual(charger.enquiry_service,'Camper, autocaravana y náutica')
+    def test_powergem_reference_respects_visibility(self):
+        from .models import CatalogProduct
+        self.assertContains(self.client.get('/equipos',{'marca':'Deye'}),'Ver la batería HinaESS PowerGem')
+        CatalogProduct.objects.filter(slug='hinaess-powergem').update(visible=False)
+        self.assertNotContains(self.client.get('/equipos',{'marca':'Deye'}),'Ver la batería HinaESS PowerGem')
+    def test_camera_names_human_detection_and_keeps_simulation_notice(self):
+        response=self.client.get('/instalaciones-electricas')
+        self.assertContains(response,'Detección humana por IA')
+        self.assertContains(response,'Ejemplo simulado')

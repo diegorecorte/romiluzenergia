@@ -102,3 +102,11 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Los dos focos interiores de la entrada se iluminan cuando se activa el control de luces y se ve el acceso abierto.
 - Puerta de paso con fondo dedicado sin otra hoja abierta; la máscara de luces excluye las puertas, ventana y toldo para evitar mezclar estados.
 - 48 pruebas Django y 24 JavaScript correctas, interacción comprobada con DOM simulado y geometría de máscara verificada. Pendiente revisar transiciones en un navegador real.
+
+16/11/2026 — Ampliación de equipos y aviso de cámara:
+
+- 33 referencias con fotografías de fabricantes y ficha de procedencia por producto. Se añade el logotipo oficial HinaESS y sus baterías PowerGem (5,12 kWh), Plus (14,3 kWh) y Max (16,076 kWh según tabla técnica). Desde el catálogo se enlaza PowerGem para consultas sobre Deye; la lista de marcas compatibles del fabricante no sustituye la comprobación de modelo, firmware y configuración.
+- Growatt: HOPE 16.0LM-A1, HOPE 5.0L/LW-B1, AXE LV, SPE 8000–12000 ES, SPF 3000–5000 ES/ES LITE y SPM 2500–6000TL-HU/HU2. Solis: batería modular SolisStorage FlexHome-L, 5–40 kWh en módulos de 5 kWh. Versiones y disponibilidad por confirmar en cada propuesta.
+- Victron: Quattro, Inverter Smart, SmartSolar MPPT 100/30 y 100/50, Orion-Tr Smart aislado, Orion XS, Lynx Distributor y ArgoFET. Nuevos filtros de reguladores, cargadores DC-DC y distribución. Los cargadores abren consultas de camper/náutica; las fichas de accesorios no se presentan como batería en la vivienda simulada.
+- Pulsar la cámara muestra «Detección humana por IA» y «Ejemplo simulado». No analiza personas ni imágenes reales.
+- 52 pruebas Django y 24 pruebas JavaScript correctas. Imágenes verificadas y revisadas en un mosaico local. Revisión visual interactiva en navegador pendiente por falta de la infraestructura de escritorio compatible. Demostración privada; sin cambios en el dominio actual.

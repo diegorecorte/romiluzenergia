@@ -72,7 +72,7 @@ def contact(request,invoice=False):
     if not invoice and request.GET.get('producto'):
         product=CatalogProduct.objects.filter(slug=request.GET['producto'],visible=True,brand__visible=True).first()
         if product:
-            initial.update(servicio='Solar, baterías y eólica',necesidad='Batería' if product.kind=='battery' else 'Nueva instalación solar',comentario=product.enquiry_text(request.GET.get('modalidad','')))
+            initial.update(servicio=product.enquiry_service,necesidad=product.enquiry_need,comentario=product.enquiry_text(request.GET.get('modalidad','')))
     form=ContactForm(request.POST if request.method=='POST' else None,request.FILES if request.method=='POST' else None,initial=initial)
     status=200
     blocked_error=""
@@ -169,7 +169,7 @@ def catalog(request):
     kind=request.GET.get('tipo','')
     if brand:products=products.filter(brand__name=brand)
     if kind:products=products.filter(kind=kind)
-    return render(request,'web/catalog.html',{'title':'Inversores, baterías y paneles solares','products':products,'selected_brand':brand,'selected_kind':kind,'product_kinds':CatalogProduct._meta.get_field('kind').choices})
+    return render(request,'web/catalog.html',{'title':'Inversores, baterías, paneles y equipos de carga','products':products,'selected_brand':brand,'selected_kind':kind,'product_kinds':CatalogProduct._meta.get_field('kind').choices,'powergem_reference':CatalogProduct.objects.filter(slug='hinaess-powergem',visible=True,brand__visible=True).first()})
 
 
 @require_GET

@@ -14,7 +14,7 @@ export function automationMessage(state,control){
  if(control==='lights')return state.lights?'Ejemplo: se encienden los focos de la entrada, los apliques y las luces del jardín.':'Ejemplo: se apaga la iluminación exterior.';
  if(control==='pool')return state.pool?'Ejemplo: se activa la depuración; el movimiento del agua es ilustrativo.':'Ejemplo: se detiene la depuración de la piscina.';
  if(control==='irrigation')return state.irrigation?'Ejemplo: se activa el riego del jardín.':'Ejemplo: se detiene el riego.';
- if(control==='security')return state.camera?'Aviso de ejemplo: detección de persona por IA simulada. El piloto rojo indica que se ha activado la demostración.':'Ejemplo de cámara desactivado.';
+ if(control==='security')return state.camera?'Ejemplo simulado: detección humana por IA. El piloto rojo indica que se ha activado la demostración.':'Ejemplo de cámara desactivado.';
  if(control==='night')return 'Rutina de noche de ejemplo: se encienden las luces, baja la persiana y se recoge el toldo.';
  return 'Pulsa una opción del móvil para ver su efecto en la vivienda de ejemplo.';
 }

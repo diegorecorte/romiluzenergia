@@ -206,7 +206,7 @@ class Brand(models.Model):
     class Meta: ordering=['order','name'];verbose_name='Marca';verbose_name_plural='Marcas con las que trabajamos'
     @property
     def logo_asset(self):
-        return {'Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
+        return {'HinaESS':'hinaess.webp','Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
     @property
     def logo_dark(self):return self.name in ('Victron Energy','Trina Solar','Sungrow')
     def __str__(self):return self.name
@@ -216,7 +216,7 @@ class CatalogProduct(models.Model):
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE,related_name='products',verbose_name='Marca')
     slug = models.SlugField(unique=True)
     title = models.CharField('Modelo o gama',max_length=160)
-    kind = models.CharField('Tipo',max_length=12,choices=[('inverter','Inversor'),('battery','Batería'),('panel','Panel solar')])
+    kind = models.CharField('Tipo',max_length=12,choices=[('inverter','Inversor'),('battery','Batería'),('panel','Panel solar'),('controller','Regulador solar'),('dccharger','Cargador DC-DC'),('distribution','Distribución de baterías')])
     capacity = models.CharField('Potencia o capacidad',max_length=160)
     description = models.TextField('Descripción')
     asset = models.CharField('Imagen del catálogo inicial',max_length=160,blank=True)
@@ -244,10 +244,18 @@ class CatalogProduct(models.Model):
     def enquiry_text(self,mode=''):
         suffix={'suministro':' Me interesa solo el suministro del equipo.','instalacion':' Quiero un estudio con instalación.'}.get(mode,'')
         return self.interest_text+suffix
+    @property
+    def enquiry_service(self):
+        return 'Camper, autocaravana y náutica' if self.kind=='dccharger' else 'Solar, baterías y eólica'
+    @property
+    def enquiry_need(self):
+        if self.kind=='dccharger':return 'Instalación nueva'
+        if self.kind in ('controller','distribution'):return 'Ampliación o avería'
+        return 'Batería' if self.kind=='battery' else 'Nueva instalación solar'
     def enquiry_url(self,mode=''):
         from urllib.parse import urlencode
         from django.urls import reverse
-        params={'producto':self.slug,'servicio':'Solar, baterías y eólica','necesidad':'Batería' if self.kind=='battery' else 'Nueva instalación solar','comentario':self.enquiry_text(mode)}
+        params={'producto':self.slug,'servicio':self.enquiry_service,'necesidad':self.enquiry_need,'comentario':self.enquiry_text(mode)}
         if mode in ('suministro','instalacion'):params['modalidad']=mode
         return reverse('contact')+'?'+urlencode(params)
     @property

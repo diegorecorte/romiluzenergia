@@ -1,6 +1,6 @@
 # ROMILUZ · Nueva web
 
-Desarrollo guardado en la rama `nueva-web-romiluz`. No publicado y sin cambios en la web actual ni el dominio.
+Desarrollo guardado en la rama `nueva-web-romiluz`. La demostración de diseño se publica con acceso privado; la web actual y su dominio siguen sin cambios.
 
 ## Aplicación funcional
 

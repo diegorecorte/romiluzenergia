@@ -1,4 +1,4 @@
-import {initialAutomationState,changeAutomation,nighttimeAutomation,automationLabels,automationMessage} from './automation-state.mjs?v=photo-4';
+import {initialAutomationState,changeAutomation,nighttimeAutomation,automationLabels,automationMessage} from './automation-state.mjs?v=photo-6';
 const root=document.querySelector('[data-automation-demo]');
 if(root){
  let state=initialAutomationState();
