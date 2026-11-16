@@ -28,5 +28,10 @@
     "key": "pool",
     "label": "Piscina",
     "icon": "pool"
+  },
+  {
+    "key": "security",
+    "label": "Cámara",
+    "icon": "security"
   }
 ]

@@ -94,3 +94,11 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Puerta de paso y persiana recortan sus propias capas antes de girar o desplazarse; ya no se reutilizan zonas de fachada o foco fuera del marco.
 - Ventana con cortinas en una capa fija bajo la persiana, con imagen generada específica. No se cambian toldo, jardín, piscina, riego ni lógica de los controles.
 - Comprobados los recortes, la imagen y las referencias locales de las páginas exportadas. Pendiente confirmar las transiciones en navegador real, sin infraestructura disponible para esa revisión.
+
+
+16/11/2026 — Cámara de ejemplo y correcciones de acceso:
+
+- Cámara pulsable junto a la ventana, giro leve, piloto rojo y aviso de «Detección IA simulada»; control sincronizado en el móvil. Sin IA real ni cámaras conectadas.
+- Los dos focos interiores de la entrada se iluminan cuando se activa el control de luces y se ve el acceso abierto.
+- Puerta de paso con fondo dedicado sin otra hoja abierta; la máscara de luces excluye las puertas, ventana y toldo para evitar mezclar estados.
+- 48 pruebas Django y 24 JavaScript correctas, interacción comprobada con DOM simulado y geometría de máscara verificada. Pendiente revisar transiciones en un navegador real.

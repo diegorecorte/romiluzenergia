@@ -14,8 +14,15 @@ test('La rutina de noche enciende luces, baja persiana y recoge toldo sin mover 
  let state=initialAutomationState();for(const key of ['doors','access','awning'])state=changeAutomation(state,key);
  const night=nighttimeAutomation(state);assert.ok(night.lights&&night.shutters);assert.equal(night.awning,false);assert.ok(night.gate&&night.access);assert.equal(state.awning,true);
 });
-test('El estado inicial y reinicio no contiene cámara ni WiFi y rechaza sus controles retirados',()=>{
+test('El estado inicial y reinicio deja todo apagado y rechaza controles desconocidos',()=>{
  const state=initialAutomationState();assert.equal(state.selected,null);
- assert.ok(!('detected' in state)&&!('wifi' in state));for(const value of Object.values(state))assert.ok(value===false||value===null);
- for(const key of ['security','wifi','toString','__proto__','no-existe'])assert.throws(()=>changeAutomation(state,key));
+ assert.equal(state.camera,false);assert.ok(!('wifi' in state));for(const value of Object.values(state))assert.ok(value===false||value===null);
+ for(const key of ['wifi','toString','__proto__','no-existe'])assert.throws(()=>changeAutomation(state,key));
+});
+
+test('La cámara y las luces nunca abren ni cierran ninguna puerta',()=>{
+ let state=initialAutomationState();state=changeAutomation(state,'lights');state=changeAutomation(state,'security');assert.ok(state.lights&&state.camera);assert.equal(state.gate,false);assert.equal(state.access,false);
+ state=changeAutomation(state,'access');assert.equal(state.gate,false);assert.equal(state.access,true);
+ state=changeAutomation(state,'lights');state=changeAutomation(state,'security');assert.equal(state.gate,false);assert.equal(state.access,true);assert.equal(state.lights,false);assert.equal(state.camera,false);
+ state=changeAutomation(state,'access');state=changeAutomation(state,'doors');state=changeAutomation(state,'security');assert.ok(state.gate&&state.camera);assert.equal(state.access,false);
 });

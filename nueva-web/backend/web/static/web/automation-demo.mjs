@@ -1,10 +1,10 @@
-import {initialAutomationState,changeAutomation,nighttimeAutomation,automationLabels,automationMessage} from './automation-state.mjs?v=photo-2';
+import {initialAutomationState,changeAutomation,nighttimeAutomation,automationLabels,automationMessage} from './automation-state.mjs?v=photo-4';
 const root=document.querySelector('[data-automation-demo]');
 if(root){
  let state=initialAutomationState();
  const buttons=[...root.querySelectorAll('[data-automation-control]')];
- const activeKey={doors:'gate',access:'access',shutters:'shutters',awning:'awning',lights:'lights',pool:'pool'};
- const attributes={gate:'gateOpen',lights:'lightsOn',pool:'poolOn',access:'accessOpen',shutters:'shuttersDown',awning:'awningOpen',irrigation:'irrigationOn'};
+ const activeKey={doors:'gate',access:'access',shutters:'shutters',awning:'awning',lights:'lights',pool:'pool',security:'camera'};
+ const attributes={gate:'gateOpen',lights:'lightsOn',pool:'poolOn',access:'accessOpen',shutters:'shuttersDown',awning:'awningOpen',irrigation:'irrigationOn',camera:'cameraOn'};
  function render(control=null){
   for(const [key,attribute] of Object.entries(attributes))root.dataset[attribute]=String(state[key]);
   root.dataset.demoMode=state.selected||'';
@@ -12,10 +12,12 @@ if(root){
   for(const button of buttons){
    const key=button.dataset.automationControl,on=state[activeKey[key]];
    button.disabled=false;button.classList.toggle('is-selected',state.selected===key);button.classList.toggle('is-on',on);button.setAttribute('aria-pressed',String(on));
+   if(button.hasAttribute('data-automation-camera'))button.setAttribute('aria-label',on?'Desactivar detección simulada de cámara':'Probar detección simulada de cámara');
    root.querySelector('[data-automation-label="'+key+'"]').textContent=labels[key];
   }
   const irrigation=root.querySelector('[data-automation-extra="irrigation"]');
   irrigation.hidden=state.selected!=='pool';irrigation.textContent=state.irrigation?'Detener riego':'Activar riego';irrigation.setAttribute('aria-pressed',String(state.irrigation));
+  root.querySelector('[data-automation-camera-note]').hidden=!state.camera;
   root.querySelector('#automation-demo-status').textContent=automationMessage(state,control);
  }
  function perform(control){state=control==='night'?nighttimeAutomation(state):changeAutomation(state,control);render(control);}
