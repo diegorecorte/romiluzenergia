@@ -79,3 +79,11 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Las tarjetas abren su demostración. Acciones combinables, detección repetible, reinicio y movimiento reducido. Escena visible al usar los controles en móvil.
 - Demostraciones locales, identificadas como simulaciones: no hay cámaras conectadas, análisis de imágenes, IA real ni apertura de dispositivos físicos.
 - 48 pruebas Django y 23 JavaScript correctas, interacción comprobada con DOM simulado y revisión de dos estados del SVG. Enlaces y recursos locales de 38 páginas exportadas comprobados. Pendiente revisión de la página en navegador real.
+
+
+16/11/2026 — Vista realista de la demostración de domótica:
+
+- La vivienda dibujada se sustituye por una vista de aspecto fotográfico generada, identificada como ejemplo. Tres imágenes alineadas en WebP, aproximadamente 1 MB en total.
+- La puerta de paso abre y cierra su hoja. La persiana y el toldo tienen controles propios para bajar/subir y desplegar/recoger. Continúan la puerta corredera, luces, piscina y riego.
+- Cámara y cobertura WiFi se retiran del móvil y de las animaciones; permanece la información de esos servicios. Rutina de noche con luces, persiana y toldo, sin mover las puertas.
+- 48 pruebas Django y 23 JavaScript correctas; interacción y capas comprobadas. Revisión visual de las transiciones en navegador real pendiente. No se conectan equipos ni se modifica el dominio de producción.

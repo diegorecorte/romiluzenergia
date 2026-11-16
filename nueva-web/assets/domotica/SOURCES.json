@@ -1,0 +1,15 @@
+{
+  "type": "AI-generated architectural images for a local interactive simulation",
+  "date": "2026-11-16",
+  "not_a_romiluz_project": true,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "files": {
+    "vivienda-base.webp": "Initial state: closed sliding gate and pedestrian door, raised shutter, retracted awning, exterior lamps off.",
+    "vivienda-activa.webp": "Registered alternative: open pedestrian door, lowered shutter, extended awning and exterior lamps on. Used only in clipped regions.",
+    "puerta-corredera-abierta.webp": "Registered open-gate background with exterior lamps off."
+  },
+  "format_note": "WebP delivery copies; original generated PNGs retained in the execution workspace. No stock photo or real customer property is represented."
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "key": "doors",
+    "label": "Puerta corredera",
+    "icon": "doors"
+  },
+  {
+    "key": "access",
+    "label": "Puerta de paso",
+    "icon": "access"
+  },
+  {
+    "key": "shutters",
+    "label": "Persiana",
+    "icon": "shutters"
+  },
+  {
+    "key": "awning",
+    "label": "Toldo del porche",
+    "icon": "awning"
+  },
+  {
+    "key": "lights",
+    "label": "Luces del jardín",
+    "icon": "lights"
+  },
+  {
+    "key": "pool",
+    "label": "Piscina",
+    "icon": "pool"
+  }
+]

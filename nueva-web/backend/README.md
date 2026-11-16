@@ -208,16 +208,15 @@ Verificación (16/11/2026): 48 pruebas Django correctas, coherencia de migracion
 
 ## Demostraciones interactivas de domótica
 
-La vista `#domotics-demo` combina una vivienda dibujada en SVG y el móvil ilustrativo existente, ahora con controles. Las tarjetas de las seis categorías incluyen «Ver demostración»: ejecutan la acción, enfocan el control correspondiente y desplazan la página a la escena. Se puede activar un ejemplo directamente con `?demo=doors`, `lights`, `pool`, `security`, `access` o `wifi`.
+La vista `#domotics-demo` combina una vivienda con aspecto fotográfico generado y el móvil ilustrativo con controles. Las tarjetas de las categorías compatibles incluyen «Ver demostración»: ejecutan la acción, enfocan el control y desplazan la página a la escena. El móvil ofrece puerta corredera, puerta de paso, persiana, toldo, luces y piscina; el riego es adicional en la opción de piscina. Se retiraron los controles de cámara y cobertura WiFi de la demostración, manteniendo la información y consulta de esos servicios.
 
-- La cancela corredera se desplaza horizontalmente detrás del muro. En esa categoría también puede subirse o bajarse la persiana.
-- Las luces cambian el cielo a una escena de tarde/noche y muestran luz cálida en fachada y camino.
-- Piscina y riego tienen controles independientes con recorridos de agua ilustrativos.
-- La cámara muestra una persona dibujada en movimiento y un recuadro de detección. Repetir vuelve a ejecutar la secuencia; no analiza imágenes, no reconoce personas reales ni usa IA o servicios de cámaras.
-- Acceso y WiFi muestran autorización y cobertura como ejemplos, sin abrir cerraduras ni probar redes reales.
+- La puerta corredera se desplaza lateralmente. La puerta de paso abre su hoja y muestra el interior, y vuelve a cerrarse; sustituye el antiguo cambio de color de acceso autorizado.
+- La persiana se desplaza sobre una ventana. El toldo se despliega desde su soporte y se recoge de nuevo sobre el porche.
+- Las luces revelan los puntos de luz y su iluminación cálida de la misma vivienda. Piscina y riego conservan efectos ilustrativos independientes.
+- «Probar rutina de noche» enciende luces, baja la persiana y recoge el toldo sin mover las puertas. Los estados se combinan y «Reiniciar» los devuelve al inicio.
 
-Los estados se combinan y «Reiniciar» los devuelve al inicio. Las animaciones responden a la interacción del visitante, no se reproducen automáticamente al entrar sin una selección de ejemplo. En movimiento reducido se muestran los estados finales sin animación. En móvil, la escena permanece visible mientras se recorren los controles. Los botones nativos permiten teclado y anuncian su estado y la explicación en una región de estado.
+Las tres imágenes generadas se entregan en WebP (aproximadamente 1 MB en total) en `assets/domotica/`, con procedencia en `SOURCES.json`. Las capas muestran regiones alineadas de la misma vivienda. Son imágenes generadas para explicar funciones, no fotografías de una obra real de ROMILUZ. No se conectan dispositivos, cámaras, redes ni proveedores, ni se guardan o envían acciones. La imagen y el móvil lo identifican como simulación.
 
-La escena está en `automation_scene.html`, la interfaz en `automation_demo.html` y la lógica en `automation-state.mjs`/`automation-demo.mjs`. No se envían ni guardan las acciones; no hay acceso a dispositivos, cámaras, cuentas o proveedores. Sin JavaScript se conservan los textos y consultas y se indica cómo activar la demostración.
+La escena está en `automation_scene.html`, la interfaz en `automation_demo.html`, sus seis controles en `home_automation_controls.json` y la lógica en `automation-state.mjs`/`automation-demo.mjs`. Se puede abrir un ejemplo con `?demo=doors`, `access`, `shutters`, `awning`, `lights` o `pool`; las selecciones antiguas retiradas se ignoran. Los controles nativos admiten teclado y anuncian estado y acción. El movimiento reducido muestra los estados finales sin animación. En móvil, la escena permanece visible al utilizar el mando.
 
-Verificación: 48 pruebas Django y 23 JavaScript correctas. La interacción se comprobó con DOM simulado (tarjetas, controles, detección repetible y reinicio); los estados gráficos inicial y puerta abierta/luces encendidas se revisaron mediante renderizado del SVG. Las 38 páginas exportadas conservan enlaces y recursos locales válidos. La revisión de la página y sus animaciones en un navegador real sigue pendiente por falta de infraestructura.
+Verificación: 48 pruebas Django y 23 JavaScript correctas. Interacción comprobada con DOM simulado: seis controles, puertas independientes, toldo, persiana, rutina y reinicio; verificadas las coordenadas de las capas y las dimensiones coincidentes de las imágenes. Las 38 páginas exportadas conservan enlaces y recursos locales válidos. Pendiente revisión de la página y sus transiciones en un navegador real por falta de infraestructura.

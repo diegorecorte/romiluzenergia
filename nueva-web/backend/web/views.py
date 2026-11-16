@@ -29,6 +29,7 @@ def service(request,slug):
         for category in categories:
             category['contact_url']=reverse('contact')+'?'+urlencode({'servicio':'Electricidad y punto de recarga','necesidad':category['need']})
         context['automation_categories']=categories
+        context['automation_controls']=json.loads((Path(__file__).parent/'home_automation_controls.json').read_text())
     return render(request,'web/service.html',context)
 
 def faq(request):return render(request,'web/faq.html',{'title':'Preguntas frecuentes','faqs':FAQ.objects.select_related('service').all()})

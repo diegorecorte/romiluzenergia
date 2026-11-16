@@ -1,21 +1,21 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {initialAutomationState,changeAutomation,automationLabels} from '../web/static/web/automation-state.mjs';
-test('Puerta y persiana se abren o cierran sin cambiarse mutuamente',()=>{
- const initial=initialAutomationState(),gate=changeAutomation(initial,'doors'),both=changeAutomation(gate,'shutters'),closed=changeAutomation(both,'doors');
- assert.equal(initial.gate,false);assert.equal(gate.gate,true);assert.equal(both.gate,true);assert.equal(both.shutters,true);assert.equal(closed.gate,false);assert.equal(closed.shutters,true);assert.equal(automationLabels(gate).doors,'Cerrar puerta');
+import {initialAutomationState,changeAutomation,nighttimeAutomation,automationLabels} from '../web/static/web/automation-state.mjs';
+test('Puertas corredera y de paso y persiana se abren o cierran de forma independiente',()=>{
+ const initial=initialAutomationState(),gate=changeAutomation(initial,'doors'),door=changeAutomation(gate,'access'),both=changeAutomation(door,'shutters'),closed=changeAutomation(both,'access');
+ assert.equal(initial.gate,false);assert.ok(gate.gate);assert.ok(both.gate&&both.access&&both.shutters);assert.equal(closed.access,false);assert.ok(closed.gate&&closed.shutters);assert.equal(automationLabels(door).access,'Cerrar puerta');
 });
-test('Las acciones se combinan y apagar una no altera otros dispositivos',()=>{
- let state=initialAutomationState();for(const key of ['doors','lights','pool','irrigation','access','wifi'])state=changeAutomation(state,key);
- assert.ok(state.gate&&state.lights&&state.pool&&state.irrigation&&state.access&&state.wifi);
- state=changeAutomation(state,'lights');assert.equal(state.lights,false);assert.ok(state.gate&&state.pool&&state.irrigation&&state.access&&state.wifi);
+test('Las acciones se combinan, el toldo se despliega y recoge y apagar una no altera otros dispositivos',()=>{
+ let state=initialAutomationState();for(const key of ['doors','access','shutters','awning','lights','pool','irrigation'])state=changeAutomation(state,key);
+ assert.ok(state.gate&&state.access&&state.shutters&&state.awning&&state.lights&&state.pool&&state.irrigation);assert.equal(automationLabels(state).awning,'Recoger toldo');
+ state=changeAutomation(state,'awning');assert.equal(state.awning,false);assert.equal(automationLabels(state).awning,'Desplegar toldo');assert.ok(state.gate&&state.access&&state.shutters&&state.lights&&state.pool&&state.irrigation);
 });
-test('Repetir la detección reinicia su secuencia sin autorizar accesos',()=>{
- const initial=initialAutomationState(),one=changeAutomation(initial,'security'),two=changeAutomation(one,'security');
- assert.equal(one.detected,true);assert.equal(two.detected,true);assert.equal(two.detectionSequence,one.detectionSequence+1);assert.equal(two.access,false);assert.equal(two.gate,false);assert.equal(automationLabels(two).security,'Repetir detección');
+test('La rutina de noche enciende luces, baja persiana y recoge toldo sin mover las puertas',()=>{
+ let state=initialAutomationState();for(const key of ['doors','access','awning'])state=changeAutomation(state,key);
+ const night=nighttimeAutomation(state);assert.ok(night.lights&&night.shutters);assert.equal(night.awning,false);assert.ok(night.gate&&night.access);assert.equal(state.awning,true);
 });
-test('El reinicio devuelve el estado inicial y se rechazan controles desconocidos',()=>{
- const state=initialAutomationState();assert.equal(state.selected,null);assert.equal(state.detectionSequence,0);
- for(const value of Object.values(state))assert.ok(value===false||value===null||value===0);
- for(const key of ['toString','__proto__','no-existe'])assert.throws(()=>changeAutomation(state,key));
+test('El estado inicial y reinicio no contiene cámara ni WiFi y rechaza sus controles retirados',()=>{
+ const state=initialAutomationState();assert.equal(state.selected,null);
+ assert.ok(!('detected' in state)&&!('wifi' in state));for(const value of Object.values(state))assert.ok(value===false||value===null);
+ for(const key of ['security','wifi','toString','__proto__','no-existe'])assert.throws(()=>changeAutomation(state,key));
 });

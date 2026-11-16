@@ -1,66 +1,10 @@
-<svg class="automation-scene" viewBox="0 0 900 560" role="img" aria-labelledby="automation-scene-title automation-scene-desc">
-<title id="automation-scene-title">Vivienda ilustrada con domótica</title><desc id="automation-scene-desc">Puerta corredera en la entrada, persiana, luces exteriores, piscina, riego, cámara y cerradura. Los controles del móvil modifican esta ilustración.</desc>
-<defs>
- <linearGradient id="automation-sky" x2="0" y2="1"><stop stop-color="#c7dce7"/><stop offset="1" stop-color="#f2f1e9"/></linearGradient>
- <linearGradient id="automation-night" x2="0" y2="1"><stop stop-color="#193c59"/><stop offset="1" stop-color="#647d8d"/></linearGradient>
- <linearGradient id="automation-glass" x2="1" y2="1"><stop stop-color="#63828c"/><stop offset="1" stop-color="#adc3c5"/></linearGradient>
- <linearGradient id="automation-wall" x2="1"><stop stop-color="#f6f1e7"/><stop offset="1" stop-color="#ded7cc"/></linearGradient>
- <radialGradient id="automation-lamp-glow"><stop stop-color="#ffe5a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffe5a0" stop-opacity="0"/></radialGradient>
- <pattern id="automation-gate-slats" width="14" height="100" patternUnits="userSpaceOnUse"><rect width="10" height="100" fill="#354d54"/><rect width="2" height="100" fill="#60767a"/></pattern>
- <pattern id="automation-shutter-slats" width="160" height="8" patternUnits="userSpaceOnUse"><rect width="160" height="8" fill="#a4aaa5"/><path d="M0 7h160" stroke="#7c8783"/></pattern>
- <clipPath id="automation-gate-clip"><path d="M205 396h338v110H205Z"/></clipPath>
- <clipPath id="automation-window-clip"><path d="M253 174h159v87H253Z"/></clipPath>
- <clipPath id="automation-pool-clip"><path d="m648 403 164-13 47 65-178 20Z"/></clipPath>
-</defs>
-<rect width="900" height="560" fill="url(#automation-sky)"/>
-<rect class="automation-night-overlay" width="900" height="560" fill="url(#automation-night)"/>
-<path d="M0 300Q80 255 170 289T340 280 520 292 710 270 900 285V560H0Z" fill="#a5b59a"/>
-<path d="M0 380 900 347V560H0Z" fill="#d1d0c4"/>
-<path d="m300 350 270-5 135 215H155Z" fill="#c4c4ba"/>
-<path d="m310 390 260-10M280 435l318-5M235 490h405" fill="none" stroke="#b8b9af" stroke-width="2"/>
-<ellipse cx="463" cy="355" rx="300" ry="28" fill="#637469" opacity=".17"/>
-<!-- Volúmenes y sombras de la vivienda -->
-<path d="m206 121 44-23 240 1-20 23Z" fill="#e7e2d6"/>
-<path d="M470 122 490 99v248l-20 8Z" fill="#c7c6ba"/>
-<path d="M206 122h264v232H206Z" fill="url(#automation-wall)"/>
-<path d="m470 189 45-26 235 17-26 19Z" fill="#efeadf"/>
-<path d="m724 199 26-19v159l-26 15Z" fill="#babdb2"/>
-<path d="M470 199h254v155H470Z" fill="url(#automation-wall)"/>
-<path d="M206 122h264M470 199h254" stroke="#fffaf0" stroke-width="5"/>
-<!-- Ventanas, persiana y puerta de acceso -->
-<path d="M247 168h171v100H247Z" fill="#354c52"/>
-<path d="M253 174h159v87H253Z" fill="url(#automation-glass)"/>
-<path d="M333 174v87" stroke="#405b62" stroke-width="4"/>
-<path d="m255 178 72 79M339 178l69 76" stroke="#dce6e1" stroke-width="2" opacity=".35"/>
-<g clip-path="url(#automation-window-clip)"><g class="automation-shutter"><path d="M253 174h159v88H253Z" fill="url(#automation-shutter-slats)"/><path d="M253 258h159" stroke="#6c7974" stroke-width="5"/></g></g>
-<path d="M248 163h169v9H248Z" fill="#a6aca5"/>
-<path d="M556 243h62v111h-62Z" fill="#61716e"/><path d="M561 248h52v106h-52Z" fill="#8c9285"/>
-<path class="automation-door-access" d="M561 248h52v106h-52Z" fill="#b5cf9b"/>
-<path d="M600 292v20" stroke="#d2d4c9" stroke-width="4" stroke-linecap="round"/>
-<rect x="625" y="277" width="12" height="24" rx="3" fill="#344f59"/><circle class="automation-access-led" cx="631" cy="283" r="3"/>
-<path d="M653 225h50v52h-50Z" fill="url(#automation-glass)" stroke="#607778" stroke-width="4"/>
-<!-- Luces de fachada y del camino -->
-<g class="automation-light-glow"><ellipse cx="230" cy="312" rx="70" ry="72" fill="url(#automation-lamp-glow)"/><ellipse cx="539" cy="314" rx="65" ry="65" fill="url(#automation-lamp-glow)"/><ellipse cx="578" cy="439" rx="55" ry="55" fill="url(#automation-lamp-glow)"/><path d="m220 282-30 70h80l-34-70M533 276l-25 78h67l-31-78" fill="#ffe7a6" opacity=".25"/></g>
-<rect x="219" y="274" width="18" height="10" rx="2" fill="#3a5158"/><rect x="531" y="269" width="15" height="9" rx="2" fill="#3a5158"/>
-<path d="M575 444v-35" stroke="#52665f" stroke-width="7"/><path class="automation-path-lamp" d="M568 408h14v6h-14Z"/>
-<!-- Vegetación y piscina -->
-<path d="M75 407v-121M827 364v-109" stroke="#7d8170" stroke-width="12"/>
-<g fill="#819c78"><circle cx="74" cy="277" r="58"/><circle cx="38" cy="291" r="35"/><circle cx="113" cy="297" r="38"/><circle cx="826" cy="248" r="50"/><circle cx="862" cy="268" r="35"/></g>
-<g fill="#9bb18a" opacity=".6"><circle cx="55" cy="251" r="29"/><circle cx="815" cy="220" r="26"/></g>
-<path d="m628 397 193-18 60 83-211 24Z" fill="#f3eee3"/><path d="m648 403 164-13 47 65-178 20Z" fill="#72adb9"/>
-<g clip-path="url(#automation-pool-clip)"><path class="automation-pool-water" d="m629 426 233-18m-210 38 222-18m-188 38 207-18" fill="none" stroke="#bde2e5" stroke-width="4" stroke-dasharray="18 12"/><ellipse class="automation-pool-light" cx="775" cy="434" rx="110" ry="55" fill="#8ae0ef"/></g>
-<path d="M801 355h34v25h-34Z" fill="#c2c7bb" stroke="#8b9b91" stroke-width="2"/><path class="automation-pump-flow" d="M818 380v12l-21 8" fill="none" stroke="#168ca9" stroke-width="4" stroke-dasharray="4 6"/>
-<path d="m695 505 139-15 66 70H703Z" fill="#91a57d"/>
-<g class="automation-irrigation"><path d="M764 516q-20-55-47-14M764 516q12-65 45-24M764 516q-1-57 13-52" fill="none" stroke="#86d6e7" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 7"/></g><path d="M758 520h12v-8h-12Z" fill="#355a53"/>
-<!-- Cámara: la detección es una animación, no un análisis de imágenes -->
-<path d="M716 207h-13" stroke="#526b70" stroke-width="4"/><path d="m695 199 26 6-4 14-26-7Z" fill="#e4e9e3" stroke="#6e8386" stroke-width="2"/><circle cx="695" cy="206" r="4" fill="#4e6773"/>
-<path class="automation-camera-field" d="M695 212 356 415l199 13Z" fill="#8cd9d2" opacity=".13"/>
-<g class="automation-person"><g transform="translate(-94 -100) scale(1.25)"><ellipse cx="377" cy="395" rx="15" ry="5" fill="#405b5f" opacity=".2"/><circle cx="378" cy="334" r="8" fill="#bd9d84"/><path d="M371 345h14l4 28h-22Z" fill="#547c8e"/><path d="m372 371-4 23m15-23 5 23m-18-45-8 19m24-19 8 18" stroke="#3f626e" stroke-width="5" stroke-linecap="round"/><g class="automation-detection-box" fill="none" stroke="#2dcb9a" stroke-width="2"><path d="M354 323h48v76h-48Z"/><path d="M354 307h65v15h-65Z" fill="#14545b" stroke="none"/><text x="359" y="318" fill="white" stroke="none" font-size="10" font-family="Arial,sans-serif">Persona</text></g></g></g>
-<!-- Cancela corredera: la hoja se desplaza horizontalmente tras el muro -->
-<path d="M180 507h400" stroke="#8b9790" stroke-width="5"/><g clip-path="url(#automation-gate-clip)"><g class="automation-gate"><path d="M206 405h335v94H206Z" fill="#273e46"/><path d="M211 410h325v84H211Z" fill="url(#automation-gate-slats)"/><path d="M206 405h335M206 499h335" stroke="#52666a" stroke-width="5"/></g></g>
-<path d="M0 423h181v107H0Z" fill="#d4d1c5"/><path d="M0 423h181" stroke="#e9e7dc" stroke-width="5"/>
-<path d="M180 397h25v133h-25Z" fill="#e2dfd1"/><path d="M543 398h30v132h-30Z" fill="#e2dfd1"/><path d="m573 425 43 3v102h-43Z" fill="#c9c8bb"/>
-<rect x="546" y="434" width="16" height="26" rx="2" fill="#5b7175"/><circle cx="554" cy="440" r="3" fill="#a7c2b1"/>
-<!-- Cobertura WiFi de ejemplo -->
-<g class="automation-wifi" fill="none" stroke="#54b6df" stroke-width="3" stroke-linecap="round"><path d="M401 266q44-34 88 0M411 278q34-27 68 0M423 291q22-16 44 0"/><circle cx="445" cy="305" r="3" fill="#54b6df" stroke="none"/></g>
-</svg>
+{% load static %}<div class="automation-photo-scene" role="img" aria-label="Imagen realista generada de una vivienda con puerta corredera, puerta de paso, persiana, toldo y piscina. Los botones modifican sus elementos como simulación.">
+<img class="automation-photo-base" src="{% static 'assets/domotica/vivienda-base.webp' %}" alt="" width="1536" height="1024" loading="lazy">
+<div class="automation-photo-fragment automation-photo-gate" style="left:9.440104%;top:57.226562%;width:31.835938%;height:27.050781%;--photo-x:145;--photo-y:586;--photo-w:489;--photo-h:277"><img class="automation-full-photo" src="{% static 'assets/domotica/puerta-corredera-abierta.webp' %}" alt="" loading="lazy"><div class="automation-photo-gate-leaf"><img class="automation-full-photo" src="{% static 'assets/domotica/vivienda-base.webp' %}" alt="" loading="lazy"></div></div>
+<div class="automation-photo-fragment automation-photo-access" style="left:49.023438%;top:49.023438%;width:6.705729%;height:22.070312%;--photo-x:753;--photo-y:502;--photo-w:103;--photo-h:226"><img class="automation-full-photo" src="{% static 'assets/domotica/vivienda-activa.webp' %}" alt="" loading="lazy"><div class="automation-photo-door-leaf"><img class="automation-full-photo" src="{% static 'assets/domotica/vivienda-base.webp' %}" alt="" loading="lazy"></div></div>
+<div class="automation-photo-fragment automation-photo-shutters" style="left:29.622396%;top:21.875%;width:15.169271%;height:15.136719%;--photo-x:455;--photo-y:224;--photo-w:233;--photo-h:155"><div class="automation-photo-shutter-leaf"><img class="automation-full-photo" src="{% static 'assets/domotica/vivienda-activa.webp' %}" alt="" loading="lazy"></div></div>
+<div class="automation-photo-fragment automation-photo-awning" style="left:62.890625%;top:46.386719%;width:31.901042%;height:8.691406%;--photo-x:966;--photo-y:475;--photo-w:490;--photo-h:89"><div class="automation-photo-awning-fabric"><img class="automation-full-photo" src="{% static 'assets/domotica/vivienda-activa.webp' %}" alt="" loading="lazy"></div></div>
+<img class="automation-photo-lights" src="{% static 'assets/domotica/vivienda-activa.webp' %}" alt="" loading="lazy">
+<svg class="automation-photo-water" viewBox="0 0 1536 1024" aria-hidden="true"><defs><clipPath id="automation-photo-pool-clip"><path d="m1087 791 449-3v68l-352 3Z"/></clipPath></defs><g clip-path="url(#automation-photo-pool-clip)" class="automation-photo-pool-ripples" fill="none" stroke="#d2f4f7" stroke-width="2" stroke-dasharray="20 23"><path d="M1080 812q120-8 230 0t240-2M1112 832q130-9 255 0t208-4M1150 850q145-9 260 0"/></g><g class="automation-photo-irrigation" fill="none" stroke="#d7f2f6" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 14"><path d="M1110 996q-18-102-86-52M1110 996q20-106 89-51M1110 996q8-116 30-95"/></g></svg>
+<span class="automation-photo-credit">Imagen generada · ejemplo de funcionamiento</span>
+</div>
