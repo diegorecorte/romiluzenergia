@@ -1,0 +1,68 @@
+[
+  {
+    "key": "doors",
+    "title": "Puertas automáticas y persianas",
+    "need": "Puertas y persianas",
+    "description": "Instalación y adaptación de motores y controles para puertas y persianas. Abre desde el móvil una puerta compatible o programa cuándo suben y bajan las persianas.",
+    "examples": [
+      "Motores para puertas de garaje y accesos",
+      "Persianas y toldos con horarios",
+      "Control desde el móvil y mandos compatibles"
+    ]
+  },
+  {
+    "key": "lights",
+    "title": "Iluminación interior y exterior",
+    "need": "Iluminación inteligente",
+    "description": "Enciende las luces del jardín sin salir de casa, programa el alumbrado al anochecer o añade sensores para iluminar cuando alguien pasa.",
+    "examples": [
+      "Luces de jardín, terraza y entrada",
+      "Horarios y sensores de movimiento",
+      "Escenas de iluminación según tus hábitos"
+    ]
+  },
+  {
+    "key": "pool",
+    "title": "Piscina y riego",
+    "need": "Piscina y riego",
+    "description": "Consulta y programa la depuradora, la iluminación de la piscina o el riego, según los equipos y las protecciones de tu instalación.",
+    "examples": [
+      "Horarios de depuración y riego",
+      "Iluminación de piscina y zonas exteriores",
+      "Control de equipos compatibles desde el móvil"
+    ]
+  },
+  {
+    "key": "security",
+    "title": "Videovigilancia inteligente",
+    "need": "Cámaras y videovigilancia",
+    "description": "Consulta las cámaras desde el móvil y recibe avisos útiles. Según el modelo, la detección con inteligencia artificial puede distinguir personas o vehículos.",
+    "examples": [
+      "Visualización y avisos en el móvil",
+      "Detección de personas o vehículos, según equipo",
+      "Configuración de zonas, usuarios y notificaciones"
+    ]
+  },
+  {
+    "key": "access",
+    "title": "Cerraduras y control de accesos",
+    "need": "Cerraduras y accesos",
+    "description": "Valora una cerradura electrónica o un sistema de acceso para las personas que autorices. El control por móvil, teclado y los permisos temporales dependen del equipo elegido.",
+    "examples": [
+      "Cerraduras electrónicas compatibles con la puerta",
+      "Apertura mediante móvil o teclado, según modelo",
+      "Gestión de accesos y permisos autorizados"
+    ]
+  },
+  {
+    "key": "wifi",
+    "title": "WiFi y dispositivos conectados",
+    "need": "WiFi y conectividad",
+    "description": "Una buena conexión facilita el uso de cámaras, sensores y controles. Revisamos la cobertura y la red para conectar las zonas donde necesitas tus equipos.",
+    "examples": [
+      "Mejora de cobertura en vivienda y exteriores",
+      "Puntos de acceso y redes WiFi según el espacio",
+      "Conexión y configuración de dispositivos inteligentes"
+    ]
+  }
+]

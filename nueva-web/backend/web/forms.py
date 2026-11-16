@@ -8,7 +8,7 @@ from PIL import Image
 
 GROUPS = {
  'Solar, baterías y eólica':['Nueva instalación solar','Instalación aislada','Batería','Backup (autoconsumo)','Ampliación o avería','Eólica'],
- 'Electricidad y punto de recarga':['Trabajo eléctrico','Avería','Punto de recarga','Domótica/seguridad','Otro'],
+ 'Electricidad y punto de recarga':['Trabajo eléctrico','Avería','Punto de recarga','Domótica/seguridad','Puertas y persianas','Iluminación inteligente','Piscina y riego','Cámaras y videovigilancia','Cerraduras y accesos','WiFi y conectividad','Otro'],
  'Camper, autocaravana y náutica':['Camper/autocaravana','Embarcación','Instalación nueva','Ampliación','Avería'],
  'Ahorro en factura y tarifas':['Revisar mi factura','Buscar tarifa mejor','Cambio de comercializadora'],
  'Financiación':['Placas solares','Baterías','Punto de recarga','Otro trabajo'],
@@ -18,7 +18,7 @@ ZONES = ['Conil/La Janda','Bahía de Cádiz/Jerez','Campo de Gibraltar','Málaga
 class ContactForm(forms.Form):
     nombre = forms.CharField(label='Nombre',max_length=100,widget=forms.TextInput(attrs={'autocomplete':'name'}))
     telefono = forms.CharField(label='Teléfono',max_length=25,widget=forms.TextInput(attrs={'type':'tel','autocomplete':'tel'}))
-    servicio = forms.ChoiceField(label='Servicio',choices=[('','Selecciona un servicio')]+[(s,s) for s in GROUPS])
+    servicio = forms.ChoiceField(label='Servicio',choices=[('','Selecciona un servicio')]+[(s,'Electricidad, domótica y recarga' if s=='Electricidad y punto de recarga' else s) for s in GROUPS])
     necesidad = forms.ChoiceField(label='¿Qué necesitas?',choices=[('','Selecciona una opción')]+[(s,s) for v in GROUPS.values() for s in v],required=False)
     zona = forms.ChoiceField(label='Zona',choices=[('','Selecciona tu zona')]+[(z,z) for z in ZONES])
     municipio = forms.CharField(label='Municipio',max_length=100,required=False)

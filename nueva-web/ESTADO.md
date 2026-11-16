@@ -62,3 +62,12 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Comparación de los siete plazos, pagos anuales y cuadro de amortización mensual. Última cuota ajustada para cerrar el capital, sin comisiones desconocidas inventadas.
 - La captura no documenta comisiones, seguros, otros gastos ni límites: se mantiene una estimación parcial y no se presenta una TAE de oferta. Ninguna conexión al portal Pontio ni solicitudes de crédito.
 - 48 pruebas Django y 19 JavaScript correctas; interacción comprobada con DOM simulado y 38 páginas exportadas con enlaces/recursos locales comprobados. Revisión visual en navegador pendiente.
+
+
+16/11/2026 — Electricidad, domótica y automatización:
+
+- «Instalaciones eléctricas y domótica» en Inicio, menú Servicios y página existente. Se conserva la URL para mantener los enlaces.
+- Seis bloques con ejemplos: motores de puertas/persianas, iluminación, piscina/riego, cámaras con detección inteligente según equipo, cerraduras/accesos y WiFi.
+- Rutinas ilustrativas, vista de ejemplo en un móvil, cinco preguntas frecuentes nuevas y consultas que precargan la necesidad. No se conectan equipos ni cuentas de terceros.
+- Migración de textos predeterminados que conserva campos personalizados; cuerpo y FAQs siguen administrables. Los bloques específicos se editan en el JSON del repositorio.
+- 48 pruebas Django y 38 páginas exportadas comprobadas, incluidas las seis consultas y la conservación de ediciones. Revisión visual en navegador pendiente por falta de infraestructura. Se mantienen los permisos privados de la prueba.
