@@ -87,3 +87,10 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - La puerta de paso abre y cierra su hoja. La persiana y el toldo tienen controles propios para bajar/subir y desplegar/recoger. Continúan la puerta corredera, luces, piscina y riego.
 - Cámara y cobertura WiFi se retiran del móvil y de las animaciones; permanece la información de esos servicios. Rutina de noche con luces, persiana y toldo, sin mover las puertas.
 - 48 pruebas Django y 23 JavaScript correctas; interacción y capas comprobadas. Revisión visual de las transiciones en navegador real pendiente. No se conectan equipos ni se modifica el dominio de producción.
+
+
+16/11/2026 — Corrección de dos detalles visuales:
+
+- Puerta de paso y persiana recortan sus propias capas antes de girar o desplazarse; ya no se reutilizan zonas de fachada o foco fuera del marco.
+- Ventana con cortinas en una capa fija bajo la persiana, con imagen generada específica. No se cambian toldo, jardín, piscina, riego ni lógica de los controles.
+- Comprobados los recortes, la imagen y las referencias locales de las páginas exportadas. Pendiente confirmar las transiciones en navegador real, sin infraestructura disponible para esa revisión.
