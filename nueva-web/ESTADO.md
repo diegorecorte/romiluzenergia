@@ -189,3 +189,12 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 
 - Referencia de inversión solar administrable (`SolarPricing`): base, panel instalado, batería, IVA, rango de paneles, condiciones y vigencia. Solo se aplica si el visitante lo elige y existe una referencia vigente; también permite introducir su propio presupuesto. Sin precios precargados.
 - Verificación de esta entrega: 75 pruebas Django y 31 pruebas JavaScript correctas; migraciones aplicadas y coherentes. Exportación de 78 páginas con enlaces y recursos comprobados. Formularios de cálculo comprobados con DOM simulado; pendiente revisión visual en navegador real por falta de infraestructura compatible.
+
+
+18/11/2026 — Movimiento al recorrer el inicio:
+
+- Entradas suaves desde izquierda/derecha en servicios, herramientas, vivienda y financiación; aparición escalonada de marcas, ventajas y guías. Cada elemento entra una vez al llegar al área visible; no se vuelve a ocultar al subir.
+- Fotografía y texto de portada con desplazamiento leve ligado al scroll. Distancia menor en móvil; el botón de pausa del carrusel también detiene ese desplazamiento. Se conserva el intervalo de veinte segundos.
+- Mejora local en CSS/JavaScript, sin API ni envío de datos. Solo en Inicio. El contenido original y los enlaces están presentes en HTML y son visibles sin JavaScript o sin soporte del navegador. Reducción de movimiento e impresión muestran todo sin efecto.
+- Foco por teclado revela de inmediato el bloque; saltos de ancla y restauración de historial conservan el acceso al contenido. Scroll pasivo y una actualización por fotograma, con lecturas de geometría agrupadas al iniciar.
+- Verificados módulo/sintaxis y comportamiento con DOM simulado (entradas, foco, móvil, pausa, movimiento reducido, ausencia de soporte, anclas y limpieza). Exportadas 78 páginas con enlaces y recursos válidos; efectos limitados al inicio, un H1 y noindex conservados. No hubo comprobación visual en navegador real por falta de infraestructura compatible.

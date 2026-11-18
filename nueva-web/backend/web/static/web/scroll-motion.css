@@ -1,0 +1,70 @@
+/* Only the home page opts in. Text and links stay present without JavaScript. */
+[data-scroll-story] {
+  overflow-x: clip;
+}
+
+.scroll-item {
+  transition: opacity 680ms cubic-bezier(.2,.7,.2,1), translate 680ms cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--scroll-delay, 0ms);
+}
+.scroll-pending {
+  opacity: 0;
+  translate: 0 28px;
+}
+.scroll-pending[data-scroll-direction="left"] {
+  translate: -44px 14px;
+}
+.scroll-pending[data-scroll-direction="right"] {
+  translate: 44px 14px;
+}
+.scroll-immediate,
+.scroll-item:focus-within {
+  opacity: 1;
+  translate: none;
+  transition: none;
+}
+
+/* The photograph moves a few pixels as the opening scene leaves the viewport. */
+.scroll-motion .hero .slides {
+  transform: translate3d(0, var(--scroll-hero-shift, 0px), 0) scale(1.05);
+  transform-origin: center;
+}
+.scroll-motion .hero .slide-copy {
+  transform: translate3d(0, var(--scroll-copy-shift, 0px), 0);
+}
+
+@media (max-width: 767px) {
+  .scroll-item {
+    transition-duration: 520ms;
+    transition-delay: 0ms;
+  }
+  .scroll-pending { translate: 0 18px; }
+  .scroll-pending[data-scroll-direction="left"] { translate: -18px 8px; }
+  .scroll-pending[data-scroll-direction="right"] { translate: 18px 8px; }
+  .scroll-item:focus-within,
+  .scroll-immediate { translate: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-item,
+  .scroll-pending,
+  .scroll-pending[data-scroll-direction] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+  .scroll-motion .hero .slides,
+  .scroll-motion .hero .slide-copy { transform: none; }
+}
+
+@media print {
+  .scroll-item,
+  .scroll-pending,
+  .scroll-pending[data-scroll-direction] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+  .scroll-motion .hero .slides,
+  .scroll-motion .hero .slide-copy { transform: none; }
+}
