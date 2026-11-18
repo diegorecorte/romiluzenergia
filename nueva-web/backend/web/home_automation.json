@@ -34,9 +34,9 @@
   },
   {
     "key": "security",
-    "title": "Videovigilancia inteligente",
+    "title": "Cámaras de seguridad EZVIZ",
     "need": "Cámaras y videovigilancia",
-    "description": "Consulta las cámaras desde el móvil y recibe avisos útiles. Según el modelo, la detección con inteligencia artificial puede distinguir personas o vehículos.",
+    "description": "Instalamos cámaras de seguridad EZVIZ para consultar tu vivienda desde el móvil y recibir avisos en la app EZVIZ. Según el modelo, la detección con inteligencia artificial puede distinguir personas o vehículos.",
     "examples": [
       "Visualización y avisos en el móvil",
       "Detección de personas o vehículos, según equipo",

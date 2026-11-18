@@ -117,3 +117,8 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Contrastados modelo, gama, TOPCon de tipo N, construcción bifacial de doble vidrio, eficiencia máxima del 23,4 % y dimensiones 2278 × 1134 × 30 mm con el PDF del fabricante enlazado por ENF: https://cdn.enfsolar.com/z/pp/2025/8/kjwp2osy2se9c0/585605astro-n5-chsm72ndgf-bh-2278x1134x30-en-20250819.pdf (consulta 18/11/2026).
 - ENF incluye también columnas antiguas de 560–580 Wp, pero el PDF enlazado corresponde a 585/590/595/600/605 Wp. Se utiliza esta gama sin elegir una potencia concreta no confirmada por el propietario.
 - ENF marca la gama como descatalogada. Se atribuye expresamente esa indicación a ENF y se pide confirmar disponibilidad y referencia por propuesta; no se afirma stock ni fabricación vigente.
+
+18/11/2026 — Confirmación de potencia habitual y plataformas de domótica:
+
+- ROMILUZ precisa que normalmente monta 595 Wp y, en ocasiones, 590 Wp. La ficha lo indica expresamente; eficiencia STC del 23,0 % y 22,8 % respectivamente, según el PDF. Se conserva 585–605 Wp como rango de la gama. La migración 0009 actualiza únicamente los campos iniciales sin modificar textos personalizados.
+- Domótica: se muestran Tuya Smart y Smart Life como aplicaciones con las que trabaja ROMILUZ, y EZVIZ como marca de cámaras de seguridad confirmada por el propietario. Nuevo bloque explicativo y actualización de la tarjeta de videovigilancia. No se atribuye compatibilidad universal entre las plataformas ni se representa el ejemplo interactivo como su interfaz real.
