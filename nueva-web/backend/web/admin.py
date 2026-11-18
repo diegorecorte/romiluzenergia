@@ -83,3 +83,36 @@ class CatalogProductAdmin(admin.ModelAdmin):
     list_editable=['visible','order']
     search_fields=['title','brand__name','capacity']
     prepopulated_fields={'slug':('title',)}
+
+
+from .models import ElectricityTariff,ChargerPricing,AffiliatePartner,AffiliateOffer,CustomerInstallation,CustomerDocument,CustomerUpdate,FaultReport
+@admin.register(ElectricityTariff)
+class TariffAdmin(admin.ModelAdmin):
+    list_display=['name','provider','verified_on','valid_until','active'];list_filter=['active','provider']
+@admin.register(ChargerPricing)
+class ChargerPricingAdmin(admin.ModelAdmin):
+    list_display=['product','verified_on','valid_until','active'];list_filter=['active']
+@admin.register(AffiliatePartner)
+class AffiliatePartnerAdmin(admin.ModelAdmin):list_display=['name','approved']
+@admin.register(AffiliateOffer)
+class AffiliateOfferAdmin(admin.ModelAdmin):list_display=['product','partner','verified_on','valid_until','active']
+@admin.register(CustomerInstallation)
+class CustomerInstallationAdmin(admin.ModelAdmin):
+    list_display=['title','client','stage','scheduled_date','next_revision'];list_filter=['stage'];search_fields=['title','client__username','reference']
+@admin.register(CustomerDocument)
+class CustomerDocumentAdmin(admin.ModelAdmin):
+    list_display=['title','installation','kind','created'];list_filter=['kind'];readonly_fields=['content_type','protected_link']
+    def protected_link(self,obj):
+        return format_html('<a href="{}">Abrir documento protegido</a>',reverse('customer-document',args=[obj.pk])) if obj.pk else 'Guarda primero el archivo.'
+@admin.register(CustomerUpdate)
+class CustomerUpdateAdmin(admin.ModelAdmin):list_display=['title','installation','created']
+@admin.register(FaultReport)
+class FaultReportAdmin(admin.ModelAdmin):
+    list_display=['lead','brand','model','error_code','hazard'];list_filter=['brand','hazard'];readonly_fields=['photo_links']
+    def photo_links(self,obj):
+        from django.utils.html import format_html_join
+        return format_html_join(' ', '<a href="{}">Fotografía {}</a>',((reverse('fault-photo',args=[p.pk]),i+1) for i,p in enumerate(obj.photos.all()))) if obj.pk else ''
+
+from .models import SolarPricing
+@admin.register(SolarPricing)
+class SolarPricingAdmin(admin.ModelAdmin):list_display=['name','verified_on','valid_until','active']

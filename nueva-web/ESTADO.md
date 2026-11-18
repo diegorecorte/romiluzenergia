@@ -1,6 +1,6 @@
 # Estado de requisitos ROMILUZ
 
-Implementación de trabajo guardada, sin desplegar. «Implementado» indica código comprobado localmente, no servicio activo en Internet.
+Código de servidor y demostración privada estática guardados. «Implementado» indica código comprobado; la recepción de solicitudes, los documentos privados y la IA requieren activar el servidor con sus servicios. La web del dominio actual no se ha sustituido.
 
 | Requisito | Estado |
 |---|---|
@@ -15,8 +15,8 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | Filtros, ficha y CTA de proyectos | Implementado |
 | Administración de servicios, FAQs, presentación, textos de financiación, carrusel y reseñas | Implementado; algunos textos secundarios de portada/pie siguen en plantillas |
 | Blog con categorías, borradores, fecha programada y foto | Implementado; tres guías originales con secciones y enlaces a servicios. Sin editor visual avanzado |
-| Tarifas y comparativa manual | Formulario e información implementados; comparación la realiza ROMILUZ |
-| OCR y tres ofertas automáticas reales | Pendiente de datos, fuente vigente y autorización; no hay API confirmada |
+| Tarifas y comparativa manual | Calculadora por periodos y oferta manual; tarifas verificadas administrables, pendientes de cargar |
+| Lectura IA de factura y ofertas reales | Adaptador OpenAI implementado y probado con respuestas simuladas; clave, privacidad y antivirus pendientes. Sin ofertas ficticias |
 | Condiciones y simulador de financiación | Calculadora orientativa con TIN y siete plazos de la captura aportada; comisiones, TAE, límites y condiciones finales pendientes. Puede sustituirse por una ficha completa verificada |
 | Legal y privacidad | Borradores editables; falta titular/NIF/domicilio profesional y revisión |
 | Redes sociales oficiales | Instagram y Facebook enlazados desde la referencia; LinkedIn pendiente de URL. Conexión automática de cuentas pendiente |
@@ -25,7 +25,7 @@ Implementación de trabajo guardada, sin desplegar. «Implementado» indica cód
 | Copias de datos y fotos, exportación | Comando privado implementado; pendiente política de conservación y prueba de restauración final |
 | SEO, canónicas, sitemap, robots y redirecciones iniciales | Implementado; indexación bloqueada por defecto; falta inventario completo de URLs y Search Console |
 | Experiencia de vivienda y energía | Vista fotográfica generada con ejemplo horario editable y modelo 3D opcional. Cálculos simulados, no lecturas reales. Pendiente revisión visual en navegador y datos de una vivienda concreta |
-| Tienda y sincronización de publicaciones sociales | Pendientes |
+| Tienda de afiliación | Implementada con proveedores/enlaces aprobados; faltan acuerdos reales. Sincronización social pendiente |
 | Dominio y publicación | Sin cambios, pendientes de solicitud cuando corresponda |
 
 ## Comprobaciones
@@ -171,3 +171,21 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - La conexión azul queda atenuada, estática y sin flecha cuando no hay intercambio. Al importar, la flecha apunta al inversor; al exportar, al contador. Durante el corte se oculta el recorrido de red. Pausa de recorridos y movimiento reducido conservados.
 - Nueva hoja energy-layout.css y versiones de recursos para evitar cachés anteriores. En móvil se muestran las lecturas en la propia representación; los botones mantienen sus nombres accesibles y se redistribuyen para dejar sitio a los valores.
 - Verificación: 14 pruebas JavaScript de energía correctas y comprobación del renderizador con DOM simulado para valores iniciales, conexión sin intercambio, exportación, inyección cero, importación y corte. Cinco rutas ortogonales y cajas de valores sin solaparse en geometría estática para 320/375/500/750/751/1000/1280 px. Composiciones SVG estáticas revisadas a 1000 y 375 px con los recursos y la fuente del sitio; no son capturas de navegador. 67 páginas exportadas con enlaces/recursos locales válidos. Revisión visual interactiva en navegador pendiente por falta de infraestructura compatible.
+
+18/11/2026 — Ocho funciones de estudio, atención y proveedores:
+
+- Nuevo centro `/herramientas`, enlazado desde inicio y servicios. Accesos por objetivo: ahorrar, respaldo y recarga. Se conservan vivienda interactiva, financiación, catálogo, reseñas y fuentes anteriores.
+- Ahorro solar: referencias PVGIS 5.3 comprobadas para Conil, Cádiz, Jerez y Chiclana (sur, 30°, pérdidas 14 %, ubicación urbana aproximada). Comparación mensual con/sin batería, consumo uniforme entre meses, uso directo editable, reserva de batería y eficiencia. Dimensionado por equivalencia anual de paneles Astronergy de 595 Wp. Amortización simple solo al introducir presupuesto solar y, si corresponde, coste de batería; no se inventa inversión ROMILUZ ni se garantiza producción/ahorro. No incluye potencia, cuotas, degradación, mantenimiento o financiación.
+- Factura: entrada manual por periodos y comparación contra tarifas administrables con fuente y vigencia; también admite una oferta de precio único introducida expresamente por el usuario. Solo compara bases de impuestos iguales y muestra diferencias cuando el usuario confirma conceptos comparables. Motor de lectura opcional OpenAI con esquema estricto, datos desconocidos nulos, sin guardar factura en la aplicación y sin acciones decididas por el modelo; requiere confirmación de campos antes de comparar. No cambia contratos ni comercializadora.
+- Acceso OpenAI: el usuario ha autorizado crear una clave nueva. Sigue pendiente recibir la selección de organización/proyecto del formulario seguro y confirmar el destino local antes de crear/escribir la clave. No se ha creado una clave ni realizado una llamada real de análisis. La función queda apagada por defecto; además de clave/configuración necesita antivirus y política de privacidad revisada para el tratamiento con el proveedor.
+- Cubierta: ancho/largo de una o dos superficies iguales, margen, separación y comparación vertical/horizontal. Esquema SVG y potencia calculada con dimensiones de la ficha Astronergy. No comprueba estructura, sombras, pasillos, obstáculos, inclinación de filas o normativa y no es un plano de ejecución.
+- Área privada: cuentas Django sin contraseñas predeterminadas, instalaciones asignadas por cliente, fases, fechas, actualizaciones, fotos, facturas, garantías, manuales y próxima revisión. Descarga protegida por propietario/permisos y respuestas privadas sin caché; notas internas de solicitudes no se publican. Referencia opcional a ROMILUZ CONTROL, sin sincronización ni exposición de ese sistema mientras no haya una integración definida.
+- Recarga: vehículo y límite AC indicados por el usuario, suministro, potencia disponible, distancia, fotovoltaica y obra especial. Referencias V2C, ORBIS y Growatt existentes, con selección de variante para las gamas. Límite por coche/suministro/cargador y rechazo de combinación monofásica/trifásica incompatible. Presupuesto orientativo solo con precios vigentes publicados para la referencia concreta; obras especiales y familias sin SKU quedan para estudio. No hay precios comerciales preestablecidos sin datos de ROMILUZ.
+- Backup: carga inicial, reserva, eficiencia, potencia de inversor y consumos medios seleccionables/editables. Autonomía por energía disponible y potencia; contempla cero carga/consumo y sobrecarga. Distingue uso habitual/nocturno y respaldo; no promete funcionamiento en apagón sin instalación compatible ni verifica arranques.
+- Diagnóstico: marca, modelo, error, síntomas y hasta tres fotos privadas para organizar asistencia. Genera solicitud interna, referencia y aviso mínimo por el canal de correo existente cuando esté configurado. Sin diagnóstico técnico automático ni citas confirmadas. Solicitudes/archivos conservan los requisitos existentes de privacidad y escáner.
+- Afiliación: proveedores, dominios admitidos, acuerdos, enlaces y vigencia administrables. La compra se realiza en el proveedor; pago, envío y devoluciones se explican. Enlaces con rel sponsored/nofollow. Las fichas de producto muestran ofertas solo si están aprobadas y vigentes. No se han inventado acuerdos ni publicado enlaces de comisión sin confirmar.
+- Las calculadoras funcionan en la demostración estática con los mismos modelos matemáticos. El área de clientes se muestra con una demostración sin datos y acceso desactivado; las peticiones, archivos y lectura IA requieren ejecutar el servidor Django configurado, no GitHub Pages ni la exportación estática. No se ha activado indexación, cambiado el dominio ni publicado documentos de clientes.
+- Exportador reproducible en `backend/scripts/export_preview.py --output <directorio>`: base temporal limpia, sin clientes/documentos privados, formularios de recepción/acceso desactivados y cálculos locales en la prueba. El código de servidor permanece portable para su futuro alojamiento.
+
+- Referencia de inversión solar administrable (`SolarPricing`): base, panel instalado, batería, IVA, rango de paneles, condiciones y vigencia. Solo se aplica si el visitante lo elige y existe una referencia vigente; también permite introducir su propio presupuesto. Sin precios precargados.
+- Verificación de esta entrega: 75 pruebas Django y 31 pruebas JavaScript correctas; migraciones aplicadas y coherentes. Exportación de 78 páginas con enlaces y recursos comprobados. Formularios de cálculo comprobados con DOM simulado; pendiente revisión visual en navegador real por falta de infraestructura compatible.

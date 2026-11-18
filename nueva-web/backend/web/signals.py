@@ -25,3 +25,19 @@ def replace_photo(sender,instance,**kwargs):
     if previous and previous.name!=current.name:
         storage,name=previous.storage,previous.name
         transaction.on_commit(lambda:storage.delete(name))
+
+
+from .models import CustomerDocument,FaultPhoto
+@receiver(post_delete,sender=CustomerDocument)
+@receiver(post_delete,sender=FaultPhoto)
+def delete_private_tool_file(sender,instance,**kwargs):
+    if instance.file.name:
+        storage,name=instance.file.storage,instance.file.name
+        transaction.on_commit(lambda:storage.delete(name))
+@receiver(pre_save,sender=CustomerDocument)
+def replace_customer_document(sender,instance,**kwargs):
+    if not instance.pk:return
+    old=sender.objects.filter(pk=instance.pk).first()
+    if old and old.file and old.file.name!=instance.file.name:
+        storage,name=old.file.storage,old.file.name
+        transaction.on_commit(lambda:storage.delete(name))

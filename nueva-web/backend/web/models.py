@@ -283,3 +283,138 @@ class CatalogProduct(models.Model):
     @property
     def installation_contact_url(self):return self.enquiry_url('instalacion')
     def __str__(self):return f'{self.brand.name} · {self.title}'
+
+
+class ElectricityTariff(models.Model):
+    name=models.CharField('Tarifa',max_length=120)
+    provider=models.CharField('Comercializadora',max_length=120)
+    source_url=models.URLField('Condiciones oficiales',max_length=500)
+    energy_p1=models.FloatField('€/kWh punta',validators=[MinValueValidator(0),MaxValueValidator(5)])
+    energy_p2=models.FloatField('€/kWh llano',validators=[MinValueValidator(0),MaxValueValidator(5)])
+    energy_p3=models.FloatField('€/kWh valle',validators=[MinValueValidator(0),MaxValueValidator(5)])
+    power_p1=models.FloatField('€/kW/día P1',validators=[MinValueValidator(0),MaxValueValidator(5)])
+    power_p2=models.FloatField('€/kW/día P2',validators=[MinValueValidator(0),MaxValueValidator(5)])
+    monthly_fee=models.FloatField('Cuota mensual €',default=0,validators=[MinValueValidator(0),MaxValueValidator(1000)])
+    includes_taxes=models.BooleanField('Precios con impuestos',default=False)
+    conditions=models.TextField('Condiciones, descuentos y permanencia')
+    verified_on=models.DateField('Comprobada el')
+    valid_until=models.DateField('Válida hasta')
+    active=models.BooleanField('Publicar',default=False)
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.valid_until and self.verified_on and self.valid_until<self.verified_on:raise ValidationError('La vigencia termina antes de la comprobación.')
+    def __str__(self):return f'{self.provider} · {self.name}'
+
+class ChargerPricing(models.Model):
+    product=models.OneToOneField(CatalogProduct,on_delete=models.CASCADE,limit_choices_to={'kind':'evcharger'})
+    equipment_eur=models.FloatField('Equipo, sin IVA',validators=[MinValueValidator(0)])
+    installation_eur=models.FloatField('Instalación base, sin IVA',validators=[MinValueValidator(0)])
+    included_metres=models.FloatField('Metros incluidos',default=5,validators=[MinValueValidator(0)])
+    extra_metre_eur=models.FloatField('Metro adicional, sin IVA',validators=[MinValueValidator(0)])
+    vat_percent=models.FloatField('IVA %',default=21,validators=[MinValueValidator(0),MaxValueValidator(100)])
+    conditions=models.TextField('Qué incluye y excluye')
+    verified_on=models.DateField('Comprobado el')
+    valid_until=models.DateField('Válido hasta')
+    active=models.BooleanField('Precio revisado y publicado',default=False)
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.product_id and self.product.kind!='evcharger':raise ValidationError('Selecciona un punto de recarga.')
+        if self.valid_until and self.verified_on and self.valid_until<self.verified_on:raise ValidationError('Revisa las fechas.')
+    def __str__(self):return str(self.product)
+
+class AffiliatePartner(models.Model):
+    name=models.CharField('Proveedor',max_length=120)
+    website=models.URLField('Web oficial')
+    allowed_hosts=models.CharField('Dominios permitidos, separados por comas',max_length=500)
+    disclosure=models.TextField('Información del acuerdo y comisión al cliente')
+    approved=models.BooleanField('Acuerdo comprobado y autorizado por ROMILUZ',default=False)
+    def __str__(self):return self.name
+
+class AffiliateOffer(models.Model):
+    product=models.ForeignKey(CatalogProduct,on_delete=models.CASCADE,related_name='affiliate_offers')
+    partner=models.ForeignKey(AffiliatePartner,on_delete=models.CASCADE)
+    url=models.URLField('Enlace de afiliación aprobado',max_length=1000)
+    verified_on=models.DateField('Comprobado el')
+    valid_until=models.DateField('Revisar antes de')
+    active=models.BooleanField('Publicar',default=False)
+    def clean(self):
+        from urllib.parse import urlsplit
+        from django.core.exceptions import ValidationError
+        p=urlsplit(self.url)
+        hosts={s.strip().lower() for s in self.partner.allowed_hosts.split(',')}
+        if p.scheme!='https' or p.hostname not in hosts or p.username or p.password:raise ValidationError('El enlace debe usar HTTPS y un dominio aprobado del proveedor.')
+        if self.verified_on and self.valid_until and self.valid_until<self.verified_on:raise ValidationError('Revisa las fechas.')
+    def __str__(self):return f'{self.product} · {self.partner}'
+
+class CustomerInstallation(models.Model):
+    client=models.ForeignKey('auth.User',on_delete=models.PROTECT,related_name='romiluz_installations')
+    title=models.CharField('Instalación',max_length=160)
+    reference=models.CharField('Referencia de ROMILUZ CONTROL (opcional)',max_length=100,blank=True)
+    stage=models.CharField('Estado',max_length=30,default='accepted',choices=[('accepted','Presupuesto aceptado'),('materials','Materiales y planificación'),('installation','En instalación'),('commissioning','Puesta en marcha'),('aftercare','Seguimiento y revisiones')])
+    scheduled_date=models.DateField('Fecha prevista',null=True,blank=True)
+    client_message=models.TextField('Información visible para el cliente',blank=True)
+    next_revision=models.DateField('Próxima revisión',null=True,blank=True)
+    class Meta:verbose_name='Instalación privada de cliente'
+    def __str__(self):return self.title
+
+def private_document_path(instance,filename):
+    return 'customer-documents/'+uuid.uuid4().hex+Path(filename).suffix.lower()
+
+class CustomerDocument(models.Model):
+    installation=models.ForeignKey(CustomerInstallation,on_delete=models.CASCADE,related_name='documents')
+    title=models.CharField('Documento o fotografía',max_length=160)
+    kind=models.CharField('Tipo',max_length=20,choices=[('photo','Fotografía'),('invoice','Factura'),('warranty','Garantía'),('manual','Manual'),('revision','Revisión'),('other','Otro')])
+    file=models.FileField('Archivo privado',upload_to=private_document_path)
+    created=models.DateTimeField(auto_now_add=True)
+    content_type=models.CharField(max_length=50,editable=False,blank=True)
+    def clean(self):
+        if self.file and not self.file._committed:
+            from .forms import ContactForm
+            proxy=type('UploadCheck',(),{'cleaned_data':{'factura':self.file}})()
+            checked=ContactForm.clean_factura(proxy);self.content_type=checked.verified_type
+            if self.kind=='photo' and self.content_type not in ('image/png','image/jpeg'):
+                from django.core.exceptions import ValidationError
+                raise ValidationError('Las fotografías deben ser JPG o PNG.')
+    def __str__(self):return self.title
+
+class CustomerUpdate(models.Model):
+    installation=models.ForeignKey(CustomerInstallation,on_delete=models.CASCADE,related_name='updates')
+    title=models.CharField('Actualización visible para el cliente',max_length=160)
+    body=models.TextField('Texto visible')
+    created=models.DateTimeField(auto_now_add=True)
+    class Meta:ordering=['-created']
+    def __str__(self):return self.title
+
+class FaultReport(models.Model):
+    lead=models.OneToOneField(Lead,on_delete=models.CASCADE,related_name='fault')
+    brand=models.CharField('Marca',max_length=100)
+    model=models.CharField('Modelo',max_length=120)
+    error_code=models.CharField('Código de error',max_length=100,blank=True)
+    symptoms=models.TextField('Descripción de la avería')
+    hazard=models.BooleanField('Comunica humo, olor a quemado o agua',default=False)
+    class Meta:verbose_name='Solicitud de diagnóstico'
+    def __str__(self):return str(self.lead_id)
+
+class FaultPhoto(models.Model):
+    report=models.ForeignKey(FaultReport,on_delete=models.CASCADE,related_name='photos')
+    file=models.FileField(upload_to='fault-photos/')
+    content_type=models.CharField(max_length=50)
+
+class SolarPricing(models.Model):
+    name=models.CharField('Referencia de precios de ROMILUZ',max_length=120)
+    base_eur=models.FloatField('Instalación base, sin IVA',validators=[MinValueValidator(0)])
+    panel_eur=models.FloatField('Importe por panel instalado, sin IVA',validators=[MinValueValidator(0)])
+    battery_base_eur=models.FloatField('Instalación adicional de batería, sin IVA',validators=[MinValueValidator(0)])
+    battery_kwh_eur=models.FloatField('Importe por kWh de batería, sin IVA',validators=[MinValueValidator(0)])
+    vat_percent=models.FloatField('IVA %',default=21,validators=[MinValueValidator(0),MaxValueValidator(100)])
+    min_panels=models.PositiveIntegerField('Mínimo de paneles',default=2)
+    max_panels=models.PositiveIntegerField('Máximo de paneles',default=40)
+    conditions=models.TextField('Condiciones públicas y trabajos incluidos/excluidos')
+    verified_on=models.DateField('Revisado el')
+    valid_until=models.DateField('Válido hasta')
+    active=models.BooleanField('Publicar como referencia orientativa',default=False)
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.max_panels<self.min_panels or not 1<=self.min_panels<=300 or self.max_panels>300:raise ValidationError('Revisa el rango de paneles.')
+        if self.valid_until<self.verified_on:raise ValidationError('Revisa las fechas.')
+    def __str__(self):return self.name

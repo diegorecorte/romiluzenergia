@@ -1,0 +1,90 @@
+{
+  "conil": {
+    "town": "conil",
+    "name": "Conil de la Frontera",
+    "yield": 1733.63,
+    "monthlyShares": [
+      0.06651399960775718,
+      0.06850405509857985,
+      0.08324777056102259,
+      0.08944866810489034,
+      0.09782420599670054,
+      0.09701087897001649,
+      0.1023119253354253,
+      0.09964121318397341,
+      0.08901027906923085,
+      0.0787196732848029,
+      0.06467968759012932,
+      0.06308764319747119
+    ],
+    "source": "https://re.jrc.ec.europa.eu/api/v5_3/PVcalc?lat=36.2773&lon=-6.0885&peakpower=1&loss=14&angle=30&aspect=0&outputformat=json",
+    "checked": "2026-11-18",
+    "assumptions": "Referencia PVGIS 5.3: centro aproximado del municipio, orientación sur, inclinación 30°, pérdidas 14 %. No incluye sombras particulares."
+  },
+  "cadiz": {
+    "town": "cadiz",
+    "name": "Cádiz",
+    "yield": 1704.2,
+    "monthlyShares": [
+      0.06712827132965614,
+      0.06902358878065955,
+      0.0837049642060791,
+      0.09043539490670109,
+      0.09862692172280249,
+      0.09732425771623049,
+      0.10242929233658021,
+      0.09936627156437038,
+      0.0876422955052224,
+      0.07764346907639948,
+      0.06434690763994835,
+      0.06232836521535031
+    ],
+    "source": "https://re.jrc.ec.europa.eu/api/v5_3/PVcalc?lat=36.5297&lon=-6.2923&peakpower=1&loss=14&angle=30&aspect=0&outputformat=json",
+    "checked": "2026-11-18",
+    "assumptions": "Referencia PVGIS 5.3: centro aproximado del municipio, orientación sur, inclinación 30°, pérdidas 14 %. No incluye sombras particulares."
+  },
+  "jerez": {
+    "town": "jerez",
+    "name": "Jerez de la Frontera",
+    "yield": 1707.42,
+    "monthlyShares": [
+      0.06758735401951482,
+      0.068934415668084,
+      0.0839277974956367,
+      0.08914034039662179,
+      0.09793138185097984,
+      0.09625633997493294,
+      0.10213070012064986,
+      0.09910273980625739,
+      0.08764100221386652,
+      0.07841655831605579,
+      0.06520949737030139,
+      0.0637218727670989
+    ],
+    "source": "https://re.jrc.ec.europa.eu/api/v5_3/PVcalc?lat=36.685&lon=-6.1261&peakpower=1&loss=14&angle=30&aspect=0&outputformat=json",
+    "checked": "2026-11-18",
+    "assumptions": "Referencia PVGIS 5.3: centro aproximado del municipio, orientación sur, inclinación 30°, pérdidas 14 %. No incluye sombras particulares."
+  },
+  "chiclana": {
+    "town": "chiclana",
+    "name": "Chiclana",
+    "yield": 1726.19,
+    "monthlyShares": [
+      0.06765767383659968,
+      0.06903643283763665,
+      0.08358291960908126,
+      0.08879671415081769,
+      0.09751533724561028,
+      0.0964494059170775,
+      0.1025263731107236,
+      0.09937492396549626,
+      0.08800305875946449,
+      0.07824167675632462,
+      0.0652419490322618,
+      0.06357353477890614
+    ],
+    "source": "https://re.jrc.ec.europa.eu/api/v5_3/PVcalc?lat=36.4192&lon=-6.1494&peakpower=1&loss=14&angle=30&aspect=0&outputformat=json",
+    "checked": "2026-11-18",
+    "assumptions": "Referencia PVGIS 5.3: centro aproximado del municipio, orientación sur, inclinación 30°, pérdidas 14 %. No incluye sombras particulares."
+  }
+}

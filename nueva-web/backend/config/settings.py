@@ -3,6 +3,18 @@ from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 SITE_DIR = BASE_DIR.parent
+# Clave aprovisionada por el flujo seguro, en un archivo local ignorado; nunca se imprime.
+_ai_env=BASE_DIR/'.env.local'
+if _ai_env.is_file() and not _ai_env.is_symlink():
+    import shlex
+    for _line in _ai_env.read_text().splitlines():
+        if '=' not in _line or _line.lstrip().startswith('#'):continue
+        _name,_value=_line.split('=',1)
+        if _name.strip() not in {'OPENAI_API_KEY','ROMILUZ_OPENAI_MODEL','ROMILUZ_AI_INVOICE_ENABLED'}:continue
+        try:_parts=shlex.split(_value,comments=True)
+        except ValueError:continue
+        if _parts:os.environ.setdefault(_name.strip(),' '.join(_parts))
+
 DEBUG = os.getenv('DJANGO_DEBUG', '0') == '1'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 if not SECRET_KEY:
@@ -64,3 +76,9 @@ LOGGING = {'version':1,'disable_existing_loggers':False,'handlers':{'null':{'cla
 
 if os.getenv("DJANGO_TRUST_PROXY", "0") == "1":
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+LOGIN_URL='/area-clientes/acceso'
+LOGIN_REDIRECT_URL='/area-clientes'
+LOGOUT_REDIRECT_URL='/'
+OPENAI_MODEL=os.getenv('ROMILUZ_OPENAI_MODEL','gpt-4.1-mini')
+AI_INVOICE_ENABLED=os.getenv('ROMILUZ_AI_INVOICE_ENABLED','0')=='1' and bool(os.getenv('OPENAI_API_KEY'))

@@ -81,6 +81,13 @@ def contact(request,invoice=False):
         product=CatalogProduct.objects.filter(slug=request.GET['producto'],visible=True,brand__visible=True).first()
         if product:
             initial.update(servicio=product.enquiry_service,necesidad=product.enquiry_need,comentario=product.enquiry_text(request.GET.get('modalidad','')))
+    if not invoice and request.GET.get('estudio'):
+        from django.core import signing
+        try:
+            study=signing.loads(request.GET['estudio'],salt='romiluz-study',max_age=7*86400)
+            if isinstance(study,dict) and study.get('service') in GROUPS and study.get('need') in GROUPS[study['service']]:
+                initial.update(servicio=study['service'],necesidad=study['need'],comentario=str(study['summary'])[:1800])
+        except (signing.BadSignature,TypeError,KeyError):pass
     form=ContactForm(request.POST if request.method=='POST' else None,request.FILES if request.method=='POST' else None,initial=initial)
     status=200
     blocked_error=""
@@ -147,7 +154,7 @@ def robots(request):
 
 def sitemap(request):
     from xml.sax.saxutils import escape
-    paths=['/','/equipos','/asi-funciona','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/equipos/'+p.slug for p in CatalogProduct.objects.filter(visible=True,brand__visible=True)]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
+    paths=['/herramientas','/herramientas/ahorro','/herramientas/cubierta','/herramientas/recarga','/herramientas/backup','/herramientas/factura','/tienda','/','/equipos','/asi-funciona','/contacto','/proyectos','/blog','/preguntas-frecuentes','/ahorro-financiacion','/compara-tu-factura','/tarifas-comercializadoras','/financiacion']+['/'+s.slug for s in Service.objects.all()]+['/equipos/'+p.slug for p in CatalogProduct.objects.filter(visible=True,brand__visible=True)]+['/proyectos/'+p.slug for p in Project.objects.filter(published=True)]+['/blog/'+p.slug for p in Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))]
     xml='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+escape(settings.CANONICAL_ORIGIN+path)+'</loc></url>' for path in paths)+'</urlset>'
     return HttpResponse(xml,content_type='application/xml')
 
@@ -183,4 +190,5 @@ def catalog(request):
 @require_GET
 def catalog_product(request,slug):
     product=get_object_or_404(CatalogProduct.objects.select_related('brand'),slug=slug,visible=True,brand__visible=True)
-    return render(request,'web/catalog_product.html',{'title':str(product),'product':product})
+    from .tool_views import approved_offers
+    return render(request,'web/catalog_product.html',{'title':str(product),'product':product,'purchase_offers':approved_offers(product)})

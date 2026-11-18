@@ -1,8 +1,22 @@
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import RedirectView
-from web import views
+from web import views,tool_views
+from django.contrib.auth import views as auth_views
 urlpatterns=[
+ path('herramientas',tool_views.hub,name='tools-hub'),
+ path('herramientas/<slug:key>',tool_views.tool,name='tool'),
+ path('api/herramientas/<slug:key>',tool_views.tool_api,name='tool-api'),
+ path('api/solar-resource',tool_views.solar_resource,name='solar-resource'),
+ path('api/factura-ia',tool_views.invoice_ai,name='invoice-ai'),
+ path('diagnostico',tool_views.fault,name='fault'),
+ path('diagnostico/fotos/<int:pk>',tool_views.fault_photo,name='fault-photo'),
+ path('tienda',tool_views.shop,name='affiliate-shop'),
+ path('area-clientes',tool_views.portal,name='customer-portal'),
+ path('area-clientes/demo',tool_views.portal_demo,name='customer-demo'),
+ path('area-clientes/acceso',auth_views.LoginView.as_view(template_name='registration/customer_login.html',redirect_authenticated_user=True),name='customer-login'),
+ path('area-clientes/salir',auth_views.LogoutView.as_view(),name='customer-logout'),
+ path('area-clientes/documentos/<int:pk>',tool_views.document,name='customer-document'),
  path('admin/',admin.site.urls),
  path('',views.homepage,name='home'),
  path('equipos',views.catalog,name='catalog'),
