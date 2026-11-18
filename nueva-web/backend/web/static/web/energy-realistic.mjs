@@ -45,7 +45,8 @@ if(root){
   root.querySelectorAll('[data-photo-flow]').forEach(path=>{
    const key=path.dataset.photoFlow,enabled=active.includes(key),reversed=reverse.includes(key);
    path.classList.toggle('equipment-highlight',!!selectedEquipment&&(selectedEquipment==='backup'?['home','battery'].includes(key):key===(equipment[selectedEquipment].channel||selectedEquipment)));
-   path.style.display=enabled?'':'none';path.classList.toggle('reverse',reversed);
+   path.style.display=enabled||(key==='grid'&&!r.cut)?'':'none';
+   path.classList.toggle('is-idle',!enabled);path.classList.toggle('reverse',reversed);
    path.removeAttribute('marker-start');path.removeAttribute('marker-end');
    if(enabled)path.setAttribute(reversed?'marker-start':'marker-end','url(#energy-direction-'+key+')');
   });
