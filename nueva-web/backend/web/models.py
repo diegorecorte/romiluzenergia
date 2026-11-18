@@ -206,7 +206,7 @@ class Brand(models.Model):
     class Meta: ordering=['order','name'];verbose_name='Marca';verbose_name_plural='Marcas con las que trabajamos'
     @property
     def logo_asset(self):
-        return {'HinaESS':'hinaess.webp','Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
+        return {'LuxPowerTek':'luxpowertek.webp','HinaESS':'hinaess.webp','Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
     @property
     def logo_dark(self):return self.name in ('Victron Energy','Trina Solar','Sungrow')
     def __str__(self):return self.name

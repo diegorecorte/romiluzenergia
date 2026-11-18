@@ -128,3 +128,9 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Se sustituyen los iconos genéricos de las tarjetas Tuya Smart, Smart Life y EZVIZ por los iconos oficiales de sus aplicaciones y el logotipo de color de EZVIZ. La tarjeta de cámaras también utiliza el logotipo de EZVIZ.
 - Recursos servidos desde la propia web, sin depender de enlaces temporales. Origen y fecha registrados en assets/brands/SOURCES.json. Se mantienen los nombres, el contenido y el funcionamiento de la demostración.
 - Comprobación de archivos y exportación con enlaces y recursos locales. Revisión visual de la página en navegador pendiente por falta de la infraestructura compatible.
+
+18/11/2026 — LuxPowerTek SNA 6000 WPV:
+
+- El propietario confirma que ROMILUZ trabaja con LuxPowerTek SNA 6000 WPV de 6 kW. Se añade la marca con su logotipo oficial y una ficha de consulta con imagen de la familia SNA publicada por el fabricante. Aparece en las marcas de inicio y en el catálogo filtrable por logotipo. El catálogo queda en 35 referencias y 13 marcas.
+- Datos contrastados con la ficha oficial de la familia SNA 3–6K: 6 kW monofásicos, batería nominal de 48 V y dos MPPT. Referencia: https://luxpowertek.com/off-grid-inverter-sna-3-6k/ y https://luxpowertek.com/wp-content/uploads/2026/10/SNA-3-6K-Datasheet20260729.pdf (consulta 18/11/2026). El nombre comercial exacto WPV lo confirma ROMILUZ.
+- Las ediciones oficiales consultadas tienen límites fotovoltaicos distintos; no se atribuyen al modelo WPV valores de entrada FV, grado IP o capacidad de vertido sin verificar su versión concreta. La compatibilidad se confirma por proyecto.

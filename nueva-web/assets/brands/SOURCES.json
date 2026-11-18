@@ -64,5 +64,10 @@
     "source": "https://www.ezviz.com/es",
     "method": "SVG de color del logotipo de la cabecera oficial, conservando trazados y colores.",
     "consulted_on": "2026-11-18"
+  },
+  "luxpowertek.webp": {
+    "source": "https://luxpowertek.com/wp-content/uploads/2025/03/logo_new_website.webp",
+    "reference": "https://luxpowertek.com/",
+    "consulted_on": "2026-11-18"
   }
 }

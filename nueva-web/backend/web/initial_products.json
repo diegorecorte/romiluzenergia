@@ -406,5 +406,17 @@
     "image_source_url": "https://cdn.enfsolar.com/Product/logo/Crystalline/6745b88f7024b.png",
     "verified_on": "2026-11-18",
     "asset": "catalog/astronergy-astro-n5-585-605.png"
+  },
+  {
+    "slug": "luxpowertek-sna-6000-wpv",
+    "brand": "LuxPowerTek",
+    "title": "SNA 6000 WPV",
+    "kind": "inverter",
+    "capacity": "6 kW monofásico · batería de 48 V",
+    "description": "Inversor/cargador de 6 kW con el que trabajamos en ROMILUZ, orientado a sistemas solares con almacenamiento, instalaciones aisladas y respaldo según configuración. Utiliza baterías de 48 V e incorpora dos seguidores MPPT para los paneles. Revisamos la versión del equipo, las baterías y el esquema eléctrico en cada proyecto.",
+    "source_url": "https://luxpowertek.com/off-grid-inverter-sna-3-6k/",
+    "image_source_url": "https://luxpowertek.com/wp-content/uploads/2026/07/SNA-3-6K.webp",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/luxpowertek-sna-6000-wpv.webp"
   }
 ]
