@@ -122,3 +122,9 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 
 - ROMILUZ precisa que normalmente monta 595 Wp y, en ocasiones, 590 Wp. La ficha lo indica expresamente; eficiencia STC del 23,0 % y 22,8 % respectivamente, según el PDF. Se conserva 585–605 Wp como rango de la gama. La migración 0009 actualiza únicamente los campos iniciales sin modificar textos personalizados.
 - Domótica: se muestran Tuya Smart y Smart Life como aplicaciones con las que trabaja ROMILUZ, y EZVIZ como marca de cámaras de seguridad confirmada por el propietario. Nuevo bloque explicativo y actualización de la tarjeta de videovigilancia. No se atribuye compatibilidad universal entre las plataformas ni se representa el ejemplo interactivo como su interfaz real.
+
+18/11/2026 — Logotipos de domótica:
+
+- Se sustituyen los iconos genéricos de las tarjetas Tuya Smart, Smart Life y EZVIZ por los iconos oficiales de sus aplicaciones y el logotipo de color de EZVIZ. La tarjeta de cámaras también utiliza el logotipo de EZVIZ.
+- Recursos servidos desde la propia web, sin depender de enlaces temporales. Origen y fecha registrados en assets/brands/SOURCES.json. Se mantienen los nombres, el contenido y el funcionamiento de la demostración.
+- Comprobación de archivos y exportación con enlaces y recursos locales. Revisión visual de la página en navegador pendiente por falta de la infraestructura compatible.

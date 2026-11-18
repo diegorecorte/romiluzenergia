@@ -47,5 +47,22 @@
   "hinaess.webp": {
     "source": "https://hinaess.com/wp-content/uploads/2023/02/HinaEss_logo.webp",
     "consulted_on": "2026-11-16"
+  },
+  "tuya-smart.png": {
+    "source": "https://smartapp.tuya.com/tuyasmart",
+    "reference_image": "https://airtake-private-data.s3.dualstack.us-west-2.amazonaws.com/smart/app/package/certificate/168/1600524053_1024-1024%401x2.png",
+    "method": "Icono de la aplicación publicado en su página oficial de descarga; copia local sin enlaces temporales.",
+    "consulted_on": "2026-11-18"
+  },
+  "smart-life.png": {
+    "source": "https://smartapp.tuya.com/smartlife",
+    "reference_image": "https://airtake-private-data.s3.dualstack.us-west-2.amazonaws.com/smart/app/package/certificate/19/1647332785_iOS_1024%402x.png",
+    "method": "Icono de la aplicación publicado en su página oficial de descarga; copia local sin enlaces temporales.",
+    "consulted_on": "2026-11-18"
+  },
+  "ezviz.svg": {
+    "source": "https://www.ezviz.com/es",
+    "method": "SVG de color del logotipo de la cabecera oficial, conservando trazados y colores.",
+    "consulted_on": "2026-11-18"
   }
 }
