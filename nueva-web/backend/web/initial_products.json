@@ -502,5 +502,41 @@
     "image_source_url": "https://en.growatt.com/upload/image/20220923/c2d97a235d90541153e051461248884d.png",
     "verified_on": "2026-11-18",
     "asset": "catalog/growatt-thor-11-22as.png"
+  },
+  {
+    "slug": "dyness-powerbrick-plus",
+    "brand": "Dyness",
+    "title": "PowerBrick Plus",
+    "kind": "battery",
+    "capacity": "16,08 kWh nominales",
+    "description": "Batería residencial de baja tensión con química LiFePO4 (LFP). La ficha de Dyness declara 16,08 kWh por unidad y contempla instalación en pared o suelo. Dimensionamos el almacenamiento y comprobamos la compatibilidad con el inversor de cada proyecto.",
+    "source_url": "https://www.dyness.com/powerbrick-plus-low-voltage-storage-batteries-for-household-use",
+    "image_source_url": "https://www.dyness.com/Public/Uploads/uploadfile/images/20260122/qianshi.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/dyness-powerbrick-plus.png"
+  },
+  {
+    "slug": "dyness-dl5-0f",
+    "brand": "Dyness",
+    "title": "DL5.0F",
+    "kind": "battery",
+    "capacity": "5,12 kWh nominales",
+    "description": "Batería LFP de baja tensión para vivienda y pequeños negocios. Permite distintas formas de montaje y ampliación modular según el sistema. El número de unidades, la comunicación y la compatibilidad se revisan con el inversor elegido.",
+    "source_url": "https://www.dyness.com/dl5-0f-low-voltage-storage-batteries-household-use",
+    "image_source_url": "https://www.dyness.com/Public/Uploads/uploadfile/images/20260320/qianshi.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/dyness-dl5-0f.png"
+  },
+  {
+    "slug": "dyness-powerbox-g3",
+    "brand": "Dyness",
+    "title": "PowerBox G3",
+    "kind": "battery",
+    "capacity": "10,24 kWh nominales por módulo",
+    "description": "Batería residencial LFP de baja tensión. El fabricante declara 10,24 kWh nominales por módulo y contempla montaje en suelo o pared. La capacidad útil, la ampliación y la configuración se confirman en el estudio de la instalación.",
+    "source_url": "https://www.dyness.com/powerbox-g3-low-voltage-residential-battery",
+    "image_source_url": "https://www.dyness.com/Public/Uploads/uploadfile/images/20260604/qianshi2-689.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/dyness-powerbox-g3.png"
   }
 ]
