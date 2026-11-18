@@ -327,8 +327,8 @@ class EquipmentCatalogTests(TestCase):
         CatalogProduct.objects.filter(slug='deye-se-f16-max').update(visible=False)
         response=self.client.get('/asi-funciona')
         groups={group['key']:group for group in response.context['equipment_groups']}
-        self.assertEqual(set(groups),{'solar','inverter','battery'})
-        for key,kind in [('solar','panel'),('inverter','inverter'),('battery','battery')]:
+        self.assertEqual(set(groups),{'solar','inverter','battery','car'})
+        for key,kind in [('solar','panel'),('inverter','inverter'),('battery','battery'),('car','evcharger')]:
             self.assertTrue(groups[key]['products'])
             self.assertTrue(all(p.kind==kind and p.visible and p.brand.visible for p in groups[key]['products']))
         self.assertNotContains(response,'SE-F16 Max / Max-H')
@@ -410,3 +410,45 @@ class ExpandedEquipmentTests(TestCase):
         response=self.client.get('/instalaciones-electricas')
         self.assertContains(response,'Detección humana por IA')
         self.assertContains(response,'Ejemplo simulado')
+
+@override_settings(DEBUG=True,SECURE_SSL_REDIRECT=False)
+class EVChargerCatalogTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):call_command('seed_content',verbosity=0)
+    def test_charger_brand_filters_and_visible_models(self):
+        response=self.client.get('/equipos',{'tipo':'evcharger'})
+        self.assertEqual(len(response.context['products']),7)
+        self.assertEqual({p.brand.name for p in response.context['products']},{'V2C','ORBIS','Growatt'})
+        response=self.client.get('/equipos',{'marca':'V2C','tipo':'evcharger'})
+        self.assertEqual(len(response.context['products']),4)
+        self.assertEqual({p.title for p in response.context['products']},{'Trydan · 7,4 kW','Trydan · 22 kW','Trydan Pro · 7,4 kW','Trydan Pro · 22 kW'})
+        response=self.client.get('/equipos',{'marca':'Growatt','tipo':'evcharger'})
+        self.assertEqual(len(response.context['products']),2)
+        self.assertNotContains(response,'HOPE 16.0LM-A1')
+    def test_charging_group_service_and_house_links(self):
+        home=self.client.get('/')
+        self.assertEqual({b.name for b in home.context['charging_brands']},{'V2C','ORBIS','Growatt'})
+        self.assertNotIn('V2C',{b.name for b in home.context['energy_brands']})
+        service=self.client.get('/puntos-de-recarga')
+        self.assertContains(service,'href="/equipos?tipo=evcharger#catalog-products"')
+        house=self.client.get('/asi-funciona')
+        group=next(g for g in house.context['equipment_groups'] if g['key']=='car')
+        self.assertTrue(group['products']);self.assertTrue(all(p.kind=='evcharger' for p in group['products']))
+    def test_charger_consultation_prefills_recarga_and_keeps_selected_model(self):
+        from .models import CatalogProduct
+        for product in CatalogProduct.objects.filter(kind='evcharger'):
+            for url in [product.supply_contact_url,product.installation_contact_url]:
+                initial=self.client.get(url).context['form'].initial
+                self.assertEqual(initial['servicio'],'Electricidad y punto de recarga')
+                self.assertEqual(initial['necesidad'],'Punto de recarga')
+                self.assertIn(product.title,initial['comentario'])
+            detail=self.client.get('/equipos/'+product.slug)
+            self.assertContains(detail,'href="/asi-funciona?equipo=car"')
+            self.assertNotContains(detail,'?equipo=battery')
+    def test_charging_group_excludes_hidden_products_and_brands(self):
+        from .models import CatalogProduct,Brand
+        CatalogProduct.objects.filter(brand__name='V2C').update(visible=False)
+        Brand.objects.filter(name='ORBIS').update(visible=False)
+        response=self.client.get('/')
+        self.assertEqual({b.name for b in response.context['charging_brands']},{'Growatt'})
+        self.assertEqual(len(self.client.get('/equipos',{'tipo':'evcharger'}).context['products']),2)

@@ -41,6 +41,8 @@ class Command(BaseCommand):
             Brand.objects.get_or_create(name=name,defaults={'order':index})
         for index,name in enumerate(['Jinko Solar','JA Solar','LONGi','Trina Solar','Canadian Solar','Astronergy']):
             Brand.objects.get_or_create(name=name,defaults={'order':index+5,'category':'panel'})
+        for index,name in enumerate(['V2C','ORBIS']):
+            Brand.objects.get_or_create(name=name,defaults={'order':index+12,'category':'charging'})
         products=json.loads((Path(__file__).resolve().parents[2]/'initial_products.json').read_text())
         for index,row in enumerate(products):
             brand=Brand.objects.get(name=row.pop('brand'));slug=row.pop('slug')

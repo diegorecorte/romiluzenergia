@@ -418,5 +418,89 @@
     "image_source_url": "https://luxpowertek.com/wp-content/uploads/2026/07/SNA-3-6K.webp",
     "verified_on": "2026-11-18",
     "asset": "catalog/luxpowertek-sna-6000-wpv.webp"
+  },
+  {
+    "slug": "v2c-trydan-7-4",
+    "brand": "V2C",
+    "title": "Trydan · 7,4 kW",
+    "kind": "evcharger",
+    "capacity": "7,4 kW monofásico",
+    "description": "Cargador inteligente para vehículo eléctrico con control desde V2C Cloud. Versión monofásica de 7,4 kW. El control de potencia y la integración solar se configuran con los equipos compatibles de cada instalación. La potencia de carga depende también del vehículo y de la instalación eléctrica.",
+    "source_url": "https://v2charge.com/es/trydan/",
+    "image_source_url": "https://v2charge.com/wp-content/uploads/2026/10/trydan-front-charger-electric-car-cargador-coche-electrico-frontal.webp",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/v2c-trydan.webp"
+  },
+  {
+    "slug": "v2c-trydan-22",
+    "brand": "V2C",
+    "title": "Trydan · 22 kW",
+    "kind": "evcharger",
+    "capacity": "22 kW trifásico",
+    "description": "Cargador inteligente para vehículo eléctrico con control desde V2C Cloud. Versión trifásica de 22 kW. El control de potencia y la integración solar se configuran con los equipos compatibles de cada instalación. La potencia de carga depende también del vehículo y de la instalación eléctrica.",
+    "source_url": "https://v2charge.com/es/trydan/",
+    "image_source_url": "https://v2charge.com/wp-content/uploads/2026/10/trydan-front-charger-electric-car-cargador-coche-electrico-frontal.webp",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/v2c-trydan.webp"
+  },
+  {
+    "slug": "v2c-trydan-pro-7-4",
+    "brand": "V2C",
+    "title": "Trydan Pro · 7,4 kW",
+    "kind": "evcharger",
+    "capacity": "7,4 kW monofásico",
+    "description": "Cargador para vehículo eléctrico con conectividad 4G y Ethernet, y acceso mediante RFID/NFC. Versión monofásica de 7,4 kW. El control de potencia y la integración solar se configuran con los equipos compatibles de cada instalación. La potencia de carga depende también del vehículo y de la instalación eléctrica.",
+    "source_url": "https://v2charge.com/es/trydan-pro/",
+    "image_source_url": "https://v2charge.com/wp-content/uploads/2026/10/trydan-pro-front-rfid-charger-electric-car-cargador-coche-electrico-frontal-rfid.webp",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/v2c-trydan-pro.webp"
+  },
+  {
+    "slug": "v2c-trydan-pro-22",
+    "brand": "V2C",
+    "title": "Trydan Pro · 22 kW",
+    "kind": "evcharger",
+    "capacity": "22 kW trifásico",
+    "description": "Cargador para vehículo eléctrico con conectividad 4G y Ethernet, y acceso mediante RFID/NFC. Versión trifásica de 22 kW. El control de potencia y la integración solar se configuran con los equipos compatibles de cada instalación. La potencia de carga depende también del vehículo y de la instalación eléctrica.",
+    "source_url": "https://v2charge.com/es/trydan-pro/",
+    "image_source_url": "https://v2charge.com/wp-content/uploads/2026/10/trydan-pro-front-rfid-charger-electric-car-cargador-coche-electrico-frontal-rfid.webp",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/v2c-trydan-pro.webp"
+  },
+  {
+    "slug": "orbis-viaris-uni",
+    "brand": "ORBIS",
+    "title": "VIARIS · gama UNI",
+    "kind": "evcharger",
+    "capacity": "Versiones de 7,4 kW monofásicas y 22 kW trifásicas",
+    "description": "Cargadores de la gama VIARIS de ORBIS, con la familia UNI como referencia. Seleccionamos la potencia, la conexión de carga y las funciones según el modelo y tu instalación. La potencia que recibe el coche también depende de su cargador a bordo.",
+    "source_url": "https://www.orbisitalia.it/viaris-uni-230v/",
+    "image_source_url": "https://www.orbisitalia.it/wp-content/uploads/2024/07/04011101.jpg",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/orbis-viaris-uni.jpg"
+  },
+  {
+    "slug": "growatt-thor-07as",
+    "brand": "Growatt",
+    "title": "THOR 07AS-S/P/SE/PE",
+    "kind": "evcharger",
+    "capacity": "Gama monofásica de 7 kW",
+    "description": "Cargador AC para vehículo eléctrico de la familia THOR 07AS. Permite gestionar horarios y estudiar la recarga con excedentes fotovoltaicos mediante una configuración compatible. Conector, comunicaciones y accesorios se confirman según la versión.",
+    "source_url": "https://en.growatt.com/products/thor-07as-s-p-se-pe",
+    "image_source_url": "https://en.growatt.com/upload/image/20220923/2e58497668e0f82b997002864fa26dd4.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/growatt-thor-07as.png"
+  },
+  {
+    "slug": "growatt-thor-11-22as",
+    "brand": "Growatt",
+    "title": "THOR 11/22AS-S/P/SE/PE",
+    "kind": "evcharger",
+    "capacity": "Versiones trifásicas de 11 y 22 kW",
+    "description": "Cargadores AC trifásicos de la familia THOR para vehículo eléctrico. Seleccionamos la versión de 11 o 22 kW según la instalación y el vehículo. Programación e integración solar se estudian con los equipos y accesorios compatibles.",
+    "source_url": "https://en.growatt.com/products/thor-11-22as-s-p-se-pe",
+    "image_source_url": "https://en.growatt.com/upload/image/20220923/c2d97a235d90541153e051461248884d.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/growatt-thor-11-22as.png"
   }
 ]

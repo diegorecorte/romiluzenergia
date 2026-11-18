@@ -157,7 +157,7 @@ def content_image(request,kind,pk):
 def energy(request):
     products=CatalogProduct.objects.select_related('brand').filter(visible=True,brand__visible=True)
     groups=[]
-    for key,kind,title in [('solar','panel','Paneles solares'),('inverter','inverter','Inversores'),('battery','battery','Baterías')]:
+    for key,kind,title in [('solar','panel','Paneles solares'),('inverter','inverter','Inversores'),('battery','battery','Baterías'),('car','evcharger','Puntos de recarga')]:
         groups.append({'key':key,'kind':kind,'title':title,'products':list(products.filter(kind=kind)[:3])})
     return render(request,'web/energy.html',{'title':'Así funciona tu instalación solar','equipment_groups':groups})
 

@@ -199,14 +199,14 @@ class SocialProfile(models.Model):
 
 class Brand(models.Model):
     name = models.CharField('Marca',max_length=100,unique=True)
-    category = models.CharField('Familia',max_length=12,choices=[('energy','Inversores y baterías'),('panel','Paneles solares')],default='energy')
+    category = models.CharField('Familia',max_length=12,choices=[('energy','Inversores y baterías'),('panel','Paneles solares'),('charging','Puntos de recarga')],default='energy')
     url = models.URLField('Web oficial (opcional)',blank=True)
     order = models.PositiveIntegerField('Orden',default=0)
     visible = models.BooleanField('Mostrar en la web',default=True)
     class Meta: ordering=['order','name'];verbose_name='Marca';verbose_name_plural='Marcas con las que trabajamos'
     @property
     def logo_asset(self):
-        return {'LuxPowerTek':'luxpowertek.webp','HinaESS':'hinaess.webp','Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
+        return {'V2C':'v2c.png','ORBIS':'orbis.png','LuxPowerTek':'luxpowertek.webp','HinaESS':'hinaess.webp','Deye':'deye.webp','Growatt':'growatt.png','Solis':'solis.png','Victron Energy':'victron.svg','Sungrow':'sungrow.svg','Jinko Solar':'jinko.png','JA Solar':'ja-solar.svg','LONGi':'longi.svg','Trina Solar':'trina.png','Canadian Solar':'canadian.png','Astronergy':'astronergy.png'}.get(self.name,'')
     @property
     def logo_dark(self):return self.name in ('Victron Energy','Trina Solar','Sungrow')
     def __str__(self):return self.name
@@ -216,7 +216,7 @@ class CatalogProduct(models.Model):
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE,related_name='products',verbose_name='Marca')
     slug = models.SlugField(unique=True)
     title = models.CharField('Modelo o gama',max_length=160)
-    kind = models.CharField('Tipo',max_length=12,choices=[('inverter','Inversor'),('battery','Batería'),('panel','Panel solar'),('controller','Regulador solar'),('dccharger','Cargador DC-DC'),('distribution','Distribución de baterías')])
+    kind = models.CharField('Tipo',max_length=12,choices=[('inverter','Inversor'),('battery','Batería'),('panel','Panel solar'),('controller','Regulador solar'),('dccharger','Cargador DC-DC'),('distribution','Distribución de baterías'),('evcharger','Punto de recarga')])
     capacity = models.CharField('Potencia o capacidad',max_length=160)
     description = models.TextField('Descripción')
     asset = models.CharField('Imagen del catálogo inicial',max_length=160,blank=True)
@@ -246,9 +246,11 @@ class CatalogProduct(models.Model):
         return self.interest_text+suffix
     @property
     def enquiry_service(self):
+        if self.kind=='evcharger':return 'Electricidad y punto de recarga'
         return 'Camper, autocaravana y náutica' if self.kind=='dccharger' else 'Solar, baterías y eólica'
     @property
     def enquiry_need(self):
+        if self.kind=='evcharger':return 'Punto de recarga'
         if self.kind=='dccharger':return 'Instalación nueva'
         if self.kind in ('controller','distribution'):return 'Ampliación o avería'
         return 'Batería' if self.kind=='battery' else 'Nueva instalación solar'

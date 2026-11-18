@@ -45,7 +45,7 @@
     <div class="equipment-actions"><a class="button" id="energy-equipment-catalog" href="{% url 'catalog' %}" hidden>Ver equipos del catálogo</a><a class="button" id="energy-equipment-contact" href="{% url 'contact' %}">Quiero esto en mi instalación</a><a id="energy-equipment-service" href="{% url 'service' 'autoconsumo-solar' %}">Conocer el servicio</a></div>
     {% include 'web/energy_products.html' %}
   </section>
-  <noscript><p><a href="{% url 'catalog' %}">Ver el catálogo de placas, inversores y baterías</a>.</p></noscript>
+  <noscript><p><a href="{% url 'catalog' %}">Ver el catálogo de placas, inversores, baterías y puntos de recarga</a>.</p></noscript>
 
   <p class="note energy-flow-caption">Las líneas discontinuas y las flechas muestran el sentido de la energía. Azul hacia la red: exportando; azul hacia la vivienda: importando. Los valores son medias horarias simuladas.</p>
   <label class="energy-hour-control" for="energy-hour">Hora del ejemplo: <strong id="energy-hour-label">12:00–13:00</strong><input type="range" min="0" max="23" value="12" step="1" id="energy-hour"><span>00:00 <span>23:00</span></span></label>
