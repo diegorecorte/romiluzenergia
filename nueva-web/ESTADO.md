@@ -110,3 +110,10 @@ Selección visual de marcas: los desplegables del catálogo se han sustituido po
 - Victron: Quattro, Inverter Smart, SmartSolar MPPT 100/30 y 100/50, Orion-Tr Smart aislado, Orion XS, Lynx Distributor y ArgoFET. Nuevos filtros de reguladores, cargadores DC-DC y distribución. Los cargadores abren consultas de camper/náutica; las fichas de accesorios no se presentan como batería en la vivienda simulada.
 - Pulsar la cámara muestra «Detección humana por IA» y «Ejemplo simulado». No analiza personas ni imágenes reales.
 - 52 pruebas Django y 24 pruebas JavaScript correctas. Imágenes verificadas y revisadas en un mosaico local. Revisión visual interactiva en navegador pendiente por falta de la infraestructura de escritorio compatible. Demostración privada; sin cambios en el dominio actual.
+
+18/11/2026 — Panel de montaje habitual confirmado por ROMILUZ:
+
+- El propietario aporta la referencia ENF https://es.enfsolar.com/pv/panel-datasheet/crystalline/58760 como la gama que monta normalmente. Se añade Astronergy ASTRO N5 CHSM72N(DG)/F-BH, 585–605 Wp, con su fotografía de producto y acceso a la ficha aportada. El catálogo queda en 34 referencias, siete de paneles.
+- Contrastados modelo, gama, TOPCon de tipo N, construcción bifacial de doble vidrio, eficiencia máxima del 23,4 % y dimensiones 2278 × 1134 × 30 mm con el PDF del fabricante enlazado por ENF: https://cdn.enfsolar.com/z/pp/2025/8/kjwp2osy2se9c0/585605astro-n5-chsm72ndgf-bh-2278x1134x30-en-20250819.pdf (consulta 18/11/2026).
+- ENF incluye también columnas antiguas de 560–580 Wp, pero el PDF enlazado corresponde a 585/590/595/600/605 Wp. Se utiliza esta gama sin elegir una potencia concreta no confirmada por el propietario.
+- ENF marca la gama como descatalogada. Se atribuye expresamente esa indicación a ENF y se pide confirmar disponibilidad y referencia por propuesta; no se afirma stock ni fabricación vigente.

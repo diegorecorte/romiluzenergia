@@ -270,7 +270,7 @@ class EquipmentCatalogTests(TestCase):
         response=self.client.get('/equipos',{'marca':'Deye','tipo':'battery'})
         self.assertEqual(len(response.context['products']),2)
         self.assertNotContains(response,'SUN-SG06LP1-EU')
-        self.assertEqual(len(self.client.get('/equipos',{'tipo':'panel'}).context['products']),6)
+        self.assertEqual(len(self.client.get('/equipos',{'tipo':'panel'}).context['products']),7)
         self.assertContains(self.client.get('/equipos',{'marca':'Astronergy'}),'ASTRO N7 2.0 All Black')
     def test_unpublished_equipment_and_brand_are_excluded(self):
         from .models import CatalogProduct,Brand

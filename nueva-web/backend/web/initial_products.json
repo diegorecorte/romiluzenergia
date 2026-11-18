@@ -394,5 +394,17 @@
     "image_source_url": "https://www.victronenergy.com/upload/products/159_142_20180709121045.png",
     "verified_on": "2026-11-16",
     "asset": "catalog/victron-argofet.png"
+  },
+  {
+    "slug": "astronergy-astro-n5-585-605",
+    "brand": "Astronergy",
+    "title": "ASTRO N5 CHSM72N(DG)/F-BH",
+    "kind": "panel",
+    "capacity": "Gama de 585 a 605 Wp",
+    "description": "Una de las gamas que montamos habitualmente en ROMILUZ. Panel bifacial de doble vidrio, con células TOPCon de tipo N. Eficiencia de hasta el 23,4 % según potencia; dimensiones de 2278 × 1134 × 30 mm. ENF señala la gama como descatalogada: confirmamos disponibilidad y referencia exacta en cada propuesta.",
+    "source_url": "https://es.enfsolar.com/pv/panel-datasheet/crystalline/58760",
+    "image_source_url": "https://cdn.enfsolar.com/Product/logo/Crystalline/6745b88f7024b.png",
+    "verified_on": "2026-11-18",
+    "asset": "catalog/astronergy-astro-n5-585-605.png"
   }
 ]
