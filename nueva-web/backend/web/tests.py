@@ -177,7 +177,9 @@ class WebsiteTests(TestCase):
         from .models import Review
         fetch.return_value=[{'reviewId':'test-official-id','starRating':'FOUR','comment':'Opinión de prueba','reviewer':{'displayName':'Cliente de prueba'}}]
         call_command('sync_google_reviews',verbosity=0)
+        Review.objects.filter(external_id='test-official-id').update(google_review_url='https://maps.app.goo.gl/enlace-individual-de-prueba')
         call_command('sync_google_reviews',verbosity=0)
+        self.assertEqual(Review.objects.get(external_id='test-official-id').google_review_url,'https://maps.app.goo.gl/enlace-individual-de-prueba')
         self.assertEqual(Review.objects.filter(external_id='test-official-id').count(),1)
         self.assertEqual(Review.objects.get(external_id='test-official-id').rating,4)
         self.assertContains(self.client.get('/'),'Opinión de prueba')
@@ -452,3 +454,47 @@ class EVChargerCatalogTests(TestCase):
         response=self.client.get('/')
         self.assertEqual({b.name for b in response.context['charging_brands']},{'Growatt'})
         self.assertEqual(len(self.client.get('/equipos',{'tipo':'evcharger'}).context['products']),2)
+
+@override_settings(DEBUG=True,SECURE_SSL_REDIRECT=False)
+class ReviewCardLinksTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):call_command('seed_content',verbosity=0)
+    def test_snapshot_cards_use_google_profile_without_inventing_individual_urls(self):
+        from .models import SocialProfile
+        response=self.client.get('/')
+        destination=SocialProfile.objects.get(network='google').url
+        self.assertEqual(response.context['google_reviews_url'],destination)
+        self.assertTrue(response.context['reviews'])
+        for review in response.context['reviews']:
+            self.assertEqual(review.google_destination,destination)
+            self.assertFalse(review.has_direct_google_review)
+        self.assertContains(response,'class="review review-card"',count=len(response.context['reviews']))
+        self.assertNotContains(response,'Ver esta reseña en Google')
+    def test_individual_google_link_wins_and_has_a_clear_accessible_label(self):
+        from .models import Review
+        review=Review.objects.first()
+        review.google_review_url='https://maps.app.goo.gl/enlace-de-prueba'
+        review.full_clean();review.save()
+        response=self.client.get('/')
+        current=next(x for x in response.context['reviews'] if x.pk==review.pk)
+        self.assertEqual(current.google_destination,review.google_review_url)
+        self.assertTrue(current.has_direct_google_review)
+        self.assertContains(response,'href="'+review.google_review_url+'" target="_blank" rel="noopener noreferrer"')
+        self.assertContains(response,'Ver esta reseña en Google')
+        self.assertContains(response,'Ver la reseña de '+review.author+' en Google')
+    def test_invalid_destinations_are_rejected_and_not_rendered(self):
+        from .models import Review
+        from django.core.exceptions import ValidationError
+        review=Review.objects.first()
+        for value in ['https://example.com/review','https://www.google.com.evil.test/review','http://maps.google.com/review','https://someone@google.com/maps','javascript:alert(1)']:
+            review.google_review_url=value
+            with self.assertRaises(ValidationError):review.full_clean()
+        Review.objects.filter(pk=review.pk).update(google_review_url='https://example.com/review')
+        response=self.client.get('/')
+        self.assertNotContains(response,'href="https://example.com/review"')
+    def test_missing_google_profile_keeps_plain_cards_and_hides_general_link(self):
+        from .models import SocialProfile
+        SocialProfile.objects.filter(network='google').update(visible=False)
+        response=self.client.get('/')
+        self.assertNotContains(response,'class="review review-card"')
+        self.assertNotContains(response,'>Ver reseñas</a>')

@@ -16,9 +16,17 @@ from .models import Service,Project,ProjectPhoto,Article,Lead,Invoice,LegalText,
 from .services import allowed_rate,notify,payment
 
 def homepage(request):
+    from .models import is_google_review_link,SocialProfile
+    google_profile=SocialProfile.objects.filter(network='google',visible=True).first()
+    google_reviews_url=google_profile.url if google_profile and is_google_review_link(google_profile.url) else ''
+    reviews=list(Review.objects.filter(verified=True))
+    for review in reviews:
+        review.has_direct_google_review=is_google_review_link(review.google_review_url)
+        review.google_destination=review.google_review_url if review.has_direct_google_review else google_reviews_url
+
     services={s.slug:s for s in Service.objects.all()}
     order=['autoconsumo-solar','aisladas-baterias','puntos-de-recarga','camper-autocaravanas','instalaciones-electricas']
-    return render(request,'web/home.html',{'title':'Energía Renovable en Conil y Cádiz','projects':Project.objects.filter(published=True)[:3],'guides':Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))[:3],'home_services':[services[k] for k in order if k in services],'sections':{s.key:s for s in HomeSection.objects.all()},'slides':HeroSlide.objects.filter(published=True),'reviews':Review.objects.filter(verified=True)})
+    return render(request,'web/home.html',{'title':'Energía Renovable en Conil y Cádiz','projects':Project.objects.filter(published=True)[:3],'guides':Article.objects.filter(published=True).filter(Q(publish_at__isnull=True)|Q(publish_at__lte=timezone.now()))[:3],'home_services':[services[k] for k in order if k in services],'sections':{s.key:s for s in HomeSection.objects.all()},'slides':HeroSlide.objects.filter(published=True),'reviews':reviews,'google_reviews_url':google_reviews_url})
 
 def service(request,slug):
     context={'service':get_object_or_404(Service,slug=slug)}

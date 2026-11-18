@@ -154,6 +154,21 @@ class HeroSlide(models.Model):
         super().save(*args,**kwargs)
     def __str__(self):return self.title
 
+def is_google_review_link(value):
+    from urllib.parse import urlsplit
+    try:
+        parsed=urlsplit(value)
+        return parsed.scheme=='https' and parsed.hostname in ('google.com','www.google.com','maps.google.com','search.google.com','google.es','www.google.es','maps.app.goo.gl','g.page','g.co','share.google') and not parsed.username and not parsed.password
+    except (TypeError,ValueError):
+        return False
+
+
+def validate_google_review_link(value):
+    from django.core.exceptions import ValidationError
+    if value and not is_google_review_link(value):
+        raise ValidationError('Introduce el enlace HTTPS de «Compartir reseña» de Google Maps.')
+
+
 class Review(models.Model):
     author = models.CharField('Nombre público del autor',max_length=120)
     external_id = models.CharField('ID de reseña de Google',max_length=250,unique=True,null=True,blank=True)
@@ -161,6 +176,7 @@ class Review(models.Model):
     body = models.TextField('Reseña')
     rating = models.PositiveIntegerField('Estrellas',default=5,validators=[MinValueValidator(1),MaxValueValidator(5)])
     source = models.URLField('Fuente de la reseña')
+    google_review_url = models.URLField('Enlace individual de la reseña en Google',max_length=500,blank=True,validators=[validate_google_review_link],help_text='Pega el enlace de Compartir reseña en Google Maps. Si está vacío, la tarjeta abre las reseñas generales de ROMILUZ.')
     verified = models.BooleanField('Fuente comprobada y autorización revisada',default=False)
     order = models.PositiveIntegerField('Orden',default=0)
     class Meta: ordering=['order','id'];verbose_name='Reseña'

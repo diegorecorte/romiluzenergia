@@ -59,7 +59,10 @@ class HeroSlideAdmin(admin.ModelAdmin):
     list_display=['title','order','published'];list_editable=['order','published']
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display=['author','rating','verified','order'];list_editable=['verified','order']
+    list_display=['author','rating','verified','has_direct_link','order'];list_editable=['verified','order']
+    search_fields=['author','body']
+    @admin.display(boolean=True,description='Enlace individual')
+    def has_direct_link(self,obj):return bool(obj.google_review_url)
 
 from .models import SocialProfile
 @admin.register(SocialProfile)
