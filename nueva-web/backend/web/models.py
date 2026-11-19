@@ -5,6 +5,7 @@ from django.db import models
 from django.core.files.base import ContentFile
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image, ImageOps
+from django.utils import timezone
 
 class Service(models.Model):
     title = models.CharField('Título',max_length=120)
@@ -418,3 +419,35 @@ class SolarPricing(models.Model):
         if self.max_panels<self.min_panels or not 1<=self.min_panels<=300 or self.max_panels>300:raise ValidationError('Revisa el rango de paneles.')
         if self.valid_until<self.verified_on:raise ValidationError('Revisa las fechas.')
     def __str__(self):return self.name
+
+class AssistantConversation(models.Model):
+    busy_until=models.DateTimeField(default=timezone.now)
+    id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    created=models.DateTimeField(auto_now_add=True)
+    expires=models.DateTimeField()
+    messages=models.JSONField(default=list)
+    topic=models.CharField(max_length=30,default='solar')
+    summary=models.TextField(blank=True)
+    privacy_version=models.CharField(max_length=100)
+    request_key=models.UUIDField(default=uuid.uuid4,editable=False)
+    lead=models.OneToOneField(Lead,on_delete=models.SET_NULL,null=True,blank=True,related_name='assistant_conversation')
+    class Meta:verbose_name='Conversación temporal del asistente'
+
+class AssistantRequest(models.Model):
+    lead=models.OneToOneField(Lead,on_delete=models.CASCADE,related_name='assistant_request')
+    request_key=models.UUIDField(unique=True,default=uuid.uuid4,editable=False)
+    preferred_date=models.DateField(null=True,blank=True)
+    summary=models.TextField(blank=True)
+    control_consent=models.BooleanField(default=False)
+    control_id=models.UUIDField(null=True,blank=True)
+    sync_status=models.CharField(max_length=20,default='pending',choices=[('pending','Pendiente de enviar'),('sending','Enviando a CONTROL'),('sent','Registrada en CONTROL'),('disabled','Sin envío autorizado')])
+    attempts=models.PositiveIntegerField(default=0)
+    last_attempt=models.DateTimeField(null=True,blank=True)
+    class Meta:verbose_name='Solicitud del asistente'
+
+class AssistantAttachment(models.Model):
+    request=models.ForeignKey(AssistantRequest,on_delete=models.CASCADE,related_name='attachments')
+    file=models.FileField(upload_to='assistant-attachments/')
+    content_type=models.CharField(max_length=50)
+    title=models.CharField(max_length=120)
+    class Meta:verbose_name='Adjunto privado del asistente'

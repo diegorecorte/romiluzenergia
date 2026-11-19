@@ -36,6 +36,8 @@ with tempfile.TemporaryDirectory(prefix='romiluz-preview-') as temp:
    target=urlsplit(href)
    if not target.scheme and not target.netloc and target.path in routes and target.path!='/':
     el.set('href',urlunsplit(('', '', target.path+'/', target.query, target.fragment)))
+  for payload in d.xpath('//script[@id="assistant-config-json"]'):
+   conf=json.loads(payload.text);conf['preview']=True;payload.text=json.dumps(conf,ensure_ascii=False).replace('<','\\u003C')
   for payload in d.xpath('//script[@id="tool-config"]'):
    conf=json.loads(payload.text);conf['staticPreview']=True;payload.text=json.dumps(conf,ensure_ascii=False).replace('<','\\u003C')
   for private_form in d.xpath('//form[@data-private-form]|//form[@id="invoice-ai-form"]'):

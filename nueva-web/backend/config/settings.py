@@ -10,7 +10,7 @@ if _ai_env.is_file() and not _ai_env.is_symlink():
     for _line in _ai_env.read_text().splitlines():
         if '=' not in _line or _line.lstrip().startswith('#'):continue
         _name,_value=_line.split('=',1)
-        if _name.strip() not in {'OPENAI_API_KEY','ROMILUZ_OPENAI_MODEL','ROMILUZ_AI_INVOICE_ENABLED'}:continue
+        if _name.strip() not in {'OPENAI_API_KEY','ROMILUZ_OPENAI_MODEL','ROMILUZ_AI_INVOICE_ENABLED','ROMILUZ_ASSISTANT_ENABLED'}:continue
         try:_parts=shlex.split(_value,comments=True)
         except ValueError:continue
         if _parts:os.environ.setdefault(_name.strip(),' '.join(_parts))
@@ -82,3 +82,15 @@ LOGIN_REDIRECT_URL='/area-clientes'
 LOGOUT_REDIRECT_URL='/'
 OPENAI_MODEL=os.getenv('ROMILUZ_OPENAI_MODEL','gpt-4.1-mini')
 AI_INVOICE_ENABLED=os.getenv('ROMILUZ_AI_INVOICE_ENABLED','0')=='1' and bool(os.getenv('OPENAI_API_KEY'))
+
+# Asistente: la recepción y la IA se activan por separado, con privacidad revisada.
+ASSISTANT_ENABLED=os.getenv('ROMILUZ_ASSISTANT_ENABLED','0')=='1' and bool(os.getenv('OPENAI_API_KEY'))
+ASSISTANT_DAILY_LIMIT=max(1,min(1000,int(os.getenv('ROMILUZ_ASSISTANT_DAILY_LIMIT','100'))))
+_control_env=BASE_DIR/'.env.integration.local'
+if _control_env.is_file() and not _control_env.is_symlink():
+    for _line in _control_env.read_text().splitlines():
+        if '=' not in _line:continue
+        _name,_value=_line.split('=',1)
+        if _name in {'ROMILUZ_CONTROL_INTAKE_URL','ROMILUZ_CONTROL_INTAKE_KEY'}:os.environ.setdefault(_name,_value.strip())
+CONTROL_INTAKE_URL=os.getenv('ROMILUZ_CONTROL_INTAKE_URL','')
+CONTROL_INTAKE_KEY=os.getenv('ROMILUZ_CONTROL_INTAKE_KEY','')

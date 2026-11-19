@@ -6,7 +6,7 @@ class LoginRateMiddleware:
         if request.method=='POST' and request.path in ('/admin/login/','/area-clientes/acceso') and not allowed_rate(request,'login',10,900):
             return HttpResponse('Demasiados intentos. Espera 15 minutos antes de volver a acceder.',status=429)
         response=self.get_response(request)
-        if request.path.startswith(('/admin/','/facturas/','/contacto','/compara-tu-factura','/area-clientes','/diagnostico','/api/herramientas','/api/factura-ia')):
+        if request.path.startswith(('/admin/','/facturas/','/contacto','/compara-tu-factura','/area-clientes','/diagnostico','/api/herramientas','/api/factura-ia','/api/asistente','/asistente/adjuntos')):
             response['Cache-Control']='private, no-store'
             response['Referrer-Policy']='same-origin'
             response['X-Robots-Tag']='noindex, nofollow'

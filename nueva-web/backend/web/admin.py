@@ -116,3 +116,18 @@ class FaultReportAdmin(admin.ModelAdmin):
 from .models import SolarPricing
 @admin.register(SolarPricing)
 class SolarPricingAdmin(admin.ModelAdmin):list_display=['name','verified_on','valid_until','active']
+
+from .models import AssistantRequest,AssistantConversation
+@admin.register(AssistantRequest)
+class AssistantRequestAdmin(admin.ModelAdmin):
+    list_display=['lead','preferred_date','control_consent','sync_status','attempts']
+    list_filter=['sync_status','control_consent']
+    readonly_fields=['request_key','control_id','last_attempt','attempts','summary','attachment_links']
+    def attachment_links(self,obj):
+        from django.utils.html import format_html_join
+        return format_html_join(' ', '<a href="{}">{}</a>',((reverse('assistant-attachment',args=[f.pk]),f.title) for f in obj.attachments.all())) if obj.pk else ''
+@admin.register(AssistantConversation)
+class AssistantConversationAdmin(admin.ModelAdmin):
+    list_display=['created','expires','topic','lead']
+    readonly_fields=['created','expires','messages','topic','summary','privacy_version','request_key','lead','busy_until']
+    def has_add_permission(self,request):return False

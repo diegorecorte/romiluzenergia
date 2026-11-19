@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import RedirectView
-from web import views,tool_views
+from web import views,tool_views,assistant_views
 from django.contrib.auth import views as auth_views
 urlpatterns=[
+ path('api/asistente/config',assistant_views.bootstrap,name='assistant-config'),
+ path('api/asistente/mensaje',assistant_views.message,name='assistant-message'),
+ path('api/asistente/nueva',assistant_views.reset,name='assistant-reset'),
+ path('api/asistente/solicitud',assistant_views.intake,name='assistant-intake'),
+ path('asistente/adjuntos/<int:pk>',assistant_views.attachment,name='assistant-attachment'),
  path('herramientas',tool_views.hub,name='tools-hub'),
  path('herramientas/<slug:key>',tool_views.tool,name='tool'),
  path('api/herramientas/<slug:key>',tool_views.tool_api,name='tool-api'),

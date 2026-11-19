@@ -41,3 +41,10 @@ def replace_customer_document(sender,instance,**kwargs):
     if old and old.file and old.file.name!=instance.file.name:
         storage,name=old.file.storage,old.file.name
         transaction.on_commit(lambda:storage.delete(name))
+
+from .models import AssistantAttachment
+@receiver(post_delete,sender=AssistantAttachment)
+def assistant_file_removed(sender,instance,**kwargs):
+    if instance.file:
+        storage,name=instance.file.storage,instance.file.name
+        transaction.on_commit(lambda:storage.delete(name))
